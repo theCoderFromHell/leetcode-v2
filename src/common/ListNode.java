@@ -9,6 +9,13 @@ public class ListNode {
         this.next = next;
     }
 
+    public void printList(ListNode head) {
+        while (head != null) {
+            System.out.print(head.val + ((head.next == null) ? " " : " -> "));
+            head = head.next;
+        }
+    }
+
     @Override
     public String toString() {
         return "ListNode{" +
