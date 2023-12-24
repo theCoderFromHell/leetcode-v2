@@ -19,6 +19,6 @@ public class RemoveSpacesFromLeetcodeQuestionName {
     }
 
     public static void main(String[] args) {
-        System.out.print(removeSpacesFromLeetcodeQuestionName("Minimum Number of Swaps to Make the String Balanced"));
+        System.out.print(removeSpacesFromLeetcodeQuestionName("Subdomain Visit Count"));
     }
 }
