@@ -16,6 +16,7 @@ public class SubdomainVisitCount {
             int count = Integer.parseInt(countAndDomains[0]);
             String[] subdomains = countAndDomains[1].split("\\.");
             String current = subdomains[subdomains.length-1];
+            hash.put(current, hash.getOrDefault(current, 0) + count);
             for (int j = subdomains.length-2; j >= 0 ; j--) {
                 current = subdomains[j] + "." + current;
                 hash.put(current, hash.getOrDefault(current, 0) + count);
