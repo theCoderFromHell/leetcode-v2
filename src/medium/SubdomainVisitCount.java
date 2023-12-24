@@ -13,9 +13,8 @@ public class SubdomainVisitCount {
         HashMap<String, Integer> hash = new HashMap<>();
         for (int i = 0; i < N; i++) {
             String[] countAndDomains = cpdomains[i].split(" ");
-            int count = Integer.valueOf(countAndDomains[0]);
-            String fullDomain = countAndDomains[1];
-            String[] subdomains = fullDomain.split("\\.");
+            int count = Integer.parseInt(countAndDomains[0]);
+            String[] subdomains = countAndDomains[1].split("\\.");
             String current = subdomains[subdomains.length-1];
             for (int j = subdomains.length-2; j >= 0 ; j--) {
                 current = subdomains[j] + "." + current;
