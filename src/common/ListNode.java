@@ -9,11 +9,23 @@ public class ListNode {
         this.next = next;
     }
 
-    public void printList(ListNode head) {
+    public static void printList(ListNode head) {
         while (head != null) {
             System.out.print(head.val + ((head.next == null) ? " " : " -> "));
             head = head.next;
         }
+    }
+    public static ListNode createList(int[] list) {
+        if (list.length == 0)
+            return null;
+        int N = list.length;
+        ListNode head = new ListNode(list[0]);
+        ListNode curr = head;
+        for (int i = 1; i < N; i++) {
+            curr.next = new ListNode(list[i]);
+            curr = curr.next;
+        }
+        return head;
     }
 
     @Override
