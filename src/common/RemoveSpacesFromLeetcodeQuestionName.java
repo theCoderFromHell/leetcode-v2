@@ -9,16 +9,15 @@ public class RemoveSpacesFromLeetcodeQuestionName {
         char[] result = new char[length];
         int j = 0;
         for (int i = 0; i < length; i++) {
-            if (!Character.isWhitespace(leetcodeQuestionName.charAt(i)))
+            if (Character.isAlphabetic(leetcodeQuestionName.charAt(i)))
                 result[j++] = leetcodeQuestionName.charAt(i);
             else if (i < length-1)
                 result[j++] = Character.toUpperCase(leetcodeQuestionName.charAt(++i));
-
         }
         return new String(Arrays.copyOfRange(result, 0, j));
     }
 
     public static void main(String[] args) {
-        System.out.print(removeSpacesFromLeetcodeQuestionName("Subdomain Visit Count"));
+        System.out.print(removeSpacesFromLeetcodeQuestionName("Number of Zero-Filled Subarrays"));
     }
 }
