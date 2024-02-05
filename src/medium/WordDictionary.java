@@ -2,9 +2,9 @@ package medium;
 
 public class WordDictionary {
 
-    Trie root;
+    DictionaryTrie root;
     public WordDictionary() {
-        this.root = new Trie('.');
+        this.root = new DictionaryTrie('.');
     }
 
     public void addWord(String word) {
@@ -12,10 +12,10 @@ public class WordDictionary {
         addWord(root, word.toCharArray(), 0, length);
     }
 
-    private void addWord(Trie root, char[] word, int index, int length) {
+    private void addWord(DictionaryTrie root, char[] word, int index, int length) {
         if (index == length)
             return;
-        Trie node = (root.children[word[index] - 'a'] == null) ? new Trie(word[index]) : root.children[word[index] - 'a'];
+        DictionaryTrie node = (root.children[word[index] - 'a'] == null) ? new DictionaryTrie(word[index]) : root.children[word[index] - 'a'];
         root.children[word[index] - 'a'] = node;
         if (index == length-1)
             node.isWord = true;
@@ -27,12 +27,12 @@ public class WordDictionary {
         return searchWord(root, word.toCharArray(), 0, length);
     }
 
-    private boolean searchWord(Trie root, char[] word, int index, int length) {
+    private boolean searchWord(DictionaryTrie root, char[] word, int index, int length) {
         if (index == length)
             return true;
         if (word[index] == '.') {
             for (int i = 0; i < 26; i++) {
-                Trie node = root.children[i];
+                DictionaryTrie node = root.children[i];
                 if (node == null)
                     continue;
                 if (index == length - 1 && !node.isWord)
@@ -41,7 +41,7 @@ public class WordDictionary {
                     return true;
             }
         } else {
-            Trie node = root.children[word[index] - 'a'];
+            DictionaryTrie node = root.children[word[index] - 'a'];
             if (node == null)
                 return false;
             if (index == length - 1 && !node.isWord)
@@ -89,15 +89,15 @@ public class WordDictionary {
     }
 }
 
-class Trie {
+class DictionaryTrie {
     char character;
-    Trie[] children;
+    DictionaryTrie[] children;
 
     boolean isWord;
 
-    public Trie(char character) {
+    public DictionaryTrie(char character) {
         this.character = character;
-        this.children = new Trie[26];
+        this.children = new DictionaryTrie[26];
         for (int i = 0; i < 26; i++) {
             children[i] = null;
         }
