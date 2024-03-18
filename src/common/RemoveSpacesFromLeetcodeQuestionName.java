@@ -18,6 +18,6 @@ public class RemoveSpacesFromLeetcodeQuestionName {
     }
 
     public static void main(String[] args) {
-        System.out.print(removeSpacesFromLeetcodeQuestionName("Number of Zero-Filled Subarrays"));
+        System.out.print(removeSpacesFromLeetcodeQuestionName("Connecting Cities With Minimum Cost"));
     }
 }

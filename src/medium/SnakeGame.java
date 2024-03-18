@@ -6,18 +6,22 @@ public class SnakeGame {
     int width;
     int height;
     Queue<String> food;
-    LinkedHashSet<String> occupied;
+    LinkedHashSet<String> snake;
     int score;
     boolean gameOver;
+    int headX;
+    int headY;
 
     public SnakeGame(int width, int height, int[][] food) {
         this.width = width;
         this.height = height;
         this.food = new LinkedList<>();
-        this.occupied = new LinkedHashSet<>();
+        this.snake = new LinkedHashSet<>();
         this.score = 0;
         this.gameOver = false;
-        occupied.add("0-0");
+        this.headX = 0;
+        this.headY = 0;
+        snake.add("0-0");
         for (int[] foodCell : food)
             this.food.add(foodCell[0] + "-" + foodCell[1]);
     }
@@ -25,9 +29,8 @@ public class SnakeGame {
     public int move(String direction) {
         if (this.gameOver)
             return -1;
-        String[] coordinates = occupied.getFirst().split("-");
-        int x = Integer.parseInt(coordinates[0]);
-        int y = Integer.parseInt(coordinates[1]);
+        int x = headX;
+        int y = headY;
         switch (direction) {
             case "L" :
                 y--;
@@ -48,10 +51,12 @@ public class SnakeGame {
             score++;
             food.poll();
         } else
-            occupied.removeLast();
-        if (!occupied.isEmpty() && occupied.contains(x + "-" + y))
+            snake.removeLast();
+        if (!snake.isEmpty() && snake.contains(x + "-" + y))
             return -1;
-        occupied.addFirst(x + "-" + y);
+        snake.addFirst(x + "-" + y);
+        headX = x;
+        headY = y;
         return score;
     }
 
@@ -69,24 +74,6 @@ public class SnakeGame {
         System.out.println(game.move("U"));
         System.out.println(game.move("L"));
         System.out.println(game.move("D"));
-    }
-
-    class Cell {
-        int x;
-        int y;
-
-        public Cell(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        @Override
-        public String toString() {
-            return "Cell{" +
-                    "x=" + x +
-                    ", y=" + y +
-                    '}';
-        }
     }
 }
 
