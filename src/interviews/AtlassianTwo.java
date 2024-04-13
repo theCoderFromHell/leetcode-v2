@@ -12,15 +12,12 @@ public class AtlassianTwo {
     public AtlassianTwo() {
         this.totalSize = 0;
         this.availableCollections = new HashMap<>();
-        this.queue = new PriorityQueue<>(new Comparator<Collection>() {
-            @Override
-            public int compare(Collection o1, Collection o2) {
-                if (o1.totalSize > o2.totalSize)
-                    return -1;
-                else if (o1.totalSize < o2.totalSize)
-                    return 1;
-                return 0;
-            }
+        this.queue = new PriorityQueue<>((o1, o2) -> {
+            if (o1.totalSize > o2.totalSize)
+                return -1;
+            else if (o1.totalSize < o2.totalSize)
+                return 1;
+            return 0;
         });
     }
 
