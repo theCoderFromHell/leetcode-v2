@@ -1,28 +1,26 @@
 package medium;
 
-import java.util.HashSet;
+import java.util.HashMap;
 
 public class OptimalPartitionOfString {
     public int partitionString(String s) {
         int N = s.length();
-        Integer[][] dp = new Integer[N][N];
-        for (int i = 0; i < N; i++)
-            dp[i][i] = 0;
-        return solve(s, N, dp, 0, N-1);
-    }
-
-    private int solve(String s, int N, Integer[][] dp, int start, int end) {
-        if (dp[start][end] != null)
-            return dp[start][end];
-        HashSet<Character> hashSet = new HashSet<>();
-        hashSet.add(s.charAt(start));
-        int minSteps = Integer.MAX_VALUE;
-        for (int i = start+1; i <= end; i++) {
-            minSteps = Math.min(minSteps, 1 + solve(s, N, dp, i, end));
-            if (hashSet.contains(s.charAt(i)))
-                break;
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for (int i = 0; i < 26; i++)
+            map.put(i, -1);
+        int breaks = 1;
+        int start = 0;
+        int end = 0;
+        while (end < N) {
+            int lastSeen = map.get(s.charAt(end) - 'a');
+            if (lastSeen >= start) {
+                breaks++;
+                start = end;
+            }
+            map.put(s.charAt(end) - 'a', end);
+            end++;
         }
-        return minSteps;
+        return breaks;
     }
 
     public static void main(String[] args) {
