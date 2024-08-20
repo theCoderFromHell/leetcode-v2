@@ -27,8 +27,8 @@ public class StringCompression {
 
     public static void main(String[] args) {
         StringCompression S = new StringCompression();
-//        System.out.println(S.compress(new char[]{'a','a','b','b','c','c','c'}));
-//        System.out.println(S.compress(new char[]{'a'}));
+        System.out.println(S.compress(new char[]{'a','a','b','b','c','c','c'}));
+        System.out.println(S.compress(new char[]{'a'}));
         System.out.println(S.compress(new char[]{'a','b','b','b','b','b','b','b','b','b','b','b','b'}));
     }
 }
