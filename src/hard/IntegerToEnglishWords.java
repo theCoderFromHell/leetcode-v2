@@ -1,4 +1,4 @@
-package medium;
+package hard;
 
 public class IntegerToEnglishWords {
     private static final String[] belowTen = { "", "One", "Two", "Three", "Four", "Five", "Six",
