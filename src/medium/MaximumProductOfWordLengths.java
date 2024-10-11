@@ -39,7 +39,6 @@ public class MaximumProductOfWordLengths {
         System.out.println(M.maxProduct(new String[]{"abcw","baz","foo","bar","xtfn","abcdef"}));
         System.out.println(M.maxProduct(new String[]{"a","ab","abc","d","cd","bcd","abcd"}));
         System.out.println(M.maxProduct(new String[]{"a","aa","aaa","aaaa"}));
-        //System.out.println(M.maxProduct(new String[]{}));
 
     }
 }

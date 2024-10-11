@@ -16,7 +16,5 @@ public class BestSightseeingPair {
         BestSightseeingPair B = new BestSightseeingPair();
         System.out.println(B.maxScoreSightseeingPair(new int[]{8,1,5,2,6}));
         System.out.println(B.maxScoreSightseeingPair(new int[]{1,2}));
-        //System.out.println(B.maxScoreSightseeingPair(new int[]{}));
-        //System.out.println(B.maxScoreSightseeingPair(new int[]{}));
     }
 }
