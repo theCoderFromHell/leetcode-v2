@@ -11,11 +11,10 @@ public class ConstructTheMinimumBitwiseArrayI {
             int value = nums.get(i);
             if (value % 2 == 0) {
                 result[i] = -1;
-                continue;
-            } else if ((value & (value+1)) == 0) {
-                result[i] = value/2;
-            }
-            result[i] = value - solve(value);
+            } else if ((value & (value+1)) == 0)
+                result[i] = value / 2;
+            else
+                result[i] = value - solve(value);
         }
         return result;
     }
