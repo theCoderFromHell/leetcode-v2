@@ -9,9 +9,9 @@ public class ConstructTheMinimumBitwiseArrayII {
         int[] result = new int[N];
         for (int i = 0; i < N; i++) {
             int value = nums.get(i);
-            if (value % 2 == 0) {
+            if (value % 2 == 0)
                 result[i] = -1;
-            } else if ((value & (value+1)) == 0)
+            else if ((value & (value+1)) == 0)
                 result[i] = value / 2;
             else
                 result[i] = value - solve(value);
