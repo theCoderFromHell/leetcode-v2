@@ -40,9 +40,9 @@ public class FindAndReplaceInString {
 
     public static void main(String[] args) {
         FindAndReplaceInString F = new FindAndReplaceInString();
-        //System.out.println(F.findReplaceString("abcd", new int[]{0, 2}, new String[]{"ab","ec"}, new String[]{"eee","ffff"}));
+        System.out.println(F.findReplaceString("abcd", new int[]{0, 2}, new String[]{"ab","ec"}, new String[]{"eee","ffff"}));
         System.out.println(F.findReplaceString("abcd", new int[]{0, 2}, new String[]{"a", "cd"}, new String[]{"eee", "ffff"}));
-        //System.out.println(F.findReplaceString("abcde", new int[]{2,2,3}, new String[]{"cde","cdef","dk"}, new String[]{"fe","f","xyz"}));
+        System.out.println(F.findReplaceString("abcde", new int[]{2,2,3}, new String[]{"cde","cdef","dk"}, new String[]{"fe","f","xyz"}));
 
     }
 }
