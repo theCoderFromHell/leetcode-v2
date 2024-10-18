@@ -32,6 +32,5 @@ public class GroupShiftedStrings {
         GroupShiftedStrings G = new GroupShiftedStrings();
         System.out.println(G.groupStrings(new String[]{"abc","bcd","acef","xyz","az","ba","a","z"}));
         System.out.println(G.groupStrings(new String[]{"a"}));
-        //System.out.println(G.groupStrings(new String[]{}));
     }
 }
