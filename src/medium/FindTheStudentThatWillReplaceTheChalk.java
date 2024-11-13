@@ -31,6 +31,5 @@ public class FindTheStudentThatWillReplaceTheChalk {
         FindTheStudentThatWillReplaceTheChalk F = new FindTheStudentThatWillReplaceTheChalk();
         System.out.println(F.chalkReplacer(new int[]{5,1,5}, 22));
         System.out.println(F.chalkReplacer(new int[]{3,4,1,2}, 25));
-        //System.out.println(F.chalkReplacer(new int[]{}, ));
     }
 }
