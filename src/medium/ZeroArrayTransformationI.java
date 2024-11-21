@@ -74,6 +74,5 @@ public class ZeroArrayTransformationI {
         ZeroArrayTransformationI Z = new ZeroArrayTransformationI();
         System.out.println(Z.isZeroArray(new int[]{1,0,1}, new int[][]{{0,2}}));
         System.out.println(Z.isZeroArray(new int[]{4,3,2,1}, new int[][]{{1,3},{0,2}}));
-        //System.out.println(Z.isZeroArray(new int[]{}, new int[][]));
     }
 }
