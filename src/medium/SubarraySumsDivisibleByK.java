@@ -20,8 +20,8 @@ public class SubarraySumsDivisibleByK {
 
     public static void main(String[] args) {
         SubarraySumsDivisibleByK S = new SubarraySumsDivisibleByK();
-//        System.out.println(S.subarraysDivByK(new int[]{4,5,0,-2,-3,1}, 5));
-//        System.out.println(S.subarraysDivByK(new int[]{5}, 9));
+        System.out.println(S.subarraysDivByK(new int[]{4,5,0,-2,-3,1}, 5));
+        System.out.println(S.subarraysDivByK(new int[]{5}, 9));
         System.out.println(S.subarraysDivByK(new int[]{7,4,-10}, 5));
     }
 }
