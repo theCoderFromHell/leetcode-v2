@@ -22,7 +22,7 @@ public class ConstructQuadTree {
         root.topLeft = buildQuadTree(grid, new int[]{x1, y1}, new int[]{(x1 + x2)/2, (y1 + y2)/2});
         root.topRight = buildQuadTree(grid, new int[]{x1, 1 + (y1 + y2)/2}, new int[]{(x1 + x2)/2, y2});
         root.bottomLeft = buildQuadTree(grid, new int[]{1 + (x1 + x2)/2, y1}, new int[]{x2, (y1 + y2)/2});
-        root.topLeft = buildQuadTree(grid, new int[]{1 + (x1 + x2)/2, 1 + (y1 + y2)/2}, new int[]{x2, y2});
+        root.bottomRight = buildQuadTree(grid, new int[]{1 + (x1 + x2)/2, 1 + (y1 + y2)/2}, new int[]{x2, y2});
         return root;
     }
 
@@ -35,7 +35,6 @@ public class ConstructQuadTree {
         }
         return true;
     }
-
 
     class Node {
         public boolean val;
@@ -52,14 +51,6 @@ public class ConstructQuadTree {
             this.topRight = null;
             this.bottomLeft = null;
             this.bottomRight = null;
-        }
-        public Node(boolean val, boolean isLeaf, Node topLeft, Node topRight, Node bottomLeft, Node bottomRight) {
-            this.val = val;
-            this.isLeaf = isLeaf;
-            this.topLeft = topLeft;
-            this.topRight = topRight;
-            this.bottomLeft = bottomLeft;
-            this.bottomRight = bottomRight;
         }
 
         @Override
