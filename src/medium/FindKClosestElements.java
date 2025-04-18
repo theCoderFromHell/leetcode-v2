@@ -3,7 +3,24 @@ package medium;
 import java.util.*;
 
 public class FindKClosestElements {
-    public static List<Integer> findClosestElementsV2(int[] arr, int k, int x) {
+
+    public List<Integer> findClosestElementsV4(int[] arr, int k, int x) {
+        int size = arr.length;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((o1, o2) -> {
+            if (Math.abs(o1[0] - x) == Math.abs(o2[0] - x))
+                return o1[0] - o2[0];
+            return (Math.abs(o1[0] - x) - Math.abs(o2[0] - x));
+        });
+        for (int i = 0; i < size; i++)
+            pq.add(new int[]{arr[i], i});
+        List<Integer> result = new ArrayList<>();
+        while (!pq.isEmpty() && k-- > 0)
+            result.add(pq.poll()[0]);
+        Collections.sort(result);
+        return result;
+    }
+
+    public List<Integer> findClosestElementsV2(int[] arr, int k, int x) {
         PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Comparator.reverseOrder());
         PriorityQueue<Integer> minHeap = new PriorityQueue<>(Comparator.naturalOrder());
         for (int number : arr) {
@@ -30,7 +47,7 @@ public class FindKClosestElements {
         return result;
     }
 
-    public static List<Integer> findClosestElementsV3(int[] arr, int k, int x) {
+    public List<Integer> findClosestElementsV3(int[] arr, int k, int x) {
         int N = arr.length;
         int idx = findClosestNumber(arr, N, x);
         if (idx == -1 || idx == 0) {
@@ -62,7 +79,7 @@ public class FindKClosestElements {
         return result;
     }
 
-    private static int findClosestNumber(int[] arr, int N, int x) {
+    private int findClosestNumber(int[] arr, int N, int x) {
         if (x < arr[0])
             return -1;
         if (x > arr[N-1])
@@ -77,7 +94,7 @@ public class FindKClosestElements {
         }
         return idx;
     }
-    public static List<Integer> findClosestElements(int[] arr, int k, int x) {
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
         int N = arr.length;
         int left = 0, right = N-1;
         while (right - left + 1 > k) {
@@ -93,15 +110,19 @@ public class FindKClosestElements {
     }
 
     public static void main(String[] args) {
+        FindKClosestElements F = new FindKClosestElements();
         System.out.println("******V1*******");
-        System.out.println(findClosestElements(new int[]{1,2,3,4,5}, 4, 3));
-        System.out.println(findClosestElements(new int[]{1,2,3,4,5}, 4, -1));
+        System.out.println(F.findClosestElements(new int[]{1,2,3,4,5}, 4, 3));
+        System.out.println(F.findClosestElements(new int[]{1,1,2,3,4,5}, 4, -1));
         System.out.println("******V2*******");
-        System.out.println(findClosestElementsV2(new int[]{1,2,3,4,5}, 4, 3));
-        System.out.println(findClosestElementsV2(new int[]{1,2,3,4,5}, 4, -1));
+        System.out.println(F.findClosestElementsV2(new int[]{1,2,3,4,5}, 4, 3));
+        System.out.println(F.findClosestElementsV2(new int[]{1,1,2,3,4,5}, 4, -1));
         System.out.println("******V3*******");
-        System.out.println(findClosestElementsV3(new int[]{1,2,3,4,5}, 4, 3));
-        System.out.println(findClosestElementsV3(new int[]{1,2,3,4,5}, 4, -1));
+        System.out.println(F.findClosestElementsV3(new int[]{1,2,3,4,5}, 4, 3));
+        System.out.println(F.findClosestElementsV3(new int[]{1,1,2,3,4,5}, 4, -1));
+        System.out.println("******V4*******");
+        System.out.println(F.findClosestElementsV4(new int[]{1,2,3,4,5}, 4, 3));
+        System.out.println(F.findClosestElementsV4(new int[]{1,1,2,3,4,5}, 4, -1));
 
     }
 }
