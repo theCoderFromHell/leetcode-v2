@@ -16,6 +16,35 @@ public class SearchA2DMatrixII {
         return false;
     }
 
+    public boolean searchMatrixV3(int[][] matrix, int target) {
+        int rows = matrix.length;
+        int columns = matrix[0].length;
+        int i = 0, j = columns-1;
+        while (i < rows) {
+            if (target == matrix[i][j])
+                return true;
+            if (target > matrix[i][j])
+                i++;
+            else
+                return search(matrix[i], 0, columns-1, target);
+        }
+        return false;
+    }
+
+    private boolean search(int[] matrix, int low, int high, int target) {
+        int mid;
+        while (low <= high) {
+            mid = low + (high - low)/2;
+            if (target == matrix[mid])
+                return true;
+            else if (target < matrix[mid])
+                high = mid-1;
+            else
+                low = mid+1;
+        }
+        return false;
+    }
+
     public boolean searchMatrixV2(int[][] matrix, int target) {
         int rows = matrix.length;
         int columns = matrix[0].length;
