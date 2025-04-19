@@ -11,11 +11,9 @@ public class TaskScheduler {
         if (n == 0)
             return tasks.length;
         PriorityQueue<Task> heap = new PriorityQueue<>((o1, o2) -> {
-            if (o1.count > o2.count)
-                return -1;
-            else if (o1.count < o2.count)
-                return 1;
-            return 0;
+            if (o1.count == o2.count)
+                return o1.nextAvailable - o2.nextAvailable;
+            return o2.count - o1.count;
         });
         int[] count = new int[26];
         for (char task : tasks)
