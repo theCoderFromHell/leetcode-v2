@@ -1,47 +1,37 @@
 package medium;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class KthLargestElementInAnArray {
 
     public int findKthLargest(int[] nums, int k) {
-        if(null == nums || nums.length == 0)
-            return -1;
-
-        return quickSelect(nums, nums.length - k, 0, nums.length - 1);
+        int size = nums.length;
+        List<Integer> numbers = new ArrayList<>();
+        for (int i = 0; i < size; i++)
+            numbers.add(nums[i]);
+        return quickSelect(numbers, k);
     }
 
-    private int quickSelect(int[] nums, int k, int start, int end) {
-        if (end < start)
-            return -1;
-        int size = end - start + 1;
-        if (size == 1)
-            return nums[start];
-        int random = (int) ((Math.random() * (end - start)) + start);
-        swap(nums, random, end);
-        int pivot = nums[end];
-        int p = start;
-        for (int i = start; i < end; i++) {
-            if (nums[i] <= pivot) {
-                swap(nums, i, p);
-                p++;
-            }
+    private int quickSelect(List<Integer> numbers, int k) {
+        int size = numbers.size();
+        int pivot = numbers.get(new Random().nextInt(size));
+        List<Integer> left = new ArrayList<>();
+        List<Integer> mid = new ArrayList<>();
+        List<Integer> right = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            int number = numbers.get(i);
+            if (number < pivot)
+                left.add(number);
+            else if (number > pivot)
+                right.add(number);
+            else
+                mid.add(number);
         }
-        swap(nums, end, p);
-        if (p == k)
-            return nums[p];
-        else if (p < k)
-            return quickSelect(nums, k,  p+1, end);
-        else
-            return quickSelect(nums, k, start, p-1);
-    }
-
-    public static void swap(int[] nums, int i, int j) {
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
+        if (right.size() >= k)
+            return quickSelect(right, k);
+        if (right.size() + mid.size() < k)
+            return quickSelect(left, k - right.size() - mid.size());
+        return pivot;
     }
 
     public int findKthLargestV2(int[] nums, int k) {
