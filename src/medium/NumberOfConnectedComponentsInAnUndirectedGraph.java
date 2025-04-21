@@ -1,9 +1,13 @@
 package medium;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class NumberOfConnectedComponentsInAnUndirectedGraph {
     int[] parent;
     int[] rank;
-    public int countComponents(int n, int[][] edges) {
+    public int countComponentsV2(int n, int[][] edges) {
         parent = new int[n];
         rank = new int[n];
         for (int i = 0; i < n; i++) {
@@ -39,6 +43,36 @@ public class NumberOfConnectedComponentsInAnUndirectedGraph {
             return 1;
         }
         return 0;
+    }
+
+    public int countComponents(int n, int[][] edges) {
+        int size = edges.length;
+        HashMap<Integer, List<Integer>> adjList = new HashMap<>();
+        for (int i = 0; i < n; i++)
+            adjList.put(i, new ArrayList<>());
+        for (int i = 0; i < size; i++) {
+            int src = edges[i][0];
+            int dest = edges[i][1];
+            adjList.get(src).add(dest);
+            adjList.get(dest).add(src);
+        }
+        int count = 0;
+        boolean[] visited = new boolean[n];
+        for (int i = 0; i < n; i++) {
+            if (!visited[i]) {
+                count++;
+                dfs(i, adjList, visited);
+            }
+        }
+        return count;
+    }
+
+    private void dfs(int node, HashMap<Integer, List<Integer>> adjList, boolean[] visited) {
+        visited[node] = true;
+        List<Integer> neighbours = adjList.get(node);
+        for (int neighbour : neighbours)
+            if (!visited[neighbour])
+                dfs(neighbour, adjList, visited);
     }
 
     public static void main(String[] args) {
