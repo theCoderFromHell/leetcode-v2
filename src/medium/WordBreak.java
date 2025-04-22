@@ -6,7 +6,20 @@ import java.util.HashSet;
 import java.util.List;
 
 public class WordBreak {
-    public static boolean wordBreak(String s, List<String> wordDict) {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        int size = s.length();
+        HashSet<String> dictionary = new HashSet<>(wordDict);
+        boolean[] dp = new boolean[size];
+        Arrays.fill(dp, false);
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j <= i; j++) {
+                if ((j < 1 || dp[j - 1]) && dictionary.contains(s.substring(j, i+1)))
+                    dp[i] = true;
+            }
+        }
+        return dp[size-1];
+    }
+    public boolean wordBreakV2(String s, List<String> wordDict) {
         int N = s.length();
         HashSet<String> dictionary = new HashSet<>(wordDict);
         boolean[][] dp = new boolean[N][N];
@@ -22,8 +35,9 @@ public class WordBreak {
         return dp[0][N - 1];
     }
     public static void main(String[] args) {
-        System.out.println(wordBreak("leetcode", Arrays.asList("leet", "code")));
-        System.out.println(wordBreak("applepenapple", Arrays.asList("apple","pen")));
-        System.out.println(wordBreak("catsandog", Arrays.asList("cats","dog","sand","and","cat")));
+        WordBreak W = new WordBreak();
+        System.out.println(W.wordBreak("leetcode", Arrays.asList("leet", "code")));
+        System.out.println(W.wordBreak("applepenapple", Arrays.asList("apple","pen")));
+        System.out.println(W.wordBreak("catsandog", Arrays.asList("cats","dog","sand","and","cat")));
     }
 }
