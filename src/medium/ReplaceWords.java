@@ -58,7 +58,6 @@ public class ReplaceWords {
 
     public static void main(String[] args) {
         ReplaceWords R = new ReplaceWords();
-//        System.out.println(R.replaceWords(Arrays.asList(), ""));
         System.out.println(R.replaceWords(Arrays.asList("cat","bat","rat"), "the cattle was rattled by the battery"));
         System.out.println(R.replaceWords(Arrays.asList("a","b","c"), "aadsfasf absbs bbab cadsfafs"));
     }

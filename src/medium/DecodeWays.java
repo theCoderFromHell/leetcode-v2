@@ -29,8 +29,8 @@ public class DecodeWays {
 
     public static void main(String[] args) {
         DecodeWays D = new DecodeWays();
-//        System.out.println(D.numDecodings("30"));
-//        System.out.println(D.numDecodings("12"));
+        System.out.println(D.numDecodings("30"));
+        System.out.println(D.numDecodings("12"));
         System.out.println(D.numDecodings("226"));
         System.out.println(D.numDecodings("06"));
     }

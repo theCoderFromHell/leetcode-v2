@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 
 public class WordBreak {
-    public static boolean wordBreak(String s, List<String> wordDict) {
+    public boolean wordBreak(String s, List<String> wordDict) {
         int size = s.length();
         HashSet<String> dictionary = new HashSet<>(wordDict);
         boolean[] dp = new boolean[size];
@@ -36,8 +36,8 @@ public class WordBreak {
     }
     public static void main(String[] args) {
         WordBreak W = new WordBreak();
-        System.out.println(W.wordBreakV2("leetcode", Arrays.asList("leet", "code")));
-        System.out.println(W.wordBreakV2("applepenapple", Arrays.asList("apple","pen")));
-        System.out.println(W.wordBreakV2("catsandog", Arrays.asList("cats","dog","sand","and","cat")));
+        System.out.println(W.wordBreak("leetcode", Arrays.asList("leet", "code")));
+        System.out.println(W.wordBreak("applepenapple", Arrays.asList("apple","pen")));
+        System.out.println(W.wordBreak("catsandog", Arrays.asList("cats","dog","sand","and","cat")));
     }
 }
