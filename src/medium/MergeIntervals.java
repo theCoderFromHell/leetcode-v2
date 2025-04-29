@@ -36,4 +36,9 @@ public class MergeIntervals {
     private boolean outOfRange(int[] range, int[] interval) {
         return range[1] < interval[0] || interval[1] < range[0];
     }
+
+    public static void main(String[] args) {
+        MergeIntervals M = new MergeIntervals();
+        System.out.println(Arrays.deepToString(M.merge(new int[][]{{1, 3}, {2, 6}, {8, 10}, {15, 18}})));
+    }
 }
