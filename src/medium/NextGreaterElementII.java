@@ -30,7 +30,5 @@ public class NextGreaterElementII {
         NextGreaterElementII N = new NextGreaterElementII();
         System.out.println(Arrays.toString(N.nextGreaterElements(new int[]{1,2,1})));
         System.out.println(Arrays.toString(N.nextGreaterElements(new int[]{1,2,3,4,3})));
-        System.out.println(Arrays.toString(N.nextGreaterElements(new int[]{})));
-        System.out.println(Arrays.toString(N.nextGreaterElements(new int[]{})));
     }
 }
