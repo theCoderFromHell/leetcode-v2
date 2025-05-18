@@ -13,8 +13,10 @@ public class WordBreak {
         Arrays.fill(dp, false);
         for (int i = 0; i < size; i++) {
             for (int j = 0; j <= i; j++) {
-                if ((j < 1 || dp[j - 1]) && dictionary.contains(s.substring(j, i+1)))
+                if ((j < 1 || dp[j - 1]) && dictionary.contains(s.substring(j, i + 1))) {
                     dp[i] = true;
+                    break;
+                }
             }
         }
         return dp[size-1];
