@@ -31,6 +31,5 @@ public class StoneGameIII {
         System.out.println(S.stoneGameIII(new int[]{1,2,3,7}));
         System.out.println(S.stoneGameIII(new int[]{1,2,3,-9}));
         System.out.println(S.stoneGameIII(new int[]{1,2,3,6}));
-//        System.out.println(S.stoneGameIII(new int[]{}));
     }
 }
