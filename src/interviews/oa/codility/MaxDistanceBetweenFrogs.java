@@ -1,4 +1,4 @@
-package interviews.codility;
+package interviews.oa.codility;
 
 public class MaxDistanceBetweenFrogs {
     public int maxDistanceBetweenFrogs(int[] blocks) {

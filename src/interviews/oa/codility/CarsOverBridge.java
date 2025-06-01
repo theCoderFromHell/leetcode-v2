@@ -1,4 +1,4 @@
-package interviews.codility;
+package interviews.oa.codility;
 
 public class CarsOverBridge {
     public int numberOfCarsToTurn(int U, int[] weights) {
