@@ -1,4 +1,4 @@
-package interviews;
+package syllabus;
 
 import java.util.*;
 import java.util.stream.Collectors;

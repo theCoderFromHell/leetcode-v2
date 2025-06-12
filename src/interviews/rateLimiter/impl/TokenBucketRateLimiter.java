@@ -1,7 +1,7 @@
-package interviews.impl;
+package interviews.rateLimiter.impl;
 
-import interviews.CustomerConfig;
-import interviews.RateLimiter;
+import interviews.rateLimiter.CustomerConfig;
+import interviews.rateLimiter.RateLimiter;
 
 import java.util.HashMap;
 import java.util.concurrent.LinkedBlockingQueue;

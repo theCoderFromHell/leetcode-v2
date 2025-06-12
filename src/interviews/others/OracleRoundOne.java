@@ -1,4 +1,4 @@
-package interviews;
+package interviews.others;
 
 public class OracleRoundOne {
 

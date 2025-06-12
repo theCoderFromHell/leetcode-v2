@@ -1,4 +1,4 @@
-package interviews;
+package interviews.adobe;
 
 import java.util.HashSet;
 
