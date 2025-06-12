@@ -1,4 +1,4 @@
-package interviews;
+package interviews.rateLimiter;
 
 import java.util.concurrent.BlockingQueue;
 

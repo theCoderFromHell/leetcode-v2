@@ -1,4 +1,4 @@
-package interviews;
+package interviews.others;
 
 /*
 Array of unique integers, we have to find any local minima

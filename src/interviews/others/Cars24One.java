@@ -1,4 +1,4 @@
-package interviews;
+package interviews.others;
 
 import java.util.ArrayList;
 import java.util.HashMap;
