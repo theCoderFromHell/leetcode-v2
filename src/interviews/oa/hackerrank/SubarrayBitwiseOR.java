@@ -193,6 +193,42 @@ public class SubarrayBitwiseOR {
         return totalCount;
     }
 
+    public long countValidSubarraysByPerplexity(int[] nums) {
+        int n = nums.length;
+        int[] leftBound = new int[n];
+        int[] rightBound = new int[n];
+
+        // Precompute left boundaries for each index
+        for (int i = 0; i < n; i++) {
+            int current = nums[i];
+            int j = i - 1;
+            while (j >= 0 && (nums[j] | current) == current) {
+                j--;
+            }
+            leftBound[i] = j + 1;
+        }
+
+        // Precompute right boundaries for each index
+        for (int i = 0; i < n; i++) {
+            int current = nums[i];
+            int j = i + 1;
+            while (j < n && (nums[j] | current) == current) {
+                j++;
+            }
+            rightBound[i] = j - 1;
+        }
+
+        // Count valid subarrays
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            int L = leftBound[i];
+            int R = rightBound[i];
+            count += (i - L + 1) * (R - i + 1);
+        }
+
+        return count;
+    }
+
 
 
     public static void main(String[] args) {
@@ -200,6 +236,18 @@ public class SubarrayBitwiseOR {
 //        int[] arr = {1,6,7};
         SubarrayBitwiseOR S = new SubarrayBitwiseOR();
         long start, end, result;
+
+        start = System.currentTimeMillis();
+        result = S.countValidSubarraysByGemini(arr);
+        end = System.currentTimeMillis();
+        System.out.println("Gemini Code result: " + result);
+        System.out.println("Time taken: " + (end - start) + "ms");
+
+        start = System.currentTimeMillis();
+        result = S.countValidSubarraysByPerplexity(arr);
+        end = System.currentTimeMillis();
+        System.out.println("Perplexity Code result: " + result);
+        System.out.println("Time taken: " + (end - start) + "ms");
         
         start = System.currentTimeMillis();
         result = S.countValidSubarraysByRandom(arr);
@@ -274,12 +322,94 @@ public class SubarrayBitwiseOR {
 
     private static int[] generate() {
         Random r = new Random();
-        int N = 100000;
+        int N = 10000;
         int[] arr = new int[N];
         for (int i = 0; i < N; i++) {
             arr[i] = r.nextInt(1,10);
         }
         //System.out.println(Arrays.toString(arr));
         return arr;
+    }
+
+
+    private static final int MAX_BITS = 31;
+
+    public long countValidSubarraysByGemini(int[] a) {
+        int n = a.length;
+        if (n == 0) {
+            return 0;
+        }
+
+        Map<Integer, List<Integer>> positions = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            positions.computeIfAbsent(a[i], k -> new ArrayList<>()).add(i);
+        }
+
+        int[][] nextSetBit = new int[n + 1][MAX_BITS];
+        for (int b = 0; b < MAX_BITS; b++) {
+            nextSetBit[n][b] = n;
+        }
+
+        for (int i = n - 1; i >= 0; i--) {
+            for (int b = 0; b < MAX_BITS; b++) {
+                nextSetBit[i][b] = nextSetBit[i + 1][b];
+                if (((a[i] >> b) & 1) == 1) {
+                    nextSetBit[i][b] = i;
+                }
+            }
+        }
+
+        long totalCount = 0;
+
+        for (int i = 0; i < n; i++) {
+            int currentOr = 0;
+            int j = i;
+
+            while (j < n) {
+                int blockOr = currentOr | a[j];
+
+                int nextJ = n;
+                for (int b = 0; b < MAX_BITS; b++) {
+                    if (((blockOr >> b) & 1) == 0) {
+                        nextJ = Math.min(nextJ, nextSetBit[j + 1][b]);
+                    }
+                }
+                int q = nextJ - 1;
+
+                int firstPos = findFirstOccurrence(positions, blockOr, i);
+
+                if (firstPos != -1) {
+                    int startK = Math.max(j, firstPos);
+                    if (startK <= q) {
+                        totalCount += (long) (q - startK + 1);
+                    }
+                }
+
+                currentOr = blockOr;
+                j = q + 1;
+            }
+        }
+
+        return totalCount;
+    }
+
+    private int findFirstOccurrence(Map<Integer, List<Integer>> positions, int value, int minIndex) {
+        List<Integer> occurrences = positions.get(value);
+        if (occurrences == null || occurrences.isEmpty()) {
+            return -1;
+        }
+
+        int searchResult = Collections.binarySearch(occurrences, minIndex);
+
+        if (searchResult >= 0) {
+            return occurrences.get(searchResult);
+        } else {
+            int insertionPoint = -searchResult - 1;
+            if (insertionPoint == occurrences.size()) {
+                return -1;
+            } else {
+                return occurrences.get(insertionPoint);
+            }
+        }
     }
 }
