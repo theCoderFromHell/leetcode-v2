@@ -1,4 +1,4 @@
-package interviews;
+package interviews.rateLimiter;
 
 public interface RateLimiter {
 

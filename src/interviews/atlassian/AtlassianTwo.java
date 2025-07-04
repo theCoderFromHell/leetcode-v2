@@ -1,4 +1,4 @@
-package interviews;
+package interviews.atlassian;
 
 import java.util.*;
 
