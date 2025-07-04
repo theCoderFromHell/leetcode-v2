@@ -57,7 +57,5 @@ public class MagicSquaresInGrid {
         MagicSquaresInGrid M = new MagicSquaresInGrid();
         System.out.println(M.numMagicSquaresInside(new int[][]{{4,3,8,4},{9,5,1,9},{2,7,6,2}}));
         System.out.println(M.numMagicSquaresInside(new int[][]{{8}}));
-//        System.out.println(M.numMagicSquaresInside(new int[][]));
-//        System.out.println(M.numMagicSquaresInside(new int[][]));
     }
 }
