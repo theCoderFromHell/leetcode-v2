@@ -28,6 +28,5 @@ public class GetEqualSubstringsWithinBudget {
         System.out.println(G.equalSubstring("abcd", "bcdf", 3));
         System.out.println(G.equalSubstring("abcd", "cdef", 3));
         System.out.println(G.equalSubstring("abcd", "acde", 0));
-//        System.out.println(G.equalSubstring("", "", ));
     }
 }
