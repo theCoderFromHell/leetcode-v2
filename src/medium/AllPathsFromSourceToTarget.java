@@ -42,7 +42,5 @@ public class AllPathsFromSourceToTarget {
         AllPathsFromSourceToTarget A = new AllPathsFromSourceToTarget();
         System.out.println(A.allPathsSourceTarget(new int[][]{{1,2},{3},{3},{}}));
         System.out.println(A.allPathsSourceTarget(new int[][]{{4,3,1},{3,2,4},{3},{4},{}}));
-//        System.out.println(A.allPathsSourceTarget(new int[][]));
-//        System.out.println(A.allPathsSourceTarget(new int[][]));
     }
 }
