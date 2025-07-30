@@ -26,7 +26,6 @@ public class FindNearestRightNodeInBinaryTree {
                 if (node.right != null)
                     queue.add(node.right);
             }
-
         }
         return null;
     }
