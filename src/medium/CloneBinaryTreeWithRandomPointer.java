@@ -29,35 +29,37 @@ public class CloneBinaryTreeWithRandomPointer {
         nodeCopy.right = copy(root.right, nodeMap);
         return nodeCopy;
     }
-}
 
-class Node {
-    int val;
-    Node left;
-    Node right;
-    Node random;
+    class Node {
+        int val;
+        Node left;
+        Node right;
+        Node random;
 
-    Node() {}
-    Node(int val, Node left, Node right, Node random) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-        this.random = random;
+        Node() {}
+        Node(int val, Node left, Node right, Node random) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+            this.random = random;
+        }
+    }
+
+    class NodeCopy {
+        int val;
+        NodeCopy left;
+        NodeCopy right;
+        NodeCopy random;
+
+        NodeCopy() {}
+        NodeCopy(int val, NodeCopy left, NodeCopy right, NodeCopy random) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+            this.random = random;
+        }
     }
 }
 
-class NodeCopy {
-    int val;
-    NodeCopy left;
-    NodeCopy right;
-    NodeCopy random;
 
-    NodeCopy() {}
-    NodeCopy(int val, NodeCopy left, NodeCopy right, NodeCopy random) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-        this.random = random;
-    }
-}
 
