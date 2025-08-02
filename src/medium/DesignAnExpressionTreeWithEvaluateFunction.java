@@ -65,7 +65,7 @@ public class DesignAnExpressionTreeWithEvaluateFunction {
         private boolean isOperator(String postfix) {
             return (postfix.equals("+") || postfix.equals("-") || postfix.equals("*") || postfix.equals("/"));
         }
-    };
+    }
 }
 
 
