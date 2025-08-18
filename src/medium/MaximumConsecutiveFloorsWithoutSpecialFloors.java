@@ -21,6 +21,5 @@ public class MaximumConsecutiveFloorsWithoutSpecialFloors {
         MaximumConsecutiveFloorsWithoutSpecialFloors M = new MaximumConsecutiveFloorsWithoutSpecialFloors();
         System.out.println(M.maxConsecutive(2,9, new int[]{4,6}));
         System.out.println(M.maxConsecutive(6,8, new int[]{7,6,8}));
-//        System.out.println(M.maxConsecutive(1,1, new int[]{}));
     }
 }
