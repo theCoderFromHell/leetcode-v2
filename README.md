@@ -11,9 +11,9 @@ This repo is my digital gym for flexing those coding muscles, tracking progress,
 - **Purpose:** Track every LeetCode submission, motivate myself, and maybe inspire a fellow coder or two.
 - **Current Status:**  
   - 🟢 **Easy:** 61  
-  - 🟡 **Medium:** 522  
+  - 🟡 **Medium:** 609  
   - 🔴 **Hard:** 50  
-  - 🏆 **Total:** 633 problems solved and counting!
+  - 🏆 **Total:** 720 problems solved and counting!
 
 ---
 
@@ -22,7 +22,7 @@ This repo is my digital gym for flexing those coding muscles, tracking progress,
 | Difficulty | Problems Solved | Mood After Solving   |
 |------------|-----------------|----------------------|
 | Easy       | 61              | ☕ "Coffee break!"    |
-| Medium     | 522             | 🤔 "Why though?"     |
+| Medium     | 609             | 🤔 "Why though?"     |
 | Hard       | 50              | 😵 "Send help."      |
 
 ---
