@@ -69,3 +69,42 @@ public class NeuronStrength {
         // Expected: [0, -1, 1, -1]
     }
 }
+
+/*
+A neural network has n neurons numbered from 1 to n.
+If the neuron has strong connectivity, strongConnectivity[i] = 1.
+If it has weak connectivity, strongConnectivity[i] = 0.
+
+The neurons form a tree-like network with n-1 connections,
+where the ith connection connects neurons neuronFrom[i] and neuronTo[i].
+A neuron's strength is defined as the maximum difference between strongly connected and weakly connected neurons
+in any subnetwork including that neuron.
+
+Return an array of n integers, where the ith integer represents the strength of neuron i.
+
+Note: A subnetwork is a connected subgraph of the given network.
+
+1 < n < 2*10⁵
+
+Example:
+
+n=4
+neuronFrom=[1, 1, 1]
+neuronTo= [2, 3, 4]
+strongConnectivity= [0, 0, 1, 0]
+
+→ Only Neuron 3 has strong connectivity.
+→ For neuron 1's strength, consider the subnetwork with neurons 1 and 3: 1 strong, 1 weak → strength = 0
+→ For neuron 2's strength, consider the subnetwork with neurons 1, 2, and 3: 1 strong, 2 weak → strength =-1
+→ For neuron 3's strength, consider the subnetwork with only neuron 3: 1 strong, 0 weak → strength = 1
+→ For neuron 4's strength, consider the subnetwork with only neuron 4: 0 strong weak → strength = -1
+
+The neuronStrengths array is [0, -1, 1, -1].
+
+Write an efficient method in Java
+
+public List<Integer> getNeuronStrenhths(int neuronNodes,
+                                        List<Integer> neuronFrom,
+                                        List<Integer> neuronTo,
+                                        List<Integer> strongConnectivity) {}
+ */
