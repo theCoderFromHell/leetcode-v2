@@ -1,4 +1,4 @@
-package interviews.oa.hackerrank;
+package interviews.online.assessment.hackerrank;
 
 public class CountPalindromicSubsequences {
     static final int MOD = 1_000_000_007;

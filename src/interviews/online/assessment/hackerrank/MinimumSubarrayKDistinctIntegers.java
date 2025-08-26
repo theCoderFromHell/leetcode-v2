@@ -1,4 +1,4 @@
-package interviews.oa.hackerrank;
+package interviews.online.assessment.hackerrank;
 
 import java.util.HashMap;
 
