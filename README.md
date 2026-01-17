@@ -9,29 +9,22 @@ This repo is my digital gym for flexing those coding muscles, tracking progress,
 
 - **Language of choice:** Java (because semicolons are life)
 - **Purpose:** Track every LeetCode submission, motivate myself, and maybe inspire a fellow coder or two.
-- **Current Status:**  
-  - 🟢 **Easy:** 61  
-  - 🟡 **Medium:** 609  
-  - 🔴 **Hard:** 50  
-  - 🏆 **Total:** 720 problems solved and counting!
 
 ---
 
-## 📊 Progress Dashboard
+## 📊 Live Stats Dashboard
 
-| Difficulty | Problems Solved | Mood After Solving   |
-|------------|-----------------|----------------------|
-| Easy       | 61              | ☕ "Coffee break!"    |
-| Medium     | 609             | 🤔 "Why though?"     |
-| Hard       | 50              | 😵 "Send help."      |
+![LeetCode Stats](https://leetcard.jacoblin.cool/theCoderFromHell?theme=dark&font=Ubuntu&ext=heatmap)
+
+> Stats update automatically from my LeetCode profile: https://leetcode.com/u/theCoderFromHell/
 
 ---
 
 ## 😅 Why This Repo Exists
 
-- **To keep myself honest:** If it’s not pushed, did I really solve it?
+- **To keep myself honest:** If it's not pushed, did I really solve it?
 - **To see progress:** Nothing like a green commit graph to brighten your day.
-- **To laugh at past code:** “Who wrote this? Oh wait...”
+- **To laugh at past code:** "Who wrote this? Oh wait..."
 - **To remind myself:** Every `NullPointerException` is a lesson in disguise.
 
 ---
@@ -42,7 +35,7 @@ This repo is my digital gym for flexing those coding muscles, tracking progress,
 2. Panic briefly.
 3. Google nothing (wink).
 4. Write Java code.
-5. Debug for longer than I’d like to admit.
+5. Debug for longer than I'd like to admit.
 6. Victory dance.
 7. Push to this repo.
 
@@ -50,9 +43,9 @@ This repo is my digital gym for flexing those coding muscles, tracking progress,
 
 ## 🤖 Fun Facts
 
-- My Java IDE has seen more red squiggly lines than a toddler’s coloring book.
-- I have a PhD in “Off By One” errors.
-- I can now spell “accommodate” and “occurrence” without looking them up, thanks to LeetCode.
+- My Java IDE has seen more red squiggly lines than a toddler's coloring book.
+- I have a PhD in "Off By One" errors.
+- I can now spell "accommodate" and "occurrence" without looking them up, thanks to LeetCode.
 
 ---
 
@@ -64,11 +57,22 @@ This repo is my digital gym for flexing those coding muscles, tracking progress,
 
 ---
 
+## 🎨 Customize Stats Card
+
+Want a different look? Change the theme in the stats card URL:
+- `theme=dark` | `unicorn` | `nord` | `wtf` | `light` and more!
+- `font=Ubuntu` | `Baloo` | `Comic Sans MS` and others
+- `ext=heatmap` | `activity` | `contest` for different views
+
+Check out [LeetCode Stats Card](https://github.com/JacobLinCool/LeetCode-Stats-Card) for all options!
+
+---
+
 ## 🏁 Final Words
 
-If you’re here for inspiration, motivation, or just to see someone else’s struggle with binary trees, you’re in the right place.  
+If you're here for inspiration, motivation, or just to see someone else's struggle with binary trees, you're in the right place.  
 Happy coding, and may your bugs be ever fixable!
 
-> “Code is like humor. When you have to explain it, it’s bad.” – Cory House
+> "Code is like humor. When you have to explain it, it's bad." – Cory House
 
-*Now, back to the grind... Next stop: 700!*
+*Now, back to the grind... More problems await!*
