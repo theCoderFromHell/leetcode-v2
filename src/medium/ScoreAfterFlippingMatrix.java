@@ -9,7 +9,7 @@ public class ScoreAfterFlippingMatrix {
                 flip(grid, true, row, rows, columns);
         }
         for (int column = 1; column < columns; column++) {
-            if (countOnes(grid, column, rows, columns) < (rows+1)/2)
+            if (countOnesInColumn(grid, column, rows) < (rows+1)/2)
                 flip(grid, false, column, rows, columns);
         }
         int sum = 0;
@@ -22,7 +22,7 @@ public class ScoreAfterFlippingMatrix {
         return sum;
     }
 
-    private int countOnes(int[][] grid, int index, int rows, int columns) {
+    private int countOnesInColumn(int[][] grid, int index, int rows) {
         int count = 0;
         for (int row = 0; row < rows; row++)
             count += grid[row][index];
