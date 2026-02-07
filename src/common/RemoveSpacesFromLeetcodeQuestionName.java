@@ -18,6 +18,8 @@ public class RemoveSpacesFromLeetcodeQuestionName {
     }
 
     public static void main(String[] args) {
-        System.out.print(removeSpacesFromLeetcodeQuestionName("Merge In Between Linked Lists"));
+        System.out.println(
+                removeSpacesFromLeetcodeQuestionName(
+                        "Score After Flipping Matrix"));
     }
 }

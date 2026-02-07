@@ -1,6 +1,6 @@
 package medium;
 
-import common.ArrayUtils;
+import common.Util;
 
 public class FindValidMatrixGivenRowAndColumnSums {
     public int[][] restoreMatrix(int[] rowSum, int[] colSum) {
@@ -22,6 +22,6 @@ public class FindValidMatrixGivenRowAndColumnSums {
         FindValidMatrixGivenRowAndColumnSums solver = new FindValidMatrixGivenRowAndColumnSums();
         int[] rowSum = {5, 7, 10};
         int[] colSum = {8, 6, 8};
-        ArrayUtils.printMatrix(solver.restoreMatrix(rowSum, colSum));
+        Util.printMatrix(solver.restoreMatrix(rowSum, colSum));
     }
 }
