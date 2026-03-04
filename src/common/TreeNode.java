@@ -1,5 +1,7 @@
 package common;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Objects;
 
 public class TreeNode {
@@ -12,6 +14,22 @@ public class TreeNode {
         this.val = val;
         this.left = left;
         this.right = right;
+    }
+
+    public static void printTree(TreeNode root) {
+        if (root == null) {
+            System.out.println("null");
+            return;
+        }
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            System.out.print(node.val + " ");
+            if (node.right != null) stack.push(node.right);
+            if (node.left != null) stack.push(node.left);
+        }
+        System.out.println();
     }
 
     @Override
