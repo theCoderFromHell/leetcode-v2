@@ -20,6 +20,6 @@ public class RemoveSpacesFromLeetcodeQuestionName {
     public static void main(String[] args) {
         System.out.println(
                 removeSpacesFromLeetcodeQuestionName(
-                        "Score After Flipping Matrix"));
+                        "Find Unique Binary String"));
     }
 }
