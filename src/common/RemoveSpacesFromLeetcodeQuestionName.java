@@ -20,6 +20,6 @@ public class RemoveSpacesFromLeetcodeQuestionName {
     public static void main(String[] args) {
         System.out.println(
                 removeSpacesFromLeetcodeQuestionName(
-                        "Find Unique Binary String"));
+                        "Path In Zigzag Labelled Binary Tree"));
     }
 }
