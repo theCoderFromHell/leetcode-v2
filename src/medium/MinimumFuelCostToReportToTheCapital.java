@@ -40,6 +40,30 @@ public class MinimumFuelCostToReportToTheCapital {
         return total;
     }
 
+    /*
+     * Revision Note — Minimum Fuel Cost to Report to the Capital (Medium)
+     *
+     * Pattern: Post-order DFS on a tree — aggregate subtree counts bottom-up
+     *
+     * Key Insight: Each edge costs ceil(representatives_below / seats) litres —
+     * so DFS each subtree, return its representative count, and accumulate fuel
+     * at every non-root node.
+     *
+     * Gotchas:
+     * - Use long for result — total fuel can exceed Integer.MAX_VALUE for large n with seats=1
+     * - Skip the root node (node 0) when adding fuel — it doesn't travel anywhere
+     *   (cleanest fix: iterate root's neighbours directly instead of calling dfs(0,...))
+     * - Ceiling division: (total + seats - 1) / seats
+     *
+     * Template:
+     *   int dfs(node, parent):
+     *       total = 1
+     *       for each child (neighbour != parent):
+     *           total += dfs(child, node)
+     *       result += ceil(total / seats)   // fuel for this edge to parent
+     *       return total
+     *   // Call: for each neighbour of root: dfs(neighbour, 0)
+     */
     public static void main(String[] args) {
         MinimumFuelCostToReportToTheCapital M = new MinimumFuelCostToReportToTheCapital();
         // Star graph, all go directly to capital — 3

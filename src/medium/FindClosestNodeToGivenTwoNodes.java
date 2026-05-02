@@ -40,6 +40,28 @@ public class FindClosestNodeToGivenTwoNodes {
         return result_node == Integer.MAX_VALUE ? -1 : result_node;
     }
 
+    /*
+     * Revision Note — Find Closest Node to Given Two Nodes (Medium)
+     *
+     * Pattern: Linear walk on a functional graph (each node has at most one outgoing edge)
+     *
+     * Key Insight: Since each node has at most one outgoing edge, BFS reduces to a simple
+     * while-loop walk. Fill distance arrays from node1 and node2 separately, then scan
+     * all nodes for the one reachable from both with minimum max(dist1, dist2).
+     *
+     * Gotchas:
+     * - Always use a visited[] array — rho-shaped cycles (tail into a loop) cause infinite loops
+     * - Return the node INDEX, not the distance value
+     * - Return -1 (not Integer.MAX_VALUE) when no common node exists
+     * - Tie-break: iterating i=0..n-1 and using strict `d < result` naturally picks the smallest index
+     *
+     * Template:
+     *   fill dist[] from start with visited[] guard:
+     *       while (n != -1 && !visited[n]) { dist[n] = len++; visited[n]=true; n=edges[n]; }
+     *   scan i=0..n-1:
+     *       if (dist1[i]!=-1 && dist2[i]!=-1 && max(dist1[i],dist2[i]) < best) → update best + result
+     *   return result == MAX ? -1 : result
+     */
     public static void main(String[] args) {
         FindClosestNodeToGivenTwoNodes F = new FindClosestNodeToGivenTwoNodes();
         // Basic — node 2 reachable from both at dist 1 each — 2
