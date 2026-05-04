@@ -47,25 +47,3 @@ public class UncrossedLines {
         System.out.println(U.maxUncrossedLines(new int[]{1}, new int[]{2}));                        // 0
     }
 }
-
-/*
- * Revision Note — Uncrossed Lines (Medium)
- *
- * Pattern: Longest Common Subsequence (LCS) — classic 2D DP
- *
- * Key Insight: "Uncrossed lines" is exactly LCS in disguise — two lines cross
- * if and only if their index pairs are out of order in one array, which is
- * precisely the condition that breaks a common subsequence.
- *
- * Gotchas:
- * - Recognising the LCS disguise is the entire problem — once seen, the code is standard
- * - Use 1-indexed DP table (size+1) to avoid i-1/j-1 boundary checks
- *
- * Template:
- *   int[][] dp = new int[m+1][n+1];
- *   for i in 0..m-1:
- *       for j in 0..n-1:
- *           if nums1[i] == nums2[j]: dp[i+1][j+1] = dp[i][j] + 1
- *           else: dp[i+1][j+1] = max(dp[i][j+1], dp[i+1][j])
- *   return dp[m][n]
- */
