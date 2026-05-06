@@ -21,6 +21,32 @@ public class FindTheSubstringWithMaximumCost {
         return maxSum;
     }
 
+    /*
+     * Revision Note — Find the Substring With Maximum Cost (Medium)
+     *
+     * Pattern: Kadane's algorithm on a derived numeric sequence
+     *
+     * Key Insight: Map each character to its integer value (override if in chars,
+     * else 1-indexed alphabet position), then find the maximum subarray sum —
+     * maxSum starts at 0 to allow the empty substring (cost 0) as a valid answer.
+     *
+     * Gotchas:
+     * - Initialize maxSum = 0, not Integer.MIN_VALUE — empty substring is valid
+     * - Reset curr = 0 (not min) when it goes negative — standard Kadane's
+     * - No need to materialise the value array; inline the lookup directly into Kadane's loop
+     *
+     * Template:
+     *   int[] charValues = new int[26];
+     *   for (int i = 0; i < 26; i++) charValues[i] = i + 1;
+     *   for (int i = 0; i < chars.length(); i++) charValues[chars.charAt(i)-'a'] = vals[i];
+     *   int maxSum = 0, curr = 0;
+     *   for (char c : s.toCharArray()) {
+     *       curr += charValues[c - 'a'];
+     *       if (curr < 0) curr = 0;
+     *       else maxSum = Math.max(maxSum, curr);
+     *   }
+     *   return maxSum;
+     */
     public static void main(String[] args) {
         FindTheSubstringWithMaximumCost F = new FindTheSubstringWithMaximumCost();
         System.out.println(F.maximumCostSubstring("adaa", "d", new int[]{-1000}));          // 2  ("aa": 1+1)
