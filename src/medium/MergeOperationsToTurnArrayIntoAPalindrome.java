@@ -1,8 +1,6 @@
 package medium;
 
-public class
-
-      MergeOperationsToTurnArrayIntoAPalindrome {
+public class MergeOperationsToTurnArrayIntoAPalindrome {
     public int minimumOperations(int[] nums) {
         int N = nums.length;
         int start = 0;
