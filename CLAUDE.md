@@ -36,7 +36,7 @@ src/
 
 - **File naming:** PascalCase matching the LeetCode problem name exactly (e.g., `KokoEatingBananas.java`)
 - **Variants:** Suffixed with `V2`, `V3` (e.g., `TwoSumV2.java`)
-- **Each file contains:** problem URL comment → solution method → helper methods → revision notes comment → `main()` with test cases
+- **Each file contains:** imports → problem URL comment (just above class definition) → solution method → revision note → `main()` with test cases
 - **Instance variable in `main()`:** named with the first letter of the class (e.g., `FindUniqueBinaryString F = new FindUniqueBinaryString()`)
 - **Packages:** match folder names (`easy`, `medium`, `hard`, `common`, etc.)
 - **Problem URL:** placed as a comment on the line directly above the `public class` declaration (after package and imports)
