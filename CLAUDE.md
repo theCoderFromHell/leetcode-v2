@@ -36,9 +36,13 @@ src/
 
 - **File naming:** PascalCase matching the LeetCode problem name exactly (e.g., `KokoEatingBananas.java`)
 - **Variants:** Suffixed with `V2`, `V3` (e.g., `TwoSumV2.java`)
-- **Each file contains:** problem URL comment → solution method → helper methods → `main()` with test cases
+- **Each file contains:** problem URL comment → solution method → helper methods → revision notes comment → `main()` with test cases
 - **Instance variable in `main()`:** named with the first letter of the class (e.g., `FindUniqueBinaryString F = new FindUniqueBinaryString()`)
 - **Packages:** match folder names (`easy`, `medium`, `hard`, `common`, etc.)
+- **Problem URL:** placed as a comment on the line directly above the `public class` declaration (after package and imports)
+- **Revision notes:** placed as a block comment directly before `main()`, summarising pattern, key insight, and gotchas from the solving session
+- **Test case format:** `System.out.println("Test N: " + X.method(args) + " (Expected: Y)");` — label every test with its number and expected value
+- **Test cases are Claude's responsibility** — do not deduct code quality points if test cases are absent; Claude adds them
 
 ## Adding a New Solution
 
@@ -62,6 +66,14 @@ Or run the `main` method directly from IntelliJ IDEA (`.iml` at `src/leetcode-v2
 - **Stage:** only the specific solution files (`git add src/medium/Foo.java src/medium/Bar.java`)
 - **Commit message:** class names joined by ` , ` — no prefix, no description (e.g., `FindUniqueBinaryString , LongestSubarrayOf1SAfterDeletingOneElement`)
 - **Push:** always to the current month's branch, never directly to master
+
+## Syncing Branch with Master ("rebase on master")
+When asked to rebase/sync the current branch with master, always follow these steps in order:
+1. `git stash`
+2. `git checkout master && git pull origin master`
+3. `git checkout <current-branch> && git merge master`
+4. `git push origin <current-branch>`
+5. `git stash pop`
 
 ## Code Review Checklist
 
