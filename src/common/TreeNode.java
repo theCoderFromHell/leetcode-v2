@@ -1,8 +1,11 @@
 package common;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
+import java.util.List;
 import java.util.Objects;
+import java.util.Queue;
 
 public class TreeNode {
     public int val;
@@ -14,6 +17,20 @@ public class TreeNode {
         this.val = val;
         this.left = left;
         this.right = right;
+    }
+
+    public static List<Integer> levelOrder(TreeNode root) {
+        List<Integer> out = new ArrayList<>();
+        if (root == null) return out;
+        Queue<TreeNode> q = new ArrayDeque<>();
+        q.add(root);
+        while (!q.isEmpty()) {
+            TreeNode n = q.poll();
+            out.add(n.val);
+            if (n.left != null) q.add(n.left);
+            if (n.right != null) q.add(n.right);
+        }
+        return out;
     }
 
     public static void printTree(TreeNode root) {
