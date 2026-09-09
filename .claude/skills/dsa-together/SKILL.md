@@ -1,6 +1,6 @@
 ---
 name: dsa-together
-description: Collaborative DSA problem-solving session — fetches the LeetCode problem, checks solve status for theCoderFromHell, then reviews, debugs, or guides depending on history
+description: Collaborative DSA problem-solving session — fetches the LeetCode problem, scaffolds the Java file, checks solve status for theCoderFromHell, then reviews, debugs, or guides depending on history
 ---
 
 The user has invoked `/dsa-together` with a LeetCode problem number or name. Work through the following steps in order.
@@ -11,9 +11,74 @@ The user has invoked `/dsa-together` with a LeetCode problem number or name. Wor
 
 Parse the argument to extract the problem number or name. Use WebSearch or WebFetch to look up the problem on leetcode.com and retrieve:
 - Problem title
-- Difficulty
+- **Difficulty** (Easy / Medium / Hard) — needed for the package and directory
 - Full problem statement (constraints, examples)
 - Topic tags (e.g. BFS, DP, Sliding Window, Two Pointers)
+- **The Java method signature** from LeetCode's code template (e.g. `public int smallestCommonElement(int[][] mat)`)
+
+### Deriving the URL slug
+
+Lowercase the title, replace spaces with hyphens, drop characters that are not alphanumeric or hyphen. Roman numerals lowercase along with everything else.
+
+| Title | Slug |
+|---|---|
+| Find Smallest Common Element in All Rows | `find-smallest-common-element-in-all-rows` |
+| Course Schedule II | `course-schedule-ii` |
+| K-th Smallest Prime Fraction | `k-th-smallest-prime-fraction` |
+
+Final URL: `https://leetcode.com/problems/<slug>/`
+
+Confirm the slug resolves — if WebSearch returns a different canonical URL, use that one.
+
+### Deriving the class name
+
+PascalCase with all spaces and punctuation removed; Roman numerals stay uppercase. This matches `src/common/RemoveSpacesFromLeetcodeQuestionName.java` — run it if a title is ambiguous.
+
+| Title | Class |
+|---|---|
+| Find Smallest Common Element in All Rows | `FindSmallestCommonElementInAllRows` |
+| Course Schedule II | `CourseScheduleII` |
+
+If difficulty cannot be determined confidently from search results, **ask the user** rather than guessing — it decides which directory the file lands in.
+
+---
+
+## Step 1b — Scaffold the Solution File
+
+Create the file **before** any discussion, so the user can start coding immediately.
+
+**Path:** `src/<difficulty>/<ClassName>.java` where `<difficulty>` is `easy`, `medium`, or `hard`.
+
+**First check whether the file already exists.** If it does, read it and skip creation entirely — never overwrite the user's work. Say so: *"You already have `src/medium/Foo.java` — reading it."*
+
+**Template:**
+
+```java
+package medium;
+
+// https://leetcode.com/problems/find-smallest-common-element-in-all-rows/
+public class FindSmallestCommonElementInAllRows {
+    public int smallestCommonElement(int[][] mat) {
+
+    }
+
+    public static void main(String[] args) {
+        FindSmallestCommonElementInAllRows F = new FindSmallestCommonElementInAllRows();
+
+    }
+}
+```
+
+Rules for the scaffold:
+- Package line matches the directory.
+- Problem URL as a `//` comment on the line directly above `public class` — this is the project convention.
+- Method signature copied **verbatim** from LeetCode's Java template, with an **empty body**. Do not add a placeholder `return`, and do not attempt an implementation — the empty body is intentional and mirrors what LeetCode gives. It will not compile until the user fills it in; that is expected.
+- If the problem needs `ListNode`, `TreeNode`, `Node`, or `DoubleListNode`, add `import common.<Type>;`.
+- Empty `main()` with the instance variable named using the first letter of the class (`F` for `FindSmallestCommonElementInAllRows`). Test cases get added later, at review time.
+- Do **not** commit the scaffold. The user commits once the solution works.
+
+After creating it, tell the user the path in one line, then move on:
+> Created `src/medium/FindSmallestCommonElementInAllRows.java` — Medium, tagged Binary Search / Hash Table.
 
 ---
 
@@ -33,9 +98,8 @@ Use WebFetch to check the user's submission history for this problem. Determine 
 
 ### If SOLVED
 
-1. Look for the solution locally first: search `src/easy/`, `src/medium/`, `src/hard/` for a `.java` file matching the problem name (PascalCase). Read it if found.
-2. If not found locally, note that it was solved on LeetCode but not committed to this repo.
-3. Apply the full `/dsa-review` analysis:
+1. Use the existing file found in Step 1b. If Step 1b created a fresh scaffold instead, the problem was solved on LeetCode but never committed to this repo — say so, and ask whether the user wants to re-solve it into the scaffold or paste their accepted solution.
+2. Apply the full `/dsa-review` analysis:
    - Problem summary
    - Correctness (bugs, edge cases)
    - Time & space complexity with justification
@@ -47,7 +111,7 @@ Use WebFetch to check the user's submission history for this problem. Determine 
 
 ### If ATTEMPTED (submitted but not accepted)
 
-1. Look for the solution locally in `src/easy/`, `src/medium/`, `src/hard/`. Read it if found.
+1. Use the existing file found in Step 1b, if there was one. If only a fresh scaffold exists, ask the user to paste the attempt they submitted.
 2. Re-read the problem constraints carefully.
 3. Analyze the solution for bugs:
    - Walk through the logic step by step against the provided examples
@@ -59,7 +123,9 @@ Use WebFetch to check the user's submission history for this problem. Determine 
 
 ### If NEVER ATTEMPTED
 
-Enter collaborative solving mode. **Never give the direct solution or full code.** Guide with questions and hints in an encouraging tone, as a teammate who believes the user can figure it out.
+Enter collaborative solving mode. The scaffold from Step 1b is already open and waiting — the user codes directly into it in IntelliJ.
+
+**Never give the direct solution or full code.** Guide with questions and hints in an encouraging tone, as a teammate who believes the user can figure it out. Never fill in the scaffolded method body yourself.
 
 Follow this flow:
 
