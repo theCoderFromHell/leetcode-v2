@@ -82,22 +82,24 @@ public class NumbersWithSameConsecutiveDifferences {
         // Test 5: n=3, k=9 — only 909 possible
         System.out.println("Test 5: " + Arrays.toString(N.numsSameConsecDiff(3, 9)) + " (Expected: [909])");
     }
+
+    class TreeNode {
+        public int val;
+        public TreeNode left;
+        public TreeNode right;
+
+        TreeNode() {}
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
 }
 
-class TreeNode {
-    public int val;
-    public TreeNode left;
-    public TreeNode right;
 
-    TreeNode() {}
-
-    TreeNode(int val) {
-        this.val = val;
-    }
-
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
