@@ -77,6 +77,45 @@ Rules for the scaffold:
 - Empty `main()` with the instance variable named using the first letter of the class (`F` for `FindSmallestCommonElementInAllRows`). Test cases get added later, at review time.
 - Do **not** commit the scaffold. The user commits once the solution works.
 
+### Design problems — nested class structure
+
+A **design problem** is one where LeetCode's template gives a named class with a constructor plus several methods, instead of a single method on the generic `Solution`. For these, the LeetCode class name (e.g. `OrderManagementSystem`) differs from the problem title (e.g. "Design Order Management System").
+
+Use a **nested** structure so both conventions hold:
+
+- **Outer public class** = PascalCase of the problem title, matching the filename per the normal rule. Holds `main()`.
+- **Inner `static` class** = LeetCode's template class name **verbatim**. Holds the constructor and all solution methods, so it pastes straight into the LeetCode editor.
+
+```java
+package medium;
+
+// https://leetcode.com/problems/design-order-management-system/
+public class DesignOrderManagementSystem {
+
+    static class OrderManagementSystem {
+
+        public OrderManagementSystem() {
+
+        }
+
+        public void addOrder(int orderId, String orderType, int price) {
+
+        }
+
+        public int[] getOrdersAtPrice(String orderType, int price) {
+
+        }
+    }
+
+    public static void main(String[] args) {
+        OrderManagementSystem O = new OrderManagementSystem();
+
+    }
+}
+```
+
+The `main()` instance variable follows the first-letter rule based on the **inner** class name (`OrderManagementSystem O = ...`), since that is the object under test.
+
 After creating it, tell the user the path in one line, then move on:
 > Created `src/medium/FindSmallestCommonElementInAllRows.java` — Medium, tagged Binary Search / Hash Table.
 
