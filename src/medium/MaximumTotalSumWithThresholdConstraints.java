@@ -18,7 +18,7 @@ public class MaximumTotalSumWithThresholdConstraints {
         while (!pq.isEmpty()) {
             int[] top = pq.poll();
             if (top[0] > step)
-                continue;
+                break;
             result += nums[top[1]];
             step++;
         }
@@ -38,8 +38,9 @@ public class MaximumTotalSumWithThresholdConstraints {
      *     Integer.MAX_VALUE; an int accumulator overflows before the widening cast on return.
      *   - Comparator tie-break is nums[b[1]] - nums[a[1]] (descending value) so the most
      *     valuable of equally-eligible indices is consumed first.
-     *   - continue (not break) is safe here: the remaining polls all fail the same check.
-     *     Elements skipped this way are genuinely unreachable, they are not lost prematurely.
+     *   - break, not continue: the PQ is threshold-ascending, so once a polled element has
+     *     threshold > step every remaining element does too and step can never advance again.
+     *     continue produces the same answer but wastes O(k log n) polls draining the queue.
      *   - Comparator must return a difference, never a bare value.
      */
     public static void main(String[] args) {
