@@ -1,6 +1,6 @@
 ---
 name: dsa-together
-description: Collaborative DSA problem-solving session — fetches the LeetCode problem, scaffolds the Java file, checks solve status for theCoderFromHell, then reviews, debugs, or guides depending on history
+description: Collaborative DSA problem-solving session — fetches the LeetCode problem, scaffolds the Java file, determines solve status from the repo, then reviews, debugs, or guides accordingly
 ---
 
 The user has invoked `/dsa-together` with a LeetCode problem number or name. Work through the following steps in order.
@@ -121,15 +121,43 @@ After creating it, tell the user the path in one line, then move on:
 
 ---
 
-## Step 2 — Check Solve Status for theCoderFromHell
+## Step 2 — Determine Solve Status
 
-The user's LeetCode username is **theCoderFromHell**.
+Classify into one of three states:
 
-Use WebFetch to check the user's submission history for this problem. Determine one of three states:
+- **SOLVED** — a working solution already exists
+- **ATTEMPTED** — tried it, not accepted
+- **NEVER ATTEMPTED** — fresh problem
 
-- **SOLVED** — has an accepted submission
-- **ATTEMPTED** — has submissions but none accepted
-- **NEVER ATTEMPTED** — no submissions at all
+> **Do not try to fetch LeetCode submission history.** It sits behind authentication, so WebFetch cannot read it — the request either fails or silently returns the logged-out page, and acting on that produces a confidently wrong answer. The user's LeetCode handle is **theCoderFromHell**, which is useful for attribution but gets you nothing here.
+
+Use these signals instead, in order.
+
+### Signal 1 — the repo (authoritative when it fires)
+
+Step 1b already established whether `src/<difficulty>/<ClassName>.java` exists.
+
+| Repo state | Conclude |
+|---|---|
+| File exists, method body is **filled in** | **SOLVED** — go straight to review, no need to ask |
+| File exists, body is **empty or a stub** | Inconclusive — the scaffold was created but nothing written. Fall through to Signal 2 |
+| File does not exist | Inconclusive — fall through to Signal 2 |
+
+Also check for variant files (`<ClassName>V2.java`, `V3`) — a variant means SOLVED at least once.
+
+### Signal 2 — ask, in one line
+
+When the repo is inconclusive, ask directly and wait:
+
+> **Have you solved this one before — solved it, attempted it, or is it new?**
+
+That single question costs one turn and is strictly more reliable than any inference.
+
+### Default when unanswered
+
+If the user doesn't answer or is ambiguous, treat it as **NEVER ATTEMPTED** and enter collaborative mode.
+
+This default is deliberate and asymmetric: guessing NEVER-ATTEMPTED when they've actually solved it costs a little redundant guidance, whereas guessing SOLVED when they haven't **spoils the problem permanently** by dumping a full review with the answer in it. Bias toward the recoverable error.
 
 ---
 
