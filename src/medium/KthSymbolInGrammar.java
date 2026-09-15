@@ -1,6 +1,6 @@
 package medium;
 
-public class KThSymbolInGrammar {
+public class KthSymbolInGrammar {
     public int kthGrammar(int n, int k) {
         return findKthDigit (n, k-1);
     }
@@ -19,7 +19,7 @@ public class KThSymbolInGrammar {
     }
 
     public static void main(String[] args) {
-        KThSymbolInGrammar K = new KThSymbolInGrammar();
+        KthSymbolInGrammar K = new KthSymbolInGrammar();
         System.out.println(K.kthGrammar(1,1));
         System.out.println(K.kthGrammar(2,1));
         System.out.println(K.kthGrammar(2,2));

@@ -3,7 +3,7 @@ package medium;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TheKThLexicographicalStringOfAllHappyStringsOfLengthN {
+public class TheKthLexicographicalStringOfAllHappyStringsOfLengthN {
     public String getHappyString(int n, int k) {
         List<String> all = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
@@ -33,7 +33,7 @@ public class TheKThLexicographicalStringOfAllHappyStringsOfLengthN {
     }
 
     public static void main(String[] args) {
-        TheKThLexicographicalStringOfAllHappyStringsOfLengthN T = new TheKThLexicographicalStringOfAllHappyStringsOfLengthN();
+        TheKthLexicographicalStringOfAllHappyStringsOfLengthN T = new TheKthLexicographicalStringOfAllHappyStringsOfLengthN();
         System.out.println(T.getHappyString(1, 3));
         System.out.println(T.getHappyString(1, 4));
         System.out.println(T.getHappyString(3, 9));
