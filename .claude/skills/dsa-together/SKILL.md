@@ -119,6 +119,16 @@ The `main()` instance variable follows the first-letter rule based on the **inne
 After creating it, tell the user the path in one line, then move on:
 > Created `src/medium/FindSmallestCommonElementInAllRows.java` — Medium, tagged Binary Search / Hash Table.
 
+**Always finish the scaffold message with the ABSOLUTE path on its own line**, so it is clickable and opens straight in IntelliJ:
+
+```
+/Users/theCoderFromHell/Development/code/leetcode-v2/src/medium/FindSmallestCommonElementInAllRows.java
+```
+
+A relative path is not clickable — the absolute one is. The user codes in IntelliJ, never in the terminal, so their next action after scaffolding is always "open this file".
+
+**Never commit or push the scaffold, or the finished solution, unless the user explicitly asks in that message.** "Yes go ahead" in reply to an offer to add URL / revision note / test cases authorises the annotations only, never git. The user batches several solutions per commit and controls when a branch is pushed.
+
 ---
 
 ## Step 2 — Determine Solve Status
