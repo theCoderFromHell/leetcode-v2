@@ -1,6 +1,6 @@
 package medium;
 
-public class FindTheKThLuckyNumber {
+public class FindTheKthLuckyNumber {
     public String kthLuckyNumber(int k) {
         if (k == 1)
             return "4";
@@ -27,7 +27,7 @@ public class FindTheKThLuckyNumber {
     }
 
     public static void main(String[] args) {
-        FindTheKThLuckyNumber F = new FindTheKThLuckyNumber();
+        FindTheKthLuckyNumber F = new FindTheKthLuckyNumber();
         System.out.println(F.kthLuckyNumber(1000));
         System.out.println(F.kthLuckyNumber(10));
     }

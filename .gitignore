@@ -1,4 +1,7 @@
 
-/out
+out/
 *.xml
 *.iml
+*.class
+.DS_Store
+.idea/
