@@ -119,13 +119,21 @@ The `main()` instance variable follows the first-letter rule based on the **inne
 After creating it, tell the user the path in one line, then move on:
 > Created `src/medium/FindSmallestCommonElementInAllRows.java` — Medium, tagged Binary Search / Hash Table.
 
-**Always finish the scaffold message with the file's ABSOLUTE path on its own line**, so it is clickable and opens straight in IntelliJ:
+**Open the file in IntelliJ yourself — do not print a path and hope it is clickable.** Run:
+
+```bash
+open -a "IntelliJ IDEA" <absolute path to the scaffolded file>
+```
+
+The user runs Terminal.app, which has **no file-path handler at all**: a bare path is inert text, and even web URLs need Cmd+double-click. There is no `idea` CLI launcher on their PATH, so `open -a` against `/Applications/IntelliJ IDEA.app` is the reliable route. It works regardless of terminal, and the user does not have to click anything.
+
+Then print the absolute path on its own line as a **text reference** so it is visible in scrollback:
 
 ```
 <repo root>/src/medium/FindSmallestCommonElementInAllRows.java
 ```
 
-**Derive `<repo root>` from the current working directory — never hardcode it.** The user works across five machines and the repo has already moved directories once; a literal path baked into this file would be wrong everywhere except the one machine it was written on. A relative path is not clickable, so the path you print must be absolute — just compute it rather than remember it. The user codes in IntelliJ, never in the terminal, so their next action after scaffolding is always "open this file".
+**Derive `<repo root>` from the current working directory — never hardcode it.** The user works across five machines and the repo has already moved directories once; a literal path baked into this file would be wrong everywhere except the one machine it was written on. The user codes in IntelliJ, never in the terminal, so their next action after scaffolding is always "open this file" — so just open it.
 
 **Never commit or push the scaffold, or the finished solution, unless the user explicitly asks in that message.** "Yes go ahead" in reply to an offer to add URL / revision note / test cases authorises the annotations only, never git. The user batches several solutions per commit and controls when a branch is pushed.
 
