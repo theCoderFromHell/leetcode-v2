@@ -115,10 +115,14 @@ being practised. Topic tags alone are too coarse to find genuinely similar probl
 
 ### 3c. Propose 3–5 candidates
 
+**Medium and Hard only. Never suggest an Easy problem** — the user has ~751 solves and Easy
+problems are almost always subsumed by what they have already done. If a concept only has Easy
+analogues, return fewer candidates rather than padding with them.
+
 Each candidate must:
 - Drill the **same core technique** as the source problem
 - Come with a one-line *why similar* naming the shared technique **and what differs**
-- Span a range — a slightly easier one to isolate the pattern, a harder one to extend it
+- Span a range within Medium/Hard — an easier Medium to isolate the pattern, a Hard to extend it
 
 Prefer problems that vary one dimension (sorted vs unsorted input, one pass vs two, tree vs
 graph) so the contrast teaches something.
@@ -133,6 +137,16 @@ If fewer than 3 survive, say so rather than padding with loosely-related problem
 
 Append the section to `src/PRACTICE.md` (format in Step 6), regenerate the header counts, then
 print the same table to the user.
+
+**The printed table must include the problem URL**, not just the title — the user opens these
+from the terminal. Print a `Link` column with the bare URL, since terminal output cannot carry
+markdown link syntax:
+
+```
+| # | Problem | Diff | Why similar | Link |
+|---|---------|------|-------------|------|
+| 438 | Find All Anagrams in a String | Medium | Same count-vector signature under a sliding window | https://leetcode.com/problems/find-all-anagrams-in-a-string/ |
+```
 
 **Do not scaffold any files.** Close with:
 
