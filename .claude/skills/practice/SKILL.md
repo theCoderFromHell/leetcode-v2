@@ -1,0 +1,228 @@
+---
+name: practice
+description: Find 3-5 similar unsolved problems for problems already solved, tracked with status in src/PRACTICE.md
+---
+
+The user has invoked `/practice`. This skill finds problems that drill the *same concept* as
+something they have already solved, and tracks them in a committed file so progress survives
+across machines.
+
+Two rules govern everything below:
+
+1. **Never suggest a problem the user has already solved.** This is the skill's core failure
+   mode. The solved check in Step 4 is not optional.
+2. **Never re-derive a source problem that is already in the tracker.** The mapping
+   "problem X → similar problems" is stable; recomputing it burns tokens for nothing.
+
+---
+
+## Step 1 — Detect Mode
+
+| Argument | Mode |
+|---|---|
+| *(none)* | **A** — Refresh statuses, suggest one problem to do next |
+| `list` | **B** — Refresh statuses, show the full pending backlog |
+| One or more problem names/numbers | **C** — Derive suggestions for each |
+
+The tracker lives at `src/PRACTICE.md`. If it does not exist yet, create it with the header
+from Step 6 and no sections.
+
+---
+
+## Step 2 — The Solved Check
+
+Every mode depends on this. Get it right before anything else.
+
+> **Do not use the `// https://leetcode.com/problems/...` comment to decide this.** Only ~11%
+> of solution files carry one — it is a convention adopted in April 2026, not a legacy one.
+> Slug-based detection reports roughly 660 solved problems as unsolved.
+
+**The filename is the only signal with full coverage.** `CLAUDE.md` mandates PascalCase
+filenames matching the LeetCode title, and `src/common/RemoveSpacesFromLeetcodeQuestionName.java`
+is the canonical transform.
+
+### 2a. Primary probe
+
+Transform the candidate title to PascalCase, then:
+
+```bash
+find src/easy src/medium src/hard src/contests \
+     \( -iname '<ClassName>.java' -o -iname '<ClassName>V[0-9].java' \) -print
+```
+
+- `-iname` absorbs casing drift; the explicit `V[0-9]` arm catches variants.
+- **Do not use a bare trailing `*`.** `RemoveDuplicatesFromSortedList*` also matches
+  `RemoveDuplicatesFromSortedListII.java`, so a Roman-numeral sequel makes its own prefix
+  look solved. Match exactly.
+- Listing the four directories explicitly keeps `src/out/` (IntelliJ's build mirror) out.
+
+**Search scope:** `src/easy`, `src/medium`, `src/hard`, `src/contests` only. Exclude
+`src/interviews` (company paraphrases, not LeetCode titles), `src/syllabus`, `src/random`,
+`src/common`, `src/out`.
+
+Batch the whole candidate list into **one** shell loop rather than one call per candidate.
+
+### 2b. A file is not proof of a solve
+
+Empty scaffolds exist (`src/hard/FindKThSmallestPairDistance.java` is one). Confirm a method
+body before calling it solved:
+
+```bash
+grep -qE '(public|private|protected).*\(.*\).*\{' <file>
+```
+
+No method declaration → treat as **unsolved**.
+
+### 2c. When the repo says "not found", decide whether to trust it
+
+The repo check errs toward *under*-reporting. Three known false-negative sources:
+
+| Situation | Action |
+|---|---|
+| Title starts with **"Design"** | ~35 files are named after the API class, not the title ("Design Phone Directory" → `PhoneDirectory.java`; also `Codec`, `LFUCache`, `Trie`, `MedianFinder`, `TimeMap`, `Twitter`, `RandomizedSet`, `StockSpanner`, `BrowserHistory`). **Probe the bare class name too** before concluding unsolved. |
+| Title contains a **digit, hyphen or parenthesis** | The transform is lossy: `3Sum Closest → ThreeSumClosest`, `K-th Symbol in Grammar → KthSymbolInGrammar`, `Pow(x, n) → PowXN`, `132 Pattern → OneThreeTwoPattern` (but the file is actually `The132Pattern.java`). **Verify via chrome.** |
+| Neither of the above | **Trust the repo.** Treat as unsolved. |
+
+### 2d. Chrome fallback
+
+When 2c says verify, check the user's LeetCode profile — username **theCoderFromHell**.
+
+- Load the `claude-in-chrome` skill **before** any `mcp__claude-in-chrome__*` call.
+- **Batch every uncertain candidate into one browser session.** Never open a session per candidate.
+- Do not try `WebFetch` on leetcode.com — it returns 403 behind auth.
+- If chrome is unavailable, say so plainly and mark the row `☐ ?` rather than guessing.
+
+---
+
+## Step 3 — Mode C: Derive Suggestions
+
+### 3a. Check the cache first
+
+Read `src/PRACTICE.md`. If a source problem already has a `##` section, **print it from cache
+and skip derivation entirely**:
+
+> *1836 is already mapped — showing cached suggestions.*
+
+Only derive for source problems with no section.
+
+### 3b. Identify the concept, not the tags
+
+Look up each source problem (title, number, difficulty, topic tags). Then name the *technique*
+being practised. Topic tags alone are too coarse to find genuinely similar problems:
+
+- Weak: *"Linked List, Hash Table"*
+- Strong: *"frequency pass + dummy-node removal"*
+
+### 3c. Propose 3–5 candidates
+
+**Medium and Hard only. Never suggest an Easy problem** — the user has ~751 solves and Easy
+problems are almost always subsumed by what they have already done. If a concept only has Easy
+analogues, return fewer candidates rather than padding with them.
+
+Each candidate must:
+- Drill the **same core technique** as the source problem
+- Come with a one-line *why similar* naming the shared technique **and what differs**
+- Span a range within Medium/Hard — an easier Medium to isolate the pattern, a Hard to extend it
+
+Prefer problems that vary one dimension (sorted vs unsorted input, one pass vs two, tree vs
+graph) so the contrast teaches something.
+
+### 3d. Filter through the solved check
+
+Run **every** candidate through Step 2. Drop anything solved and backfill to keep 3–5.
+
+If fewer than 3 survive, say so rather than padding with loosely-related problems.
+
+### 3e. Write and print
+
+Append the section to `src/PRACTICE.md` (format in Step 6), regenerate the header counts, then
+print the same table to the user.
+
+**The printed table must include the problem URL**, not just the title — the user opens these
+from the terminal. Print a `Link` column with the bare URL, since terminal output cannot carry
+markdown link syntax:
+
+```
+| # | Problem | Diff | Why similar | Link |
+|---|---------|------|-------------|------|
+| 438 | Find All Anagrams in a String | Medium | Same count-vector signature under a sliding window | https://leetcode.com/problems/find-all-anagrams-in-a-string/ |
+```
+
+**Do not scaffold any files.** Close with:
+
+> *`/dsa-together <number>` to start any of these.*
+
+---
+
+## Step 4 — Mode A: Refresh & Suggest Next (bare `/practice`)
+
+1. Run the solved check over every `☐` row in the tracker.
+2. Flip newly-solved rows to `☑ <today's date>`, regenerate header counts, save.
+3. Report the diff in one or two lines.
+4. Pick **one** pending problem to do next — prefer a suggestion whose source problem was
+   solved most recently, so the concept is still fresh.
+
+Print in this format:
+
+```
+Refreshed: 2 newly solved
+  ✓ 82.  Remove Duplicates from Sorted List II
+  ✓ 508. Most Frequent Subtree Sum
+
+Next up:
+  1171. Remove Zero Sum Consecutive Nodes from Linked List   Medium
+        Dummy node + prefix-sum map over a list — same removal
+        pattern as 1836, harder bookkeeping.
+
+  /dsa-together 1171 to start
+```
+
+If nothing is pending, say so and suggest running `/practice <a recently solved problem>`.
+
+---
+
+## Step 5 — Mode B: Full Backlog (`/practice list`)
+
+Refresh statuses exactly as in Mode A, then print every pending row grouped by source problem.
+Include the counts. No "next up" pick — this mode is for scanning.
+
+---
+
+## Step 6 — Tracker Format
+
+`src/PRACTICE.md`:
+
+```markdown
+# Practice Tracker
+
+Similar-problem suggestions from `/practice`. Status refreshes on each run.
+
+**Pending 7 · Solved 2 · Total 9** — updated 2026-09-27
+
+---
+
+## 1836. Remove Duplicates From an Unsorted Linked List
+*Linked List · Hash Table · frequency pass + dummy-node removal*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 82 | [Remove Duplicates from Sorted List II](https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/) | Medium | ☐ | Same delete-all-copies rule; sorted input removes the counting pass, isolating the dummy-node pattern |
+| 1171 | [Remove Zero Sum Consecutive Nodes](https://leetcode.com/problems/remove-zero-sum-consecutive-nodes-from-linked-list/) | Medium | ☑ 2026-09-28 | Dummy node + HashMap over a list, harder bookkeeping |
+```
+
+- Status is `☐` pending, `☑ YYYY-MM-DD` solved, `☐ ?` unverified (chrome unavailable).
+- Header counts are regenerated on **every** write.
+- Newest sections go at the top, under the header.
+- The italic line under each heading is the **concept**, not a tag dump.
+
+---
+
+## Guardrails
+
+- **Never scaffold a `.java` file here.** Only `/dsa-together` does that. If the user asks for
+  one, hand off: `/dsa-together <number>`.
+- **Never commit or push unless the user asks in that message.** They batch commits themselves.
+- **Never suggest a problem without running the Step 2 solved check.**
+- **Never re-derive a source problem that already has a section.**
+- When the user says "I solved X from the list", flip that row and save — don't wait for a
+  bare `/practice` run.
