@@ -20,7 +20,8 @@ src/
 ├── interviews/    # Company-specific (Adobe, Atlassian, Microsoft, others)
 ├── contests/      # Biweekly contest solutions (grouped by biweekly_NNN)
 ├── syllabus/      # Data structure implementations (Fenwick tree, Segment tree) and design patterns
-└── random/        # Miscellaneous Java experiments
+├── random/        # Miscellaneous Java experiments
+└── PRACTICE.md    # Practice tracker — similar-problem suggestions from /practice, with solve status
 ```
 
 ## Common Utilities (src/common/)
