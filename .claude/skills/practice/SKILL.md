@@ -81,7 +81,22 @@ The repo check errs toward *under*-reporting. Three known false-negative sources
 |---|---|
 | Title starts with **"Design"** | ~35 files are named after the API class, not the title ("Design Phone Directory" → `PhoneDirectory.java`; also `Codec`, `LFUCache`, `Trie`, `MedianFinder`, `TimeMap`, `Twitter`, `RandomizedSet`, `StockSpanner`, `BrowserHistory`). **Probe the bare class name too** before concluding unsolved. |
 | Title contains a **digit, hyphen or parenthesis** | The transform is lossy: `3Sum Closest → ThreeSumClosest`, `K-th Symbol in Grammar → KthSymbolInGrammar`, `Pow(x, n) → PowXN`, `132 Pattern → OneThreeTwoPattern` (but the file is actually `The132Pattern.java`). **Verify via chrome.** |
-| Neither of the above | **Trust the repo.** Treat as unsolved. |
+| Neither of the above | Repo says unsolved — but see the blind spot below before trusting it. |
+
+### 2c-bis. The repo's structural blind spot
+
+**The repo holds ~751 problems; the LeetCode profile shows ~785 solved.** Roughly 34 problems
+are solved on LeetCode but were never committed here. The repo check cannot see any of them —
+no filename, no slug, nothing to match. This is not naming drift; the file simply does not exist.
+
+Confirmed case: **438. Find All Anagrams in a String** was suggested and had to be retracted.
+
+So a clean repo miss means *"not in the repo"*, never *"not solved"*. Two consequences:
+
+- Prefer candidates whose concept is niche enough that an uncommitted solve is unlikely. Very
+  famous problems (Top-150 / Blind-75 staples) are the highest-risk suggestions.
+- **Say so when reporting.** If the candidate set was verified against the repo only, state that
+  in one line rather than implying certainty. Offer the chrome check.
 
 ### 2d. Chrome fallback
 
@@ -118,6 +133,11 @@ being practised. Topic tags alone are too coarse to find genuinely similar probl
 **Medium and Hard only. Never suggest an Easy problem** — the user has ~751 solves and Easy
 problems are almost always subsumed by what they have already done. If a concept only has Easy
 analogues, return fewer candidates rather than padding with them.
+
+**Verify each difficulty — do not assert it from memory.** Recalled difficulty is unreliable:
+922 (Sort Array By Parity II) was suggested as Medium and is actually Easy. Batch the whole
+candidate list into one WebSearch and confirm before writing any row. This costs one search and
+prevents a banned suggestion reaching the user.
 
 Each candidate must:
 - Drill the **same core technique** as the source problem
