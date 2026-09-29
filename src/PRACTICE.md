@@ -2,9 +2,24 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 7 · Solved 0 · Total 7** — updated 2026-09-27
+**Pending 7 · Solved 4 · Total 11** — updated 2026-09-29
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 75. Sort Colors
+*Array · Two Pointers · Sorting · in-place three-way partition with pointer invariants*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 611 | [Valid Triangle Number](https://leetcode.com/problems/valid-triangle-number/) | Medium | ☐ | Sort first, then converge two pointers under an invariant — the counting twist is that one pointer move settles many pairs at once |
+| 581 | [Shortest Unsorted Continuous Subarray](https://leetcode.com/problems/shortest-unsorted-continuous-subarray/) | Medium | ☑ 2026-09-29 | Two pointers converging from both ends, each maintaining a running max/min invariant — same reasoning, no swapping |
+| 769 | [Max Chunks To Make Sorted](https://leetcode.com/problems/max-chunks-to-make-sorted/) | Medium | ☐ | Asks where the partition boundaries *are* rather than performing one — a prefix-max invariant marks every point already correctly partitioned |
+| 768 | [Max Chunks To Make Sorted II](https://leetcode.com/problems/max-chunks-to-make-sorted-ii/) | Hard | ☐ | Same as 769 but with duplicates and huge values, which is exactly the wrinkle Sort Colors' equal-element handling teaches |
+| 493 | [Reverse Pairs](https://leetcode.com/problems/reverse-pairs/) | Hard | ☑ 2026-09-29 | Partitioning at full stretch: divide, count cross-pairs during the merge, then combine. The recursive cousin of the one-pass partition |
+
+*Filtered as already solved: 2161 (Partition Array According to Given Pivot), 324 (Wiggle Sort II), 280 (Wiggle Sort), 215 (Kth Largest Element in an Array), 462 (Minimum Moves to Equal Array Elements II), 4 (Median of Two Sorted Arrays), 763 (Partition Labels), 259 (3Sum Smaller), 912 (Sort an Array — solved on LeetCode, not committed), 973 (K Closest Points to Origin — solved on LeetCode, not committed).*
 
 ---
 
@@ -13,13 +28,12 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 438 | [Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/) | Medium | ☐ | Same count-vector signature, but under a sliding window — you must update it in O(1) per step instead of rebuilding. The natural extension of 49 |
-| 893 | [Groups of Special-Equivalent Strings](https://leetcode.com/problems/groups-of-special-equivalent-strings/) | Medium | ☐ | Identical bucket-by-key shape, but the canonical form is harder: sort even and odd indices separately, then concatenate |
-| 288 | [Unique Word Abbreviation](https://leetcode.com/problems/unique-word-abbreviation/) | Medium | ☐ | Canonical key is an abbreviation rather than a sorted string, and the query is uniqueness instead of grouping — same map, different question |
+| 893 | [Groups of Special-Equivalent Strings](https://leetcode.com/problems/groups-of-special-equivalent-strings/) | Medium | ☑ 2026-09-27 | Identical bucket-by-key shape, but the canonical form is harder: sort even and odd indices separately, then concatenate |
+| 288 | [Unique Word Abbreviation](https://leetcode.com/problems/unique-word-abbreviation/) | Medium | ☑ 2026-09-27 | Canonical key is an abbreviation rather than a sorted string, and the query is uniqueness instead of grouping — same map, different question |
 | 1487 | [Making File Names Unique](https://leetcode.com/problems/making-file-names-unique/) | Medium | ☐ | Map-as-canonical-registry again, but the key mutates as you go — you must remember the next free suffix per base name |
 | 726 | [Number of Atoms](https://leetcode.com/problems/number-of-atoms/) | Hard | ☐ | The idea at full stretch: parse nested formulae into a count map, then emit a canonical sorted signature. Bucketing plus recursive parsing |
 
-*Filtered as already solved: 249 (Group Shifted Strings), 2352 (Equal Row and Column Pairs), 1657 (Determine if Two Strings Are Close), 1497 (Check If Array Pairs Are Divisible by k), 916 (Word Subsets), 890 (Find and Replace Pattern), 767 (Reorganize String).*
+*Filtered as already solved: 249 (Group Shifted Strings), 2352 (Equal Row and Column Pairs), 1657 (Determine if Two Strings Are Close), 1497 (Check If Array Pairs Are Divisible by k), 916 (Word Subsets), 890 (Find and Replace Pattern), 767 (Reorganize String), 438 (Find All Anagrams in a String — solved on LeetCode, not committed here).*
 
 ---
 
