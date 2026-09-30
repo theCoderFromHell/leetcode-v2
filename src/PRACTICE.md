@@ -2,9 +2,23 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 4 · Solved 7 · Total 11** — updated 2026-09-30
+**Pending 6 · Solved 9 · Total 15** — updated 2026-10-01
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 347. Top K Frequent Elements
+*Array · Hash Table · Heap · count first, then select the top k by that count*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 1054 | [Distant Barcodes](https://leetcode.com/problems/distant-barcodes/) | Medium | ☑ 2026-10-01 | Same frequency map feeding a max-heap, but the counts drive *placement* rather than a top-k cut — pull the most frequent first and interleave |
+| 1738 | [Find Kth Largest XOR Coordinate Value](https://leetcode.com/problems/find-kth-largest-xor-coordinate-value/) | Medium | ☐ | Isolates the selection half: values are computed by prefix-XOR rather than counted, then kth-largest via heap or quickselect |
+| 2542 | [Maximum Subsequence Score](https://leetcode.com/problems/maximum-subsequence-score/) | Hard | ☐ | Size-k heap maintained while sweeping a sorted order — top-k becomes a moving window instead of a one-shot extraction |
+| 857 | [Minimum Cost to Hire K Workers](https://leetcode.com/problems/minimum-cost-to-hire-k-workers/) | Hard | ☐ | Same size-k heap sweep as 2542 but the sort key is a ratio, so the invariant is far harder to spot |
+
+*Filtered as already solved: 692 (Top K Frequent Words), 451 (Sort Characters By Frequency), 1481 (Least Number of Unique Integers after K Removals), 621 (Task Scheduler), 1642 (Furthest Building You Can Reach).*
 
 ---
 
@@ -43,6 +57,6 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
 | 1171 | [Remove Zero Sum Consecutive Nodes](https://leetcode.com/problems/remove-zero-sum-consecutive-nodes-from-linked-list/) | Medium | ☐ | Same two-pass shape — build a map, then splice with a dummy node — but keyed on running prefix sums, so the map stores nodes rather than counts |
-| 1019 | [Next Greater Node In Linked List](https://leetcode.com/problems/next-greater-node-in-linked-list/) | Medium | ☐ | Also needs full knowledge of the list before deciding anything about a node, but resolves it with a monotonic stack instead of a frequency table |
+| 1019 | [Next Greater Node In Linked List](https://leetcode.com/problems/next-greater-node-in-linked-list/) | Medium | ☑ 2026-10-01 | Also needs full knowledge of the list before deciding anything about a node, but resolves it with a monotonic stack instead of a frequency table |
 
 *Filtered as already solved: 82 (Remove Duplicates from Sorted List II), 2487 (Remove Nodes From Linked List), 19 (Remove Nth Node From End of List), 86 (Partition List), 92 (Reverse Linked List II), 24 (Swap Nodes in Pairs), 328 (Odd Even Linked List).*
