@@ -2,9 +2,24 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 6 · Solved 9 · Total 15** — updated 2026-10-01
+**Pending 10 · Solved 10 · Total 20** — updated 2026-10-01
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 304. Range Sum Query 2D - Immutable
+*Matrix · Prefix Sum · Design · precompute cumulative sums, answer rectangles by inclusion-exclusion*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 1314 | [Matrix Block Sum](https://leetcode.com/problems/matrix-block-sum/) | Medium | ☑ 2026-10-01 | The same integral image, applied rather than queried — every cell needs its own clamped rectangle, so it drills the boundary arithmetic |
+| 1292 | [Maximum Side Length of a Square with Sum ≤ Threshold](https://leetcode.com/problems/maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold/) | Medium | ☐ | Prefix sum as a subroutine: O(1) rectangle queries make a binary search over side length affordable |
+| 1074 | [Number of Submatrices That Sum to Target](https://leetcode.com/problems/number-of-submatrices-that-sum-to-target/) | Hard | ☐ | Collapses the 2D prefix to 1D per row-pair, then counts with a hashmap — the 2D lift of "subarray sum equals K" |
+| 363 | [Max Sum of Rectangle No Larger Than K](https://leetcode.com/problems/max-sum-of-rectangle-no-larger-than-k/) | Hard | ☐ | Same row-pair collapse as 1074, but the ≤ K constraint forces an ordered set instead of a hashmap |
+| 308 | [Range Sum Query 2D - Mutable](https://leetcode.com/problems/range-sum-query-2d-mutable/) | Hard | ☐ | The direct sequel: allow updates and the static prefix table dies, forcing a 2D Binary Indexed Tree |
+
+*Filtered as already solved: 2536 (Increment Submatrices by One), 85 (Maximal Rectangle), 221 (Maximal Square).*
 
 ---
 
