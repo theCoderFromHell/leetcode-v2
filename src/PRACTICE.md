@@ -2,9 +2,22 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 12 · Solved 12 · Total 24** — updated 2026-10-01
+**Pending 13 · Solved 14 · Total 27** — updated 2026-10-01
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 36. Valid Sudoku
+*Array · Hash Table · Matrix · one sweep maintaining several constraint sets, grouping key derived from the coordinates*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 498 | [Diagonal Traverse](https://leetcode.com/problems/diagonal-traverse/) | Medium | ☑ 2026-10-01 | The coordinate-to-group-key arithmetic in isolation — `r+c` identifies the diagonal the way `(r/3)*3 + c/3` identifies the box, with no constraints on top |
+| 1895 | [Largest Magic Square](https://leetcode.com/problems/largest-magic-square/) | Medium | ☐ | Validates rows, columns and both diagonals like 36 validates rows, columns and boxes — but over every submatrix, so prefix sums carry the checking |
+| 37 | [Sudoku Solver](https://leetcode.com/problems/sudoku-solver/) | Hard | ☐ | The direct sequel: identical box-index trick and three constraint sets, but now they are maintained incrementally under backtracking rather than checked once |
+
+*Filtered as already solved: 51 (N-Queens), 52 (N-Queens II), 348 (Design Tic-Tac-Toe — in the repo as `TicTacToe.java`), 289 (Game of Life), 73 (Set Matrix Zeroes).*
 
 ---
 
@@ -15,7 +28,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 |---|---------|------|--------|-------------|
 | 2270 | [Number of Ways to Split Array](https://leetcode.com/problems/number-of-ways-to-split-array/) | Medium | ☑ 2026-10-01 | The idea stripped to its bones — compare prefix against suffix at every split point, one running total each way |
 | 2256 | [Minimum Average Difference](https://leetcode.com/problems/minimum-average-difference/) | Medium | ☑ 2026-10-01 | Same two-sided sweep, but the combine step is an average, so the element count matters as much as the sum |
-| 845 | [Longest Mountain in Array](https://leetcode.com/problems/longest-mountain-in-array/) | Medium | ☐ | Left-run and right-run lengths instead of products, joined at each peak — the accumulation is a streak, not a total |
+| 845 | [Longest Mountain in Array](https://leetcode.com/problems/longest-mountain-in-array/) | Medium | ☑ 2026-10-01 | Left-run and right-run lengths instead of products, joined at each peak — the accumulation is a streak, not a total |
 | 2167 | [Minimum Time to Remove All Cars Containing Illegal Goods](https://leetcode.com/problems/minimum-time-to-remove-all-cars-containing-illegal-goods/) | Hard | ☐ | Prefix DP and suffix DP combined per split — the pattern lifted from running totals to running optimal costs |
 
 *Filtered as already solved: 1685 (Sum of Absolute Differences in a Sorted Array), 42 (Trapping Rain Water).*
