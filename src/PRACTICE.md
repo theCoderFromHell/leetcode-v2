@@ -2,9 +2,23 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 10 · Solved 10 · Total 20** — updated 2026-10-01
+**Pending 12 · Solved 12 · Total 24** — updated 2026-10-01
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 238. Product of Array Except Self
+*Array · Prefix Sum · accumulate from the left, accumulate from the right, combine at each index*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 2270 | [Number of Ways to Split Array](https://leetcode.com/problems/number-of-ways-to-split-array/) | Medium | ☑ 2026-10-01 | The idea stripped to its bones — compare prefix against suffix at every split point, one running total each way |
+| 2256 | [Minimum Average Difference](https://leetcode.com/problems/minimum-average-difference/) | Medium | ☑ 2026-10-01 | Same two-sided sweep, but the combine step is an average, so the element count matters as much as the sum |
+| 845 | [Longest Mountain in Array](https://leetcode.com/problems/longest-mountain-in-array/) | Medium | ☐ | Left-run and right-run lengths instead of products, joined at each peak — the accumulation is a streak, not a total |
+| 2167 | [Minimum Time to Remove All Cars Containing Illegal Goods](https://leetcode.com/problems/minimum-time-to-remove-all-cars-containing-illegal-goods/) | Hard | ☐ | Prefix DP and suffix DP combined per split — the pattern lifted from running totals to running optimal costs |
+
+*Filtered as already solved: 1685 (Sum of Absolute Differences in a Sorted Array), 42 (Trapping Rain Water).*
 
 ---
 
