@@ -2,7 +2,7 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 20 · Solved 17 · Total 37** — updated 2026-10-04
+**Pending 19 · Solved 18 · Total 37** — updated 2026-10-04
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
@@ -13,7 +13,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 260 | [Single Number III](https://leetcode.com/problems/single-number-iii/) | Medium | ☐ | Same "cancel the bulk, isolate the exceptions" shape in a different algebra — XOR annihilates the pairs, then a differing bit splits the two survivors apart. O(1) space by cancellation rather than by counting |
+| 260 | [Single Number III](https://leetcode.com/problems/single-number-iii/) | Medium | ☑ 2026-10-04 | Same "cancel the bulk, isolate the exceptions" shape in a different algebra — XOR annihilates the pairs, then a differing bit splits the two survivors apart. O(1) space by cancellation rather than by counting |
 | 1157 | [Online Majority Element In Subarray](https://leetcode.com/problems/online-majority-element-in-subarray/) | Hard | ☐ | The direct sequel, and tagged Boyer-Moore Voting itself: the same vote must be answerable for any subarray on demand, which forces a segment tree whose merge combines vote summaries, plus binary search over the candidate's sorted positions to verify |
 
 *Filtered as already solved: 2780 (Minimum Index of a Valid Split — Boyer-Moore then prefix counts, the closest sibling), 137 (Single Number II — the n/3 cancellation in bits), 287 (Find the Duplicate Number — backfilled into the repo 2026-10-04), 41 (First Missing Positive), 442 (Find All Duplicates in an Array), 1838 (Frequency of the Most Frequent Element), 451 (Sort Characters By Frequency), 347 (Top K Frequent Elements).*
