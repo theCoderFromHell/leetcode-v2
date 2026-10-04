@@ -2,9 +2,23 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 15 · Solved 16 · Total 31** — updated 2026-10-04
+**Pending 19 · Solved 16 · Total 35** — updated 2026-10-04
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 122. Best Time to Buy and Sell Stock II
+*Array · Greedy · Dynamic Programming · prove the objective decomposes into independent adjacent deltas, then take every positive one*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 1024 | [Video Stitching](https://leetcode.com/problems/video-stitching/) | Medium | ☐ | Greedy still wins, but the local quantity is the furthest reach within the current layer rather than a positive delta — the interval form of the Jump Game II argument |
+| 2008 | [Maximum Earnings From Taxi](https://leetcode.com/problems/maximum-earnings-from-taxi/) | Medium | ☐ | Unlimited non-overlapping trades, except each now carries its own weight — so greedy fails and you need DP over sorted endpoints with binary search. The gentlest version of that lift |
+| 1235 | [Maximum Profit in Job Scheduling](https://leetcode.com/problems/maximum-profit-in-job-scheduling/) | Hard | ☐ | The same DP as 2008 with arbitrary intervals instead of a timeline, which is where 122's greedy decisively dies — the canonical weighted interval scheduling problem |
+| 1751 | [Maximum Number of Events That Can Be Attended II](https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended-ii/) | Hard | ☐ | The k-constrained version of 1235, standing to it exactly as 188 stands to 122 — the same ladder already climbed on stocks, now on intervals |
+
+*Filtered as already solved: the whole stock family — 123 (III), 188 (IV), 714 (Transaction Fee), 309 (Cooldown); 435 (Non-overlapping Intervals — backfilled into the repo 2026-10-04); 134 (Gas Station) and 45 (Jump Game II), both solved on LeetCode but not committed here; plus 1353 (Maximum Number of Events That Can Be Attended — the unweighted prequel to 1751), 1749, 1963, 853 (Car Fleet), 1306 (Jump Game III), 646 (Maximum Length of Pair Chain), 1626 (Best Team With No Conflicts), 452 (Minimum Number of Arrows to Burst Balloons).*
 
 ---
 

@@ -89,14 +89,44 @@ The repo check errs toward *under*-reporting. Three known false-negative sources
 are solved on LeetCode but were never committed here. The repo check cannot see any of them —
 no filename, no slug, nothing to match. This is not naming drift; the file simply does not exist.
 
-Confirmed case: **438. Find All Anagrams in a String** was suggested and had to be retracted.
+Confirmed cases, all retracted after the user said "already solved": **438** (Find All Anagrams
+in a String), **134** (Gas Station), **45** (Jump Game II), **435** (Non-overlapping Intervals).
 
-So a clean repo miss means *"not in the repo"*, never *"not solved"*. Two consequences:
+Note the cluster: three of those four came from a single greedy / interval-scheduling set. The
+blind spot is NOT evenly distributed — it concentrates in Top-150 and Blind-75 territory, so
+whole concept areas can be far more picked-over than the repo suggests.
+
+So a clean repo miss means *"not in the repo"*, never *"not solved"*. Three consequences:
 
 - Prefer candidates whose concept is niche enough that an uncommitted solve is unlikely. Very
-  famous problems (Top-150 / Blind-75 staples) are the highest-risk suggestions.
+  famous problems (Top-150 / Blind-75 staples) are the highest-risk suggestions; contest-era
+  problems are the safest.
 - **Say so when reporting.** If the candidate set was verified against the repo only, state that
   in one line rather than implying certainty. Offer the chrome check.
+- **If two or more rows in one set get retracted, stop trusting the repo for that concept.** Say
+  so plainly and recommend the chrome check instead of retracting a third row.
+
+### 2c-ter. Backfill when a retraction happens
+
+The user's standing decision (2026-10-04): **backfill opportunistically, not in bulk.** A
+problem only matters for this purpose once it collides with a suggestion, so there is no project
+to import all ~34 at once.
+
+So when the user says *"<N> is already solved"*:
+
+1. Drop the row, move it into the section's *Filtered as already solved* line, and note there
+   that it was solved on LeetCode but not committed. Backfill to keep 3-5 candidates.
+2. **Offer to create the missing file**, in one line. If the user pastes their accepted code:
+   - verify the difficulty against the problem page -> `src/easy|medium|hard/`
+   - PascalCase class name per `CLAUDE.md`; confirm nothing exists at that path already
+   - package line, `import common.*` if needed, URL comment above the class, their code verbatim
+   - add a revision note written from reading their code, plus `main()` with test cases
+   - compile and run; report what it actually prints
+   - commit and push in the same turn - pasting solutions for this purpose authorises it
+3. A failing test on already-accepted code is far more likely a wrong EXPECTED value than a bug.
+   Report the run honestly and never edit their solution to match an expectation.
+
+This is the only path that shrinks the blind spot, so take it whenever a retraction happens.
 
 ### 2d. Chrome fallback
 
