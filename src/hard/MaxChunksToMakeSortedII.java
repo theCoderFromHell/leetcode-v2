@@ -2,6 +2,8 @@ package hard;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Random;
+
 
 // https://leetcode.com/problems/max-chunks-to-make-sorted-ii/
 public class MaxChunksToMakeSortedII {
@@ -93,7 +95,7 @@ public class MaxChunksToMakeSortedII {
         boolean agree = true;
         for (int[] c : fixed)
             if (M.maxChunksToSorted(c.clone()) != M.maxChunksToSortedV2(c.clone())) agree = false;
-        java.util.Random rnd = new java.util.Random(7);
+        Random rnd = new Random(7);
         for (int t = 0; t < 1000; t++) {
             int[] r = new int[1 + rnd.nextInt(40)];
             for (int x = 0; x < r.length; x++) r[x] = rnd.nextInt(8);   // small range = many duplicates

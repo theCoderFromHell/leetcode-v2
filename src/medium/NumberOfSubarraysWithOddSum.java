@@ -1,5 +1,7 @@
 package medium;
 
+import java.util.Arrays;
+
 // https://leetcode.com/problems/number-of-sub-arrays-with-odd-sum/
 public class NumberOfSubarraysWithOddSum {
     public int numOfSubarrays(int[] arr) {
@@ -83,12 +85,12 @@ public class NumberOfSubarraysWithOddSum {
         //         Integer.MAX_VALUE by ~3.5*10^8. Without a modulo at each step this returns
         //         -1794917296. No smaller input can catch this.
         int[] allOdd = new int[100000];
-        java.util.Arrays.fill(allOdd, 1);
+        Arrays.fill(allOdd, 1);
         System.out.println("Test 9: " + N.numOfSubarrays(allOdd) + " (Expected: 500049986)");
 
         // Test 10: n=10^5 all even — must stay exactly 0 at scale
         int[] allEven = new int[100000];
-        java.util.Arrays.fill(allEven, 2);
+        Arrays.fill(allEven, 2);
         System.out.println("Test 10: " + N.numOfSubarrays(allEven) + " (Expected: 0)");
     }
 }

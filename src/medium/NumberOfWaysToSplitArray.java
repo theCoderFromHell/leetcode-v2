@@ -1,5 +1,8 @@
 package medium;
 
+import java.util.Arrays;
+import java.util.Random;
+
 // https://leetcode.com/problems/number-of-ways-to-split-array/
 public class NumberOfWaysToSplitArray {
     public int waysToSplitArray(int[] nums) {
@@ -69,12 +72,12 @@ public class NumberOfWaysToSplitArray {
 
         // overflow: 1e5 elements of 1e5 -> total 1e10, far past Integer.MAX_VALUE
         int[] big = new int[100000];
-        java.util.Arrays.fill(big, 100000);
+        Arrays.fill(big, 100000);
         System.out.println("Test 7: " + N.waysToSplitArray(big) + " (Expected: 50000)");
 
         // cross-check against brute force on random input, including equalities
         boolean agree = true;
-        java.util.Random rnd = new java.util.Random(13);
+        Random rnd = new Random(13);
         for (int t = 0; t < 400; t++) {
             int[] r = new int[2 + rnd.nextInt(20)];
             for (int i = 0; i < r.length; i++) r[i] = rnd.nextInt(7) - 3;   // small range -> frequent ties

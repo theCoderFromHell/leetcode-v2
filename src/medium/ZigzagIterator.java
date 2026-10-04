@@ -93,7 +93,7 @@ public class ZigzagIterator {
      *     hasNext() true while next() has nothing to give.
      *   - V2 re-queues only when it.hasNext(); pushing back an exhausted iterator breaks the
      *     invariant that "queue non-empty" means "elements remain".
-     *   - next() past the end throws IndexOutOfBoundsException here; java.util.Iterator
+     *   - next() past the end throws IndexOutOfBoundsException here; Iterator
      *     specifies NoSuchElementException. Irrelevant on LeetCode, noticed in an interview.
      * Trade-off: V1 is O(1) per call after O(n+m) setup and benchmarks faster (4ms vs 35ms on
      *            200k) because it is one array copy then index reads. V2 is O(1) per call with

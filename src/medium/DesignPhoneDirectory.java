@@ -1,6 +1,8 @@
 package medium;
 
 import java.util.HashSet;
+import java.util.Set;
+
 
 // https://leetcode.com/problems/design-phone-directory/
 public class DesignPhoneDirectory {
@@ -112,7 +114,7 @@ public class DesignPhoneDirectory {
 
         // Test 15: drain the full pool — every number handed out exactly once
         PhoneDirectory B = new PhoneDirectory(1000);
-        java.util.Set<Integer> seen = new java.util.HashSet<>();
+        Set<Integer> seen = new HashSet<>();
         int n;
         while ((n = B.get()) != -1)
             seen.add(n);

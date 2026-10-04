@@ -1,6 +1,8 @@
 package medium;
 
 import common.TreeNode;
+import java.util.LinkedList;
+import java.util.Queue;
 
 // https://leetcode.com/problems/largest-bst-subtree/
 public class LargestBSTSubtree {
@@ -70,7 +72,7 @@ public class LargestBSTSubtree {
         if (values.length == 0 || values[0] == null)
             return null;
         TreeNode root = new TreeNode(values[0]);
-        java.util.Queue<TreeNode> queue = new java.util.LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
         int i = 1;
         while (!queue.isEmpty() && i < values.length) {
