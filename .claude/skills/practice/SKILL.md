@@ -122,6 +122,17 @@ So when the user says *"<N> is already solved"*:
    - package line, `import common.*` if needed, URL comment above the class, their code verbatim
    - add a revision note written from reading their code, plus `main()` with test cases
    - compile and run; report what it actually prints
+   - **OPEN IT IN INTELLIJ**, exactly as `/dsa-together` does on a fresh scaffold:
+
+     ```bash
+     "/Applications/IntelliJ IDEA.app/Contents/MacOS/idea" <absolute path to the file>
+     ```
+
+     Use the launcher binary, never `open -a "IntelliJ IDEA"` - `open -a` lets macOS pick the
+     window and drops the file into whichever project was last focused. Run it in the background;
+     it may not return promptly. The user codes in IntelliJ and never in the terminal, so a bare
+     path in Terminal.app is inert text - a backfilled file is just as much "a file they want to
+     look at" as a new scaffold is.
    - commit and push in the same turn - pasting solutions for this purpose authorises it
 3. A failing test on already-accepted code is far more likely a wrong EXPECTED value than a bug.
    Report the run honestly and never edit their solution to match an expectation.
