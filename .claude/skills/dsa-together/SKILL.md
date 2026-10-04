@@ -122,16 +122,31 @@ After creating it, tell the user the path in one line, then move on:
 **Open the file in IntelliJ yourself — do not print a path and hope it is clickable.** Run:
 
 ```bash
-open -a "IntelliJ IDEA" <absolute path to the scaffolded file>
+"/Applications/IntelliJ IDEA.app/Contents/MacOS/idea" <absolute path to the scaffolded file>
 ```
 
-The user runs Terminal.app, which has **no file-path handler at all**: a bare path is inert text, and even web URLs need Cmd+double-click. There is no `idea` CLI launcher on their PATH, so `open -a` against `/Applications/IntelliJ IDEA.app` is the reliable route. It works regardless of terminal, and the user does not have to click anything.
+The user runs Terminal.app, which has **no file-path handler at all**: a bare path is inert text, and even web URLs need Cmd+double-click. So open the file for them.
 
-Then print the absolute path on its own line as a **text reference** so it is visible in scrollback:
+**Use the launcher binary inside the app bundle, NOT `open -a "IntelliJ IDEA"`.** `idea` is not on their PATH and there is no Toolbox scripts directory, but the binary is always at `/Applications/IntelliJ IDEA.app/Contents/MacOS/idea`. The difference matters when several IntelliJ windows are open:
+
+- `open -a` hands the file to macOS, which just activates the app — IntelliJ then drops the file into whichever window was last focused. **Confirmed to open in the wrong project.**
+- The launcher binary goes through IntelliJ's own CLI handler, which resolves the project whose content root contains the file, and opens it there.
+
+Note the IntelliJ project root is `<repo root>/src`, not the repo root itself (the module file lives at `src/leetcode-v2.iml`). Passing the absolute file path is enough — the CLI resolves the owning project on its own.
+
+The command may not return promptly; run it in the background or move on after a short wait rather than blocking on it.
+
+Then print **both** the problem URL and the absolute file path, each on its own line, as text references visible in scrollback:
 
 ```
+https://leetcode.com/problems/find-smallest-common-element-in-all-rows/
 <repo root>/src/medium/FindSmallestCommonElementInAllRows.java
 ```
+
+**Always print the problem link — every time, in every mode.** Not only when scaffolding a new
+file: also when the file already existed, when the status is SOLVED or ATTEMPTED, and when
+re-entering a problem already in progress. The user opens the LeetCode page to read the full
+statement and to submit, so the link is needed on every invocation, not just the first.
 
 **Derive `<repo root>` from the current working directory — never hardcode it.** The user works across five machines and the repo has already moved directories once; a literal path baked into this file would be wrong everywhere except the one machine it was written on. The user codes in IntelliJ, never in the terminal, so their next action after scaffolding is always "open this file" — so just open it.
 
