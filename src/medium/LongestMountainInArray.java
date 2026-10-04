@@ -1,5 +1,7 @@
 package medium;
 
+import java.util.Random;
+
 // https://leetcode.com/problems/longest-mountain-in-array/
 public class LongestMountainInArray {
     public int longestMountain(int[] arr) {
@@ -88,7 +90,7 @@ public class LongestMountainInArray {
 
         // cross-check against brute force, tiny value range so plateaus are common
         boolean agree = true;
-        java.util.Random rnd = new java.util.Random(23);
+        Random rnd = new Random(23);
         for (int t = 0; t < 500; t++) {
             int[] r = new int[1 + rnd.nextInt(15)];
             for (int i = 0; i < r.length; i++) r[i] = rnd.nextInt(4);

@@ -1,7 +1,10 @@
 package medium;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.PriorityQueue;
+import java.util.Random;
+
 
 // https://leetcode.com/problems/distant-barcodes/
 public class DistantBarcodes {
@@ -76,9 +79,9 @@ public class DistantBarcodes {
         for (int i = 1; i < result.length; i++)
             if (result[i] == result[i - 1]) return false;           // no two adjacent equal
         int[] a = original.clone(), b = result.clone();
-        java.util.Arrays.sort(a);
-        java.util.Arrays.sort(b);
-        return java.util.Arrays.equals(a, b);                        // same multiset
+        Arrays.sort(a);
+        Arrays.sort(b);
+        return Arrays.equals(a, b);                        // same multiset
     }
 
     public static void main(String[] args) {
@@ -103,7 +106,7 @@ public class DistantBarcodes {
         System.out.println("Test 6: " + isValid(t6, D.rearrangeBarcodes(t6)) + " (Expected: true)"); // one value at exactly ceil(n/2)
 
         // stress: random inputs that always admit an answer
-        java.util.Random rnd = new java.util.Random(11);
+        Random rnd = new Random(11);
         boolean allValid = true;
         for (int t = 0; t < 300; t++) {
             int n = 1 + rnd.nextInt(40);

@@ -1,6 +1,9 @@
 package medium;
 
 import common.ListNode;
+import java.util.Collections;
+import java.util.IdentityHashMap;
+import java.util.Set;
 
 // https://leetcode.com/problems/split-a-circular-linked-list/
 public class SplitACircularLinkedList {
@@ -130,7 +133,7 @@ public class SplitACircularLinkedList {
 
         // Test 7: the two halves must share NO nodes — catches a missing second rewire
         ListNode[] r7 = S.splitCircularLinkedList(buildCircular(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9}));
-        java.util.Set<ListNode> nodes = java.util.Collections.newSetFromMap(new java.util.IdentityHashMap<>());
+        Set<ListNode> nodes = Collections.newSetFromMap(new IdentityHashMap<>());
         ListNode walk = r7[0];
         do {
             nodes.add(walk);

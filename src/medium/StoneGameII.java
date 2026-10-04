@@ -1,5 +1,7 @@
 package medium;
 
+import java.util.Arrays;
+
 // https://leetcode.com/problems/stone-game-ii/
 public class StoneGameII {
     public int stoneGameII(int[] piles) {
@@ -102,7 +104,7 @@ public class StoneGameII {
         // Test 10: MAX SIZE, all equal — 100 piles of 10^4. Exercises the dp bounds, since M
         //          can grow large here; a dp sized [n][n] rather than [n][n+1] throws AIOOBE.
         int[] maxEqual = new int[100];
-        java.util.Arrays.fill(maxEqual, 10000);
+        Arrays.fill(maxEqual, 10000);
         System.out.println("Test 10: " + S.stoneGameII(maxEqual) + " (Expected: 500000)");
 
         // Test 11: MAX SIZE, increasing 1..100 — total 5050, near-even split

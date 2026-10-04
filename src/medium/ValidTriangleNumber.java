@@ -1,6 +1,8 @@
 package medium;
 
 import java.util.Arrays;
+import java.util.Random;
+
 
 // https://leetcode.com/problems/valid-triangle-number/
 public class ValidTriangleNumber {
@@ -86,7 +88,7 @@ public class ValidTriangleNumber {
         boolean agree = true;
         for (int[] c : fixed)
             if (V.triangleNumber(c.clone()) != V.triangleNumberV2(c.clone())) agree = false;
-        java.util.Random rnd = new java.util.Random(42);
+        Random rnd = new Random(42);
         for (int t = 0; t < 500; t++) {
             int[] r = new int[rnd.nextInt(30)];
             for (int x = 0; x < r.length; x++) r[x] = rnd.nextInt(20);

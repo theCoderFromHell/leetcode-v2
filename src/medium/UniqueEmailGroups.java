@@ -1,6 +1,8 @@
 package medium;
 
 import java.util.HashSet;
+import java.util.Locale;
+
 // https://leetcode.com/problems/unique-email-groups/
 public class UniqueEmailGroups {
     public int uniqueEmailGroups(String[] emails) {
@@ -27,7 +29,7 @@ public class UniqueEmailGroups {
      *   - split("\\+") needs the escaped regex — split("+") throws PatternSyntaxException.
      *   - Dots must be removed AFTER splitting on '+', not before (to avoid
      *     accidentally stripping dots from the domain name).
-     *   - LeetCode's editor does not import java.util.Locale, so toLowerCase(Locale.ROOT)
+     *   - LeetCode's editor does not import Locale, so toLowerCase(Locale.ROOT)
      *     fails to compile there. Plain toLowerCase() is fine here because emails are
      *     ASCII; reach for Locale.ROOT only when input may contain Turkish dotted I.
      * Template:

@@ -1,5 +1,7 @@
 package medium;
 
+import java.util.Arrays;
+
 // https://leetcode.com/problems/make-costs-of-paths-equal-in-a-binary-tree/
 public class MakeCostsOfPathsEqualInABinaryTree {
     int result;
@@ -63,7 +65,7 @@ public class MakeCostsOfPathsEqualInABinaryTree {
 
         // Larger perfect tree, n=15 (depth 4), all same cost → 0
         int[] flat15 = new int[15];
-        java.util.Arrays.fill(flat15, 5);
+        Arrays.fill(flat15, 5);
         System.out.println("Test 6: " + M.minIncrements(15, flat15) + " (Expected: 0)");
     }
 }

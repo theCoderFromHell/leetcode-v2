@@ -1,6 +1,8 @@
 package medium;
 
+import java.util.Arrays;
 import java.util.Random;
+
 
 // https://leetcode.com/problems/gas-station/
 public class GasStation {
@@ -120,7 +122,7 @@ public class GasStation {
             if (got != want) {
                 agree = false;
                 if (firstBad.isEmpty())
-                    firstBad = "gas=" + java.util.Arrays.toString(g) + " cost=" + java.util.Arrays.toString(c)
+                    firstBad = "gas=" + Arrays.toString(g) + " cost=" + Arrays.toString(c)
                              + " got " + got + " want " + want;
             }
         }

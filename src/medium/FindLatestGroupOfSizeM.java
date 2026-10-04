@@ -1,6 +1,8 @@
 package medium;
 
+import java.util.Arrays;
 import java.util.Random;
+
 
 // https://leetcode.com/problems/find-latest-group-of-size-m/
 public class FindLatestGroupOfSizeM {
@@ -143,7 +145,7 @@ public class FindLatestGroupOfSizeM {
             for (int m = 1; m <= n; m++) {
                 int got = F.findLatestStep(a.clone(), m), want = bruteForce(a, m);
                 if (got != want && firstBad.isEmpty())
-                    firstBad = java.util.Arrays.toString(a) + " m=" + m + " got " + got + " want " + want;
+                    firstBad = Arrays.toString(a) + " m=" + m + " got " + got + " want " + want;
                 if (got != want) agree = false;
             }
         }

@@ -1,5 +1,7 @@
 package medium;
 
+import java.util.Arrays;
+
 // https://leetcode.com/problems/delayed-count-of-equal-elements/
 public class DelayedCountOfEqualElements {
     public int[] delayedCount(int[] nums, int k) {
@@ -37,10 +39,10 @@ public class DelayedCountOfEqualElements {
      */
     public static void main(String[] args) {
         DelayedCountOfEqualElements D = new DelayedCountOfEqualElements();
-        System.out.println("Test 1: " + java.util.Arrays.toString(D.delayedCount(new int[]{1,2,1,1}, 1)) + " (Expected: [2, 0, 0, 0])");
-        System.out.println("Test 2: " + java.util.Arrays.toString(D.delayedCount(new int[]{3,1,3,1}, 0)) + " (Expected: [1, 1, 0, 0])");
-        System.out.println("Test 3: " + java.util.Arrays.toString(D.delayedCount(new int[]{5}, 0)) + " (Expected: [0])");
-        System.out.println("Test 4: " + java.util.Arrays.toString(D.delayedCount(new int[]{1,1,1}, 2)) + " (Expected: [0, 0, 0])");
-        System.out.println("Test 5: " + java.util.Arrays.toString(D.delayedCount(new int[]{2,2,2,2,2}, 1)) + " (Expected: [3, 2, 1, 0, 0])");
+        System.out.println("Test 1: " + Arrays.toString(D.delayedCount(new int[]{1,2,1,1}, 1)) + " (Expected: [2, 0, 0, 0])");
+        System.out.println("Test 2: " + Arrays.toString(D.delayedCount(new int[]{3,1,3,1}, 0)) + " (Expected: [1, 1, 0, 0])");
+        System.out.println("Test 3: " + Arrays.toString(D.delayedCount(new int[]{5}, 0)) + " (Expected: [0])");
+        System.out.println("Test 4: " + Arrays.toString(D.delayedCount(new int[]{1,1,1}, 2)) + " (Expected: [0, 0, 0])");
+        System.out.println("Test 5: " + Arrays.toString(D.delayedCount(new int[]{2,2,2,2,2}, 1)) + " (Expected: [3, 2, 1, 0, 0])");
     }
 }

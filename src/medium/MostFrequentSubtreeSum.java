@@ -1,10 +1,11 @@
 package medium;
 
 import common.TreeNode;
-
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+
 
 // https://leetcode.com/problems/most-frequent-subtree-sum/
 public class MostFrequentSubtreeSum {
@@ -64,17 +65,17 @@ public class MostFrequentSubtreeSum {
         TreeNode root1 = new TreeNode(5);
         root1.left = new TreeNode(2);
         root1.right = new TreeNode(-3);
-        System.out.println(java.util.Arrays.toString(M.findFrequentTreeSum(root1))); // [2,-3,4]
+        System.out.println(Arrays.toString(M.findFrequentTreeSum(root1))); // [2,-3,4]
 
         TreeNode root2 = new TreeNode(5);
         root2.left = new TreeNode(2);
         root2.right = new TreeNode(-5);
-        System.out.println(java.util.Arrays.toString(M.findFrequentTreeSum(root2))); // [2]
+        System.out.println(Arrays.toString(M.findFrequentTreeSum(root2))); // [2]
 
         // single node
-        System.out.println(java.util.Arrays.toString(M.findFrequentTreeSum(new TreeNode(1)))); // [1]
+        System.out.println(Arrays.toString(M.findFrequentTreeSum(new TreeNode(1)))); // [1]
 
         // null root
-        System.out.println(java.util.Arrays.toString(M.findFrequentTreeSum(null))); // []
+        System.out.println(Arrays.toString(M.findFrequentTreeSum(null))); // []
     }
 }

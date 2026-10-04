@@ -1,5 +1,8 @@
 package medium;
 
+import java.util.Arrays;
+import java.util.Random;
+
 // https://leetcode.com/problems/minimum-average-difference/
 public class MinimumAverageDifference {
     public int minimumAverageDifference(int[] nums) {
@@ -90,12 +93,12 @@ public class MinimumAverageDifference {
 
         // overflow: 1e5 elements of 1e5 -> total 1e10
         int[] big = new int[100000];
-        java.util.Arrays.fill(big, 100000);
+        Arrays.fill(big, 100000);
         System.out.println("Test 6: " + M.minimumAverageDifference(big) + " (Expected: 0)");
 
         // cross-check against brute force, small values so ties are frequent
         boolean agree = true;
-        java.util.Random rnd = new java.util.Random(17);
+        Random rnd = new Random(17);
         for (int t = 0; t < 400; t++) {
             int[] r = new int[1 + rnd.nextInt(20)];
             for (int i = 0; i < r.length; i++) r[i] = rnd.nextInt(5);

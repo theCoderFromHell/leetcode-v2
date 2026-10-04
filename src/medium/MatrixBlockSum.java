@@ -1,5 +1,8 @@
 package medium;
 
+import java.util.Arrays;
+import java.util.Random;
+
 // https://leetcode.com/problems/matrix-block-sum/
 public class MatrixBlockSum {
     public int[][] matrixBlockSum(int[][] mat, int k) {
@@ -79,32 +82,32 @@ public class MatrixBlockSum {
         MatrixBlockSum M = new MatrixBlockSum();
 
         int[][] grid = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-        System.out.println("Test 1: " + java.util.Arrays.deepToString(M.matrixBlockSum(grid, 1))
+        System.out.println("Test 1: " + Arrays.deepToString(M.matrixBlockSum(grid, 1))
                 + " (Expected: [[12, 21, 16], [27, 45, 33], [24, 39, 28]])");
-        System.out.println("Test 2: " + java.util.Arrays.deepToString(M.matrixBlockSum(grid, 2))
+        System.out.println("Test 2: " + Arrays.deepToString(M.matrixBlockSum(grid, 2))
                 + " (Expected: [[45, 45, 45], [45, 45, 45], [45, 45, 45]])"); // k covers whole matrix
 
-        System.out.println("Test 3: " + java.util.Arrays.deepToString(M.matrixBlockSum(new int[][]{{5}}, 100))
+        System.out.println("Test 3: " + Arrays.deepToString(M.matrixBlockSum(new int[][]{{5}}, 100))
                 + " (Expected: [[5]])");                                      // 1x1, k far exceeds bounds
 
-        System.out.println("Test 4: " + java.util.Arrays.deepToString(M.matrixBlockSum(new int[][]{{1, 2}, {3, 4}}, 1))
+        System.out.println("Test 4: " + Arrays.deepToString(M.matrixBlockSum(new int[][]{{1, 2}, {3, 4}}, 1))
                 + " (Expected: [[10, 10], [10, 10]])");
 
-        System.out.println("Test 5: " + java.util.Arrays.deepToString(M.matrixBlockSum(new int[][]{{1, 2, 3, 4, 5}}, 1))
+        System.out.println("Test 5: " + Arrays.deepToString(M.matrixBlockSum(new int[][]{{1, 2, 3, 4, 5}}, 1))
                 + " (Expected: [[3, 6, 9, 12, 9]])");                          // single row
 
-        System.out.println("Test 6: " + java.util.Arrays.deepToString(M.matrixBlockSum(new int[][]{{1}, {2}, {3}}, 1))
+        System.out.println("Test 6: " + Arrays.deepToString(M.matrixBlockSum(new int[][]{{1}, {2}, {3}}, 1))
                 + " (Expected: [[3], [6], [5]])");                             // single column
 
         // cross-check against brute force on random matrices and k values
         boolean agree = true;
-        java.util.Random rnd = new java.util.Random(5);
+        Random rnd = new Random(5);
         for (int t = 0; t < 400; t++) {
             int m = 1 + rnd.nextInt(8), n = 1 + rnd.nextInt(8), k = 1 + rnd.nextInt(10);
             int[][] g = new int[m][n];
             for (int i = 0; i < m; i++)
                 for (int j = 0; j < n; j++) g[i][j] = 1 + rnd.nextInt(100);
-            if (!java.util.Arrays.deepEquals(M.matrixBlockSum(g, k), bruteForce(g, k))) agree = false;
+            if (!Arrays.deepEquals(M.matrixBlockSum(g, k), bruteForce(g, k))) agree = false;
         }
         System.out.println("Test 7: " + agree + " (Expected: true)  — matches brute force, 400 random grids");
     }

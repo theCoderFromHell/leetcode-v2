@@ -52,7 +52,7 @@ public class NextGreaterNodeInLinkedList {
      * - A linked list has no random access, so materialise the values first — one pass to
      *   collect, one pass for the stack. Trying to run the stack over the list directly is
      *   what pushes you toward the node-keyed map
-     * - ArrayDeque over java.util.Stack: Stack extends Vector and is synchronised
+     * - ArrayDeque over Stack: Stack extends Vector and is synchronised
      *
      * Template:
      *   collect node values into an array/list
@@ -74,20 +74,20 @@ public class NextGreaterNodeInLinkedList {
     public static void main(String[] args) {
         NextGreaterNodeInLinkedList N = new NextGreaterNodeInLinkedList();
 
-        System.out.println("Test 1: " + java.util.Arrays.toString(N.nextLargerNodes(ListNode.createList(new int[]{2, 1, 5})))       + " (Expected: [5, 5, 0])");
-        System.out.println("Test 2: " + java.util.Arrays.toString(N.nextLargerNodes(ListNode.createList(new int[]{2, 7, 4, 3, 5}))) + " (Expected: [7, 0, 5, 5, 0])");
-        System.out.println("Test 3: " + java.util.Arrays.toString(N.nextLargerNodes(ListNode.createList(new int[]{1})))             + " (Expected: [0])");           // single node
-        System.out.println("Test 4: " + java.util.Arrays.toString(N.nextLargerNodes(ListNode.createList(new int[]{1, 2, 3, 4})))    + " (Expected: [2, 3, 4, 0])");  // ascending
-        System.out.println("Test 5: " + java.util.Arrays.toString(N.nextLargerNodes(ListNode.createList(new int[]{4, 3, 2, 1})))    + " (Expected: [0, 0, 0, 0])");  // descending
-        System.out.println("Test 6: " + java.util.Arrays.toString(N.nextLargerNodes(ListNode.createList(new int[]{2, 2, 3})))       + " (Expected: [3, 3, 0])");     // duplicates need strict >
+        System.out.println("Test 1: " + Arrays.toString(N.nextLargerNodes(ListNode.createList(new int[]{2, 1, 5})))       + " (Expected: [5, 5, 0])");
+        System.out.println("Test 2: " + Arrays.toString(N.nextLargerNodes(ListNode.createList(new int[]{2, 7, 4, 3, 5}))) + " (Expected: [7, 0, 5, 5, 0])");
+        System.out.println("Test 3: " + Arrays.toString(N.nextLargerNodes(ListNode.createList(new int[]{1})))             + " (Expected: [0])");           // single node
+        System.out.println("Test 4: " + Arrays.toString(N.nextLargerNodes(ListNode.createList(new int[]{1, 2, 3, 4})))    + " (Expected: [2, 3, 4, 0])");  // ascending
+        System.out.println("Test 5: " + Arrays.toString(N.nextLargerNodes(ListNode.createList(new int[]{4, 3, 2, 1})))    + " (Expected: [0, 0, 0, 0])");  // descending
+        System.out.println("Test 6: " + Arrays.toString(N.nextLargerNodes(ListNode.createList(new int[]{2, 2, 3})))       + " (Expected: [3, 3, 0])");     // duplicates need strict >
 
         // cross-check against brute force on random input, heavy on duplicates
         boolean agree = true;
-        java.util.Random rnd = new java.util.Random(3);
+        Random rnd = new Random(3);
         for (int t = 0; t < 500; t++) {
             int[] vals = new int[1 + rnd.nextInt(30)];
             for (int i = 0; i < vals.length; i++) vals[i] = 1 + rnd.nextInt(6);
-            if (!java.util.Arrays.equals(N.nextLargerNodes(ListNode.createList(vals)), bruteForce(vals))) agree = false;
+            if (!Arrays.equals(N.nextLargerNodes(ListNode.createList(vals)), bruteForce(vals))) agree = false;
         }
         System.out.println("Test 7: " + agree + " (Expected: true)  — matches brute force, 500 random");
     }
