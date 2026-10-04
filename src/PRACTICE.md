@@ -2,9 +2,24 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 13 · Solved 14 · Total 27** — updated 2026-10-01
+**Pending 15 · Solved 16 · Total 31** — updated 2026-10-04
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 128. Longest Consecutive Sequence
+*Array · Hash Table · Union Find · hash set as an O(1) membership oracle, expanding a run only from its left boundary*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 549 | [Binary Tree Longest Consecutive Sequence II](https://leetcode.com/problems/binary-tree-longest-consecutive-sequence-ii/) | Medium | ☑ 2026-10-04 | Same longest-consecutive-run question lifted onto a tree, and the run may bend through a node — so each node returns an increasing and a decreasing length, joined at the parent |
+| 1562 | [Find Latest Group of Size M](https://leetcode.com/problems/find-latest-group-of-size-m/) | Medium | ☑ 2026-10-04 | The boundary trick made dynamic: insert positions one at a time and maintain each run's length at its two endpoints, merging with the neighbours — exactly what `!set.contains(x-1)` decides statically |
+| 352 | [Data Stream as Disjoint Intervals](https://leetcode.com/problems/data-stream-as-disjoint-intervals/) | Hard | ☐ | The direct dynamic sequel: consecutive runs must be queryable after every insert, so the one-shot hash set becomes a TreeMap of intervals that splits and merges |
+| 2213 | [Longest Substring of One Repeating Character](https://leetcode.com/problems/longest-substring-of-one-repeating-character/) | Hard | ☐ | Longest run again, but under point updates — forces a segment tree whose merge combines prefix-run, suffix-run and best-run, the gap visible in the skills profile |
+
+*Filtered as already solved: 298 (Binary Tree Longest Consecutive Sequence), 1218 (Longest Arithmetic Subsequence of Given Difference), 2007 (Find Original Array From Doubled Array — which subsumes 954, Array of Doubled Pairs).*
+*Note: 128 itself is not in the repo — a Blind-75 staple almost certainly solved on LeetCode but never committed.*
 
 ---
 
