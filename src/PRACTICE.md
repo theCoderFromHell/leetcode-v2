@@ -2,9 +2,25 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 19 · Solved 18 · Total 37** — updated 2026-10-04
+**Pending 22 · Solved 20 · Total 42** — updated 2026-10-05
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 560. Subarray Sum Equals K
+*Array · Hash Table · Prefix Sum · carry a running prefix state and look up how many earlier prefixes complete the target — counting in one pass instead of enumerating pairs*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 1442 | [Count Triplets That Can Form Two Arrays of Equal XOR](https://leetcode.com/problems/count-triplets-that-can-form-two-arrays-of-equal-xor/) | Medium | ☑ 2026-10-05 | One dimension changed: the accumulator is prefix XOR rather than prefix sum, so "equal halves" collapses to "prefix repeats" — the same map, a different group operation |
+| 1371 | [Find the Longest Substring Containing Vowels in Even Counts](https://leetcode.com/problems/find-the-longest-substring-containing-vowels-in-even-counts/) | Medium | ☑ 2026-10-05 | The prefix state becomes a 5-bit parity MASK instead of a number, and the map stores the FIRST index rather than a count because the answer is a length — both axes of 560 varied at once |
+| 1915 | [Number of Wonderful Substrings](https://leetcode.com/problems/number-of-wonderful-substrings/) | Medium | ☐ | Prefix bitmask with COUNTS, back to 560's shape — but "at most one odd letter" means probing 11 masks per position rather than one, which is the step that makes it a 2234-rated Medium |
+| 2488 | [Count Subarrays With Median K](https://leetcode.com/problems/count-subarrays-with-median-k/) | Hard | ☐ | Exactly 560's prefix-count map once you see the transform: map each element to +1/-1 against k, and "median is k" becomes "balance equals 0 or 1". Finding the transform is the whole difficulty |
+| 862 | [Shortest Subarray with Sum at Least K](https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/) | Hard | ☐ | Same prefix array, but negatives plus a `>= K` goal break the hash map entirely — needs a monotonic deque over prefixes. The counter-example that shows where 560's technique stops working |
+
+*Filtered as already solved: 974 (Subarray Sums Divisible by K), 325 (Maximum Size Subarray Sum Equals k), 525 (Contiguous Array), 930 (Binary Subarrays With Sum), 1524 (Number of Sub-arrays With Odd Sum).*
+*Not repeated: 1074 (Number of Submatrices That Sum to Target) is unsolved but already pending under 304. Also unsolved and a fair sixth pick if wanted: 523 (Continuous Subarray Sum) — prefix mod k, but the index-gap >= 2 rule is its only twist over 974, which is already done.*
 
 ---
 
