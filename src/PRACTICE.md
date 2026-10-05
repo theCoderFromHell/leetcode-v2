@@ -2,9 +2,23 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 30 · Solved 20 · Total 50** — updated 2026-10-05
+**Pending 32 · Solved 20 · Total 52** — updated 2026-10-06
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 189. Rotate Array
+*Array · Math · Two Pointers · decompose a rotation into REVERSALS to get it in place — reverse all, reverse the first k, reverse the rest*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 396 | [Rotate Function](https://leetcode.com/problems/rotate-function/) | Medium | ☐ | Stops performing rotations and starts REASONING about all n of them — derive F(k) from F(k-1) in O(1) so every rotation is scored in one pass instead of n passes |
+| 798 | [Smallest Rotation with Highest Score](https://leetcode.com/problems/smallest-rotation-with-highest-score/) | Hard | ☐ | Same "score every rotation at once" goal as 396, but each element contributes over a RANGE of rotation offsets, so the aggregation needs a difference array indexed by offset rather than a recurrence |
+
+*Filtered as already solved: 48 (Rotate Image — backfilled into the repo 2026-10-06), 61 (Rotate List), 186 (Reverse Words in a String II — the two-level reversal, closest sibling), 151 (Reverse Words in a String), 1861 (Rotating the Box); plus the entire spiral / ring-traversal family — 54, 59, 885, 2326.*
+*Note: only TWO candidates, and not for lack of searching. Both families that 189 belongs to are exhausted — reversal-decomposition (61, 186, 151, 1861, 48) and concentric-ring traversal (54, 59, 885, 2326) are entirely solved, and 867 (Transpose Matrix) is Easy. 396 and 798 survive because they are about reasoning over rotations rather than performing one.*
+*Adjacent but a DIFFERENT concept, deliberately not mixed in: the binary-search-on-rotated cluster — 33, 81, 153, 154 — is entirely absent from the repo. Those treat a rotated array as a search space rather than practising the rotation itself, and 33/153 are Blind-75 staples where the uncommitted-solve blind spot concentrates. Worth a separate `/practice 33` run if that is the thread wanted.*
 
 ---
 
