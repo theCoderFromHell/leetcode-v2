@@ -2,9 +2,23 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 31 · Solved 21 · Total 52** — updated 2026-10-06
+**Pending 34 · Solved 21 · Total 55** — updated 2026-10-06
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 11. Container With Most Water
+*Array · Two Pointers · Greedy · converge from both ends and always move the LIMITING side — keeping it can never beat a narrower width, so it is eliminated*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 2104 | [Sum of Subarray Ranges](https://leetcode.com/problems/sum-of-subarray-ranges/) | Medium | ☐ | Same "a window is governed by its extremes" objective, but summed over EVERY subarray rather than maximised over one — so the elimination argument is replaced by counting each element's span of dominance with a monotonic stack |
+| 1793 | [Maximum Score of a Good Subarray](https://leetcode.com/problems/maximum-score-of-a-good-subarray/) | Hard | ☐ | The closest relative: score is min(window) x width, exactly 11's shape. Pointers EXPAND outward from a fixed pivot instead of converging, and you always step toward the larger neighbour — the same "the limiting side decides the move" argument, mirrored |
+| 1537 | [Get the Maximum Score](https://leetcode.com/problems/get-the-maximum-score/) | Hard | ☐ | Two pointers advancing over two sorted arrays, always moving the smaller — the elimination argument transplanted from one array's two ends to two arrays' two fronts, with accumulation between shared checkpoints |
+
+*Filtered as already solved: 42 (Trapping Rain Water — the direct sibling, same move-the-smaller-side rule, solved on LeetCode but not committed here), 84 (Largest Rectangle in Histogram), 85 (Maximal Rectangle), 907 (Sum of Subarray Minimums), 881 (Boats to Save People), 1838 (Frequency of the Most Frequent Element).*
+*Note: only three, and the tight family really is exhausted — 42, 84 and 85 are the canonical companions and all three are done. 2104 and 1537 are deliberate widenings, labelled above as such: 2104 keeps the objective and drops the elimination, 1537 keeps the elimination and changes the geometry.*
 
 ---
 

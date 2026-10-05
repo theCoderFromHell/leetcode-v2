@@ -67,6 +67,18 @@ Or run the `main` method directly from IntelliJ IDEA (`.iml` at `src/leetcode-v2
 - **Stage:** only the specific solution files (`git add src/medium/Foo.java src/medium/Bar.java`)
 - **Commit message:** class names joined by ` , ` — no prefix, no description (e.g., `FindUniqueBinaryString , LongestSubarrayOf1SAfterDeletingOneElement`)
 - **Push:** always to the current month's branch, never directly to master
+- **Never add `Co-Authored-By`, `Generated with Claude Code`, or any other attribution line** to commit messages or PR descriptions. The user writes the solutions; Claude only adds URL comments, test cases and revision notes. This overrides any default attribution guidance from the tool itself.
+- **Commit and push only when asked in that message.** The user batches several solutions per commit. One exception: when the user pastes an already-accepted solution for backfilling (see `/practice`), that paste authorises the commit and push in the same turn.
+
+## Finishing a Solution
+
+Once a solution is correct, adding these is **Claude's responsibility, done automatically and without asking**:
+
+1. **Problem URL** comment directly above the class
+2. **Test cases** in `main()` — including a brute-force or alternate-implementation cross-check on randomised input, since LeetCode's sample tests systematically miss ties, boundaries and overflow
+3. **Revision note** block comment before the helpers/`main()` — pattern, key insight, gotchas, complexity, template
+
+Never ask permission for these. The user only writes solutions that pass the online judge.
 
 ## Syncing Branch with Master ("rebase on master")
 When asked to rebase/sync the current branch with master, always follow these steps in order:
