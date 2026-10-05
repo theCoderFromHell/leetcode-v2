@@ -2,7 +2,7 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 32 · Solved 20 · Total 52** — updated 2026-10-06
+**Pending 31 · Solved 21 · Total 52** — updated 2026-10-06
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
@@ -13,7 +13,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 396 | [Rotate Function](https://leetcode.com/problems/rotate-function/) | Medium | ☐ | Stops performing rotations and starts REASONING about all n of them — derive F(k) from F(k-1) in O(1) so every rotation is scored in one pass instead of n passes |
+| 396 | [Rotate Function](https://leetcode.com/problems/rotate-function/) | Medium | ☑ 2026-10-06 | Stops performing rotations and starts REASONING about all n of them — derive F(k) from F(k-1) in O(1) so every rotation is scored in one pass instead of n passes |
 | 798 | [Smallest Rotation with Highest Score](https://leetcode.com/problems/smallest-rotation-with-highest-score/) | Hard | ☐ | Same "score every rotation at once" goal as 396, but each element contributes over a RANGE of rotation offsets, so the aggregation needs a difference array indexed by offset rather than a recurrence |
 
 *Filtered as already solved: 48 (Rotate Image — backfilled into the repo 2026-10-06), 61 (Rotate List), 186 (Reverse Words in a String II — the two-level reversal, closest sibling), 151 (Reverse Words in a String), 1861 (Rotating the Box); plus the entire spiral / ring-traversal family — 54, 59, 885, 2326.*
