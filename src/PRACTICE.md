@@ -2,9 +2,40 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 22 · Solved 20 · Total 42** — updated 2026-10-05
+**Pending 30 · Solved 20 · Total 50** — updated 2026-10-05
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 167. Two Sum II - Input Array Is Sorted
+*Array · Two Pointers · Binary Search · converge from both ends and let the sortedness decide which pointer moves — O(n) with no extra space*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 923 | [3Sum With Multiplicity](https://leetcode.com/problems/3sum-with-multiplicity/) | Medium | ☐ | Same converging scan, but COUNTING rather than finding — ties force real combinatorics (`C(n,2)` when both pointers sit on equal values), which is the case a find-one solution never has to think about |
+| 1498 | [Number of Subsequences That Satisfy the Given Sum Condition](https://leetcode.com/problems/number-of-subsequences-that-satisfy-the-given-sum-condition/) | Medium | ☐ | Converging pointers where ONE match settles 2^(j-i) subsequences at once — the same "a single pointer move resolves many answers" leverage as 611, but with modular powers of two |
+| 826 | [Most Profit Assigning Work](https://leetcode.com/problems/most-profit-assigning-work/) | Medium | ☐ | Two pointers that both sweep FORWARD over two separately sorted arrays while carrying a running max, instead of converging from the ends — the other half of the two-pointer family |
+| 719 | [Find K-th Smallest Pair Distance](https://leetcode.com/problems/find-k-th-smallest-pair-distance/) | Hard | ☐ | Two pointers become a COUNTING SUBROUTINE inside a binary search on the answer: guess a distance, count pairs within it in O(n), and bisect. Already scaffolded empty at `src/hard/FindKThSmallestPairDistance.java` |
+
+*Filtered as already solved: 16 (3Sum Closest), 18 (4Sum), 259 (3Sum Smaller), 611 (Valid Triangle Number), 881 (Boats to Save People), 2410 (Maximum Matching of Players With Trainers), 1877 (Minimize Maximum Pair Sum in Array), 658 (Find K Closest Elements), 2616 (Minimize the Maximum Difference of Pairs), 42 (Trapping Rain Water), 4 (Median of Two Sorted Arrays).*
+*Deliberately NOT suggested: 15 (3Sum) and 11 (Container With Most Water) are both unfound in the repo but are Blind-75 staples, which is exactly where the uncommitted-solve blind spot concentrates. Ask before trusting either.*
+*Source note: 167 itself was solved on LeetCode but never committed — backfilled into the repo 2026-10-05, which confirms the reading above about this neighbourhood.*
+
+---
+
+## 41. First Missing Positive
+*Array · Hash Table · index-as-hash — when the value range matches the index range, the array IS the hash table; then scan for the first gap*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 1798 | [Maximum Number of Consecutive Values You Can Make](https://leetcode.com/problems/maximum-number-of-consecutive-values-you-can-make/) | Medium | ☐ | The "first gap" half of 41 in isolation — sweep sorted coins tracking the smallest unreachable total, and stop the moment a coin exceeds it. No array trickery, just the gap argument |
+| 765 | [Couples Holding Hands](https://leetcode.com/problems/couples-holding-hands/) | Hard | ☐ | The swap-into-place half of 41, taken seriously: keep a value-to-index map and swap each person to their partner. Counting the swaps is cycle decomposition, which is what 41's while-loop is doing implicitly |
+| 330 | [Patching Array](https://leetcode.com/problems/patching-array/) | Hard | ☐ | "Smallest value not yet reachable" promoted from an answer to a loop invariant — you may insert numbers to close gaps, so the gap you track drives the greedy rather than terminating it |
+| 2003 | [Smallest Missing Genetic Value in Each Subtree](https://leetcode.com/problems/smallest-missing-genetic-value-in-each-subtree/) | Hard | ☐ | Literally 41 answered for every subtree at once. Needs a presence array indexed by value, plus small-to-large merging so the total stays near-linear instead of O(n^2) |
+
+*Filtered as already solved: 442 (Find All Duplicates in an Array), 287 (Find the Duplicate Number — backfilled 2026-10-04), 2471 (Minimum Number of Operations to Sort a Binary Tree by Level — the cycle-decomposition sibling of 765), 73 (Set Matrix Zeroes), 289 (Game of Life).*
+*Note: only one Medium survives. The index-as-hash family's Medium tier is exhausted — 442 and 287 are solved, and 448 (Find All Numbers Disappeared) and 645 (Set Mismatch) are Easy, so excluded. The set is Hard-weighted by availability, not by choice.*
 
 ---
 
