@@ -80,6 +80,27 @@ Once a solution is correct, adding these is **Claude's responsibility, done auto
 
 Never ask permission for these. The user only writes solutions that pass the online judge.
 
+## Monthly Branch Check
+
+On the **first use of a session in a new month**, compare the current branch against today's date **before acting on the request**. Check on first use, not only on the 1st — sessions here can run for weeks without a restart.
+
+```bash
+git branch --show-current        # e.g. september-2026-macbook-air-m4
+date +%B-%Y | tr 'A-Z' 'a-z'     # e.g. october-2026
+```
+
+If the `{month}-{year}` prefix doesn't match, say so in one line and **offer** to cut the new branch — never do it silently, since the old branch may hold unmerged work the user wants to PR first. Before cutting, confirm the old branch is fully merged (`git rev-list --count origin/master..<old-branch>` is `0`); if it's ahead, flag it, or that work is stranded on a dead branch.
+
+`{machine}` is the suffix of the current branch name — keep it exactly, including case (the M1 Air uses a capital `M1`). Then:
+
+1. `git stash` if there are uncommitted tracked changes
+2. `git checkout master && git pull origin master`
+3. `git checkout -b {month}-{year}-{machine}`
+4. `git push -u origin {month}-{year}-{machine}`
+5. `git stash pop`
+
+Never delete the old month's branch.
+
 ## Syncing Branch with Master ("rebase on master")
 When asked to rebase/sync the current branch with master, always follow these steps in order:
 1. `git stash`
