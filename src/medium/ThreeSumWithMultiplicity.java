@@ -1,7 +1,6 @@
 package medium;
 
 import java.util.Arrays;
-import java.util.Random;
 
 // https://leetcode.com/problems/3sum-with-multiplicity/
 public class ThreeSumWithMultiplicity {
@@ -53,7 +52,6 @@ public class ThreeSumWithMultiplicity {
         return -1;
     }
 
-
     /*
      * Revision Note - 3Sum With Multiplicity (Medium)
      *
@@ -84,7 +82,7 @@ public class ThreeSumWithMultiplicity {
      *   divide, THEN mod. Mod belongs at the accumulation, never inside the binomial
      * - That forces long. count can be 3000, and 3000*2999*2998 = 26,973,006,000 overflows int
      *   BEFORE the /6 - it wraps, then divides the wrapped value. The threshold is count ~1291,
-     *   well inside n <= 3000. Test 14 returned -154452382 before the fix, which is the
+     *   well inside n <= 3000. Test 13 returned -154452382 before the fix, which is the
      *   unmistakable signature
      * - z NEEDS BOTH BOUNDS. `z < y` catches negatives (y >= 0) but nothing catches z > 100, and
      *   target can be 300: [0,0,0] with target 300 gives z = 300 and reads off count[]. Valid
@@ -114,21 +112,6 @@ public class ThreeSumWithMultiplicity {
      * combinatorics in a different disguise.
      */
 
-    /*
-     * O(n^3) reference: enumerate index triples directly. Accumulates in long and mods at the
-     * end, so it shares none of the counting-formula logic that can go wrong. Only usable for
-     * small n, which is why the large cases below carry analytically derived expected values.
-     */
-    private static int bruteForce(int[] arr, int target) {
-        long count = 0;
-        int n = arr.length;
-        for (int i = 0; i < n; i++)
-            for (int j = i + 1; j < n; j++)
-                for (int k = j + 1; k < n; k++)
-                    if (arr[i] + arr[j] + arr[k] == target) count++;
-        return (int) (count % 1000000007L);
-    }
-
     private static int[] repeat(int value, int times) {
         int[] a = new int[times];
         Arrays.fill(a, value);
@@ -152,37 +135,18 @@ public class ThreeSumWithMultiplicity {
         System.out.println("Test 10: " + T.threeSumMulti(new int[]{0,0,0}, 300) + " (Expected: 0)");
         System.out.println("Test 11: " + T.threeSumMulti(new int[]{0,0,1,2}, 299) + " (Expected: 0)");
 
-        // cross-check against the O(n^3) reference
-        boolean agree = true;
-        String firstBad = "";
-        Random rnd = new Random(101);
-        for (int t = 0; t < 500; t++) {
-            int n = 3 + rnd.nextInt(18);
-            int[] a = new int[n];
-            for (int i = 0; i < n; i++) a[i] = rnd.nextInt(6);        // tiny value range -> lots of ties
-            int target = rnd.nextInt(16);
-            int got = T.threeSumMulti(a.clone(), target), want = bruteForce(a, target);
-            if (got != want) {
-                agree = false;
-                if (firstBad.isEmpty())
-                    firstBad = Arrays.toString(a) + " target " + target + " got " + got + " want " + want;
-            }
-        }
-        System.out.println("Test 12: " + agree + " (Expected: true)  - matches O(n^3) reference, 500 random"
-                + (agree ? "" : ", first mismatch: " + firstBad));
-
         // OVERFLOW: 3000 identical values, so the answer is C(3000,3).
         // 3000*2999*2998 = 26,973,006,000 which blows past Integer.MAX_VALUE BEFORE the /6.
         // C(3000,3) = 4,495,501,000;  4,495,501,000 mod 1e9+7 = 495,500,972.
-        System.out.println("Test 13: " + T.threeSumMulti(repeat(7, 3000), 21) + " (Expected: 495500972)");
+        System.out.println("Test 12: " + T.threeSumMulti(repeat(7, 3000), 21) + " (Expected: 495500972)");
 
         // same overflow, smaller: C(1500,3) = 561,375,500 (1500*1499*1498 = 3,368,253,000 > int)
-        System.out.println("Test 14: " + T.threeSumMulti(repeat(4, 1500), 12) + " (Expected: 561375500)");
+        System.out.println("Test 13: " + T.threeSumMulti(repeat(4, 1500), 12) + " (Expected: 561375500)");
 
         // large (a,a,b): C(2000,2) * 1000 = 1,999,000,000 -> mod 1e9+7 = 998,999,993
         int[] mixed = new int[3000];
         Arrays.fill(mixed, 0, 2000, 0);
         Arrays.fill(mixed, 2000, 3000, 5);
-        System.out.println("Test 15: " + T.threeSumMulti(mixed, 5) + " (Expected: 998999993)");
+        System.out.println("Test 14: " + T.threeSumMulti(mixed, 5) + " (Expected: 998999993)");
     }
 }

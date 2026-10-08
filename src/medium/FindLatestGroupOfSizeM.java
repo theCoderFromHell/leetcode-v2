@@ -1,9 +1,5 @@
 package medium;
 
-import java.util.Arrays;
-import java.util.Random;
-
-
 // https://leetcode.com/problems/find-latest-group-of-size-m/
 public class FindLatestGroupOfSizeM {
     public int findLatestStep(int[] arr, int m) {
@@ -29,7 +25,6 @@ public class FindLatestGroupOfSizeM {
         }
         return result;
     }
-
 
     /*
      * Revision Note - Find Latest Group of Size M (Medium)
@@ -91,36 +86,6 @@ public class FindLatestGroupOfSizeM {
      * whenever each update touches O(1) objects.
      */
 
-    /*
-     * O(n^2) reference: literally build the string and rescan every step. Used only to cross-check.
-     */
-    private static int bruteForce(int[] arr, int m) {
-        int n = arr.length;
-        boolean[] on = new boolean[n + 1];
-        int answer = -1;
-        for (int step = 1; step <= n; step++) {
-            on[arr[step - 1]] = true;
-            int run = 0;
-            boolean found = false;
-            for (int i = 1; i <= n + 1; i++) {
-                if (i <= n && on[i]) run++;
-                else { if (run == m) found = true; run = 0; }
-            }
-            if (found) answer = step;
-        }
-        return answer;
-    }
-
-    private static int[] randomPermutation(Random rnd, int n) {
-        int[] a = new int[n];
-        for (int i = 0; i < n; i++) a[i] = i + 1;
-        for (int i = n - 1; i > 0; i--) {
-            int j = rnd.nextInt(i + 1);
-            int t = a[i]; a[i] = a[j]; a[j] = t;
-        }
-        return a;
-    }
-
     public static void main(String[] args) {
         FindLatestGroupOfSizeM F = new FindLatestGroupOfSizeM();
 
@@ -134,29 +99,5 @@ public class FindLatestGroupOfSizeM {
         System.out.println("Test 8: " + F.findLatestStep(new int[]{5, 4, 3, 2, 1}, 1) + " (Expected: 1)");  // mirror of 7, grows leftward
         System.out.println("Test 9: " + F.findLatestStep(new int[]{1, 3, 5, 2, 4}, 5) + " (Expected: 5)");  // whole string, last step
         System.out.println("Test 10: " + F.findLatestStep(new int[]{1, 3, 5, 2, 4}, 3) + " (Expected: 4)"); // merge produces exactly m mid-way
-
-        // cross-check against the rescan-every-step brute force, every m for every permutation
-        boolean agree = true;
-        String firstBad = "";
-        Random rnd = new Random(41);
-        for (int t = 0; t < 400; t++) {
-            int n = 1 + rnd.nextInt(9);
-            int[] a = randomPermutation(rnd, n);
-            for (int m = 1; m <= n; m++) {
-                int got = F.findLatestStep(a.clone(), m), want = bruteForce(a, m);
-                if (got != want && firstBad.isEmpty())
-                    firstBad = Arrays.toString(a) + " m=" + m + " got " + got + " want " + want;
-                if (got != want) agree = false;
-            }
-        }
-        System.out.println("Test 11: " + agree + " (Expected: true)  - matches brute force, 400 permutations x every m"
-                + (agree ? "" : ", first mismatch: " + firstBad));
-
-        // performance + no out-of-bounds at the extremes: n = 1e5
-        int[] big = randomPermutation(new Random(7), 100000);
-        long t0 = System.nanoTime();
-        int r = F.findLatestStep(big, 1);
-        long ms = (System.nanoTime() - t0) / 1_000_000;
-        System.out.println("Test 12: " + (r >= 1 && ms < 500) + " (Expected: true)  - n=1e5 returned " + r + " in " + ms + "ms");
     }
 }

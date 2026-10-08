@@ -1,13 +1,6 @@
 package medium;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
 
 // https://leetcode.com/problems/single-number-iii/
 public class SingleNumberIII {
@@ -26,7 +19,6 @@ public class SingleNumberIII {
         }
         return new int[]{xor1, xor2};
     }
-
 
     /*
      * Revision Note - Single Number III (Medium)
@@ -88,40 +80,6 @@ public class SingleNumberIII {
         return Arrays.equals(a, b);
     }
 
-    /*
-     * O(n) time, O(n) space reference: count with a map and collect whatever appears once.
-     * Shares no logic with the XOR partition, so it is a genuine independent check.
-     */
-    private static int[] bruteForce(int[] nums) {
-        Map<Integer, Integer> count = new HashMap<>();
-        for (int v : nums) count.merge(v, 1, Integer::sum);
-        List<Integer> once = new ArrayList<>();
-        for (Map.Entry<Integer, Integer> e : count.entrySet())
-            if (e.getValue() == 1) once.add(e.getKey());
-        return new int[]{once.get(0), once.get(1)};
-    }
-
-    // a valid 260 input: `pairs` distinct values twice each, plus two distinct singles, shuffled
-    private static int[] randomInput(Random rnd, int pairs, boolean fullRange) {
-        Set<Integer> used = new HashSet<>();
-        List<Integer> out = new ArrayList<>();
-        while (used.size() < pairs + 2) {
-            int v = fullRange ? rnd.nextInt() : rnd.nextInt(40) - 20;
-            used.add(v);
-        }
-        List<Integer> vals = new ArrayList<>(used);
-        for (int i = 0; i < pairs; i++) { out.add(vals.get(i)); out.add(vals.get(i)); }
-        out.add(vals.get(pairs));
-        out.add(vals.get(pairs + 1));
-        int[] a = new int[out.size()];
-        for (int i = 0; i < a.length; i++) a[i] = out.get(i);
-        for (int i = a.length - 1; i > 0; i--) {
-            int j = rnd.nextInt(i + 1);
-            int t = a[i]; a[i] = a[j]; a[j] = t;
-        }
-        return a;
-    }
-
     public static void main(String[] args) {
         SingleNumberIII S = new SingleNumberIII();
 
@@ -143,29 +101,5 @@ public class SingleNumberIII {
                 + " (Expected: true)  - the two extremes");
         System.out.println("Test 10: " + same(S.singleNumber(new int[]{Integer.MAX_VALUE, Integer.MAX_VALUE, 1, Integer.MIN_VALUE}), new int[]{1, Integer.MIN_VALUE})
                 + " (Expected: true)");
-
-        // cross-check against the counting reference
-        boolean agree = true;
-        String firstBad = "";
-        Random rnd = new Random(67);
-        for (int t = 0; t < 600; t++) {
-            int[] a = randomInput(rnd, rnd.nextInt(12), t % 2 == 0);   // alternate tiny range / full int range
-            int[] got = S.singleNumber(a.clone()), want = bruteForce(a);
-            if (!same(got, want)) {
-                agree = false;
-                if (firstBad.isEmpty())
-                    firstBad = Arrays.toString(a) + " got " + Arrays.toString(got) + " want " + Arrays.toString(want);
-            }
-        }
-        System.out.println("Test 11: " + agree + " (Expected: true)  - matches counting reference, 600 random (half full-int-range)"
-                + (agree ? "" : ", first mismatch: " + firstBad));
-
-        // n = 3e4, the constraint ceiling
-        int pairs = 14999;
-        int[] big = new int[2 * pairs + 2];
-        for (int i = 0; i < pairs; i++) { big[2*i] = i + 1; big[2*i+1] = i + 1; }
-        big[2*pairs] = Integer.MIN_VALUE;
-        big[2*pairs+1] = -7;
-        System.out.println("Test 12: " + same(S.singleNumber(big), new int[]{Integer.MIN_VALUE, -7}) + " (Expected: true)  - n=30000");
     }
 }

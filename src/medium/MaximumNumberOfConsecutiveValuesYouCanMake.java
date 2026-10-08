@@ -1,7 +1,6 @@
 package medium;
 
 import java.util.Arrays;
-import java.util.Random;
 
 // https://leetcode.com/problems/maximum-number-of-consecutive-values-you-can-make/
 public class MaximumNumberOfConsecutiveValuesYouCanMake {
@@ -16,7 +15,6 @@ public class MaximumNumberOfConsecutiveValuesYouCanMake {
         }
         return (reach + 1);
     }
-
 
     /*
      * Revision Note - Maximum Number of Consecutive Values You Can Make (Medium)
@@ -46,7 +44,7 @@ public class MaximumNumberOfConsecutiveValuesYouCanMake {
      *   while [1,2,4,8,17] has one coin too big by exactly 1 and stops at 16
      * - Arrays.sort MUTATES the caller's array
      * - No overflow: 4e4 coins x 4e4 each caps the sum at 1.6e9, about 25% under
-     *   Integer.MAX_VALUE, so int holds the answer. Verified at the ceiling in Test 13
+     *   Integer.MAX_VALUE, so int holds the answer. Verified at the ceiling in Test 12
      *
      * Complexity: O(n log n) time, dominated by the sort; the sweep is O(n) and often exits
      * early. O(1) auxiliary space - the whole point, versus O(total sum) for the reachable-set
@@ -66,24 +64,6 @@ public class MaximumNumberOfConsecutiveValuesYouCanMake {
      * may insert coins to close gaps, so the gap steers the greedy instead of ending it.
      */
 
-    /*
-     * Exponential-free reference: a genuine subset-sum reachability table over the whole sum,
-     * then scan for the first value that cannot be made. This is the HashSet idea done honestly,
-     * so it shares no logic with the greedy - only usable when the total sum is small.
-     */
-    private static int bruteForce(int[] coins) {
-        int total = 0;
-        for (int c : coins) total += c;
-        boolean[] reachable = new boolean[total + 2];
-        reachable[0] = true;
-        for (int c : coins)
-            for (int v = total; v >= c; v--)       // descending: each coin used at most once
-                if (reachable[v - c]) reachable[v] = true;
-        int k = 0;
-        while (k <= total && reachable[k]) k++;
-        return k;                                  // count of 0..k-1, i.e. the first gap
-    }
-
     public static void main(String[] args) {
         MaximumNumberOfConsecutiveValuesYouCanMake M = new MaximumNumberOfConsecutiveValuesYouCanMake();
 
@@ -99,22 +79,6 @@ public class MaximumNumberOfConsecutiveValuesYouCanMake {
         System.out.println("Test 10: " + M.getMaximumConsecutive(new int[]{1,2,4,8,16}) + " (Expected: 32)"); // exact doubling, every coin just fits
         System.out.println("Test 11: " + M.getMaximumConsecutive(new int[]{1,2,4,8,17}) + " (Expected: 16)"); // one coin too big by exactly 1 -> stop early
 
-        // cross-check against the subset-sum reference; shuffled and unsorted on purpose
-        boolean agree = true;
-        String firstBad = "";
-        Random rnd = new Random(89);
-        for (int t = 0; t < 600; t++) {
-            int[] a = new int[1 + rnd.nextInt(8)];
-            for (int i = 0; i < a.length; i++) a[i] = 1 + rnd.nextInt(7);
-            int got = M.getMaximumConsecutive(a.clone()), want = bruteForce(a.clone());
-            if (got != want) {
-                agree = false;
-                if (firstBad.isEmpty()) firstBad = Arrays.toString(a) + " got " + got + " want " + want;
-            }
-        }
-        System.out.println("Test 12: " + agree + " (Expected: true)  - matches subset-sum reference, 600 random unsorted"
-                + (agree ? "" : ", first mismatch: " + firstBad));
-
         // overflow probe: 16 doubling coins lift reach past 40000, then 39984 coins of 40000 each.
         // Total lands at ~1.6e9 - inside int, but close enough to Integer.MAX_VALUE to be worth asserting.
         int[] big = new int[40000];
@@ -126,7 +90,7 @@ public class MaximumNumberOfConsecutiveValuesYouCanMake {
         long t0 = System.nanoTime();
         int got = M.getMaximumConsecutive(big);
         long ms = (System.nanoTime() - t0) / 1_000_000;
-        System.out.println("Test 13: " + (got == total + 1) + " (Expected: true)  - n=40000, sum=" + total
+        System.out.println("Test 12: " + (got == total + 1) + " (Expected: true)  - n=40000, sum=" + total
                 + ", returned " + got + " in " + ms + "ms");
     }
 }

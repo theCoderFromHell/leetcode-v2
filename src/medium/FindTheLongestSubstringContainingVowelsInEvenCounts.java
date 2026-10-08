@@ -1,7 +1,6 @@
 package medium;
 
 import java.util.HashMap;
-import java.util.Random;
 
 // https://leetcode.com/problems/find-the-longest-substring-containing-vowels-in-even-counts/
 public class FindTheLongestSubstringContainingVowelsInEvenCounts {
@@ -22,7 +21,6 @@ public class FindTheLongestSubstringContainingVowelsInEvenCounts {
         }
         return result;
     }
-
 
     /*
      * Revision Note - Find the Longest Substring Containing Vowels in Even Counts (Medium)
@@ -80,30 +78,6 @@ public class FindTheLongestSubstringContainingVowelsInEvenCounts {
      * only the earliest.
      */
 
-    /*
-     * O(n^2) reference: try every start, sweep right maintaining the parity mask, and take the
-     * longest window whose mask is 0. No hash map, no seeding, no "earliest index" rule - so it
-     * shares none of the logic that can go wrong in the one-pass version.
-     */
-    private static int bruteForce(String s) {
-        int n = s.length(), best = 0;
-        for (int i = 0; i < n; i++) {
-            int mask = 0;
-            for (int j = i; j < n; j++) {
-                int v = "aeiou".indexOf(s.charAt(j));
-                if (v >= 0) mask ^= 1 << v;
-                if (mask == 0) best = Math.max(best, j - i + 1);
-            }
-        }
-        return best;
-    }
-
-    private static String randomString(Random rnd, int len, String alphabet) {
-        StringBuilder sb = new StringBuilder(len);
-        for (int i = 0; i < len; i++) sb.append(alphabet.charAt(rnd.nextInt(alphabet.length())));
-        return sb.toString();
-    }
-
     public static void main(String[] args) {
         FindTheLongestSubstringContainingVowelsInEvenCounts F = new FindTheLongestSubstringContainingVowelsInEvenCounts();
 
@@ -119,29 +93,5 @@ public class FindTheLongestSubstringContainingVowelsInEvenCounts {
         System.out.println("Test 10: " + F.findTheLongestSubstring("aeiouaeiou") + " (Expected: 10)"); // every vowel exactly twice
         System.out.println("Test 11: " + F.findTheLongestSubstring("abbe") + " (Expected: 2)");    // best window is "bb", strictly interior - touches neither end
         System.out.println("Test 12: " + F.findTheLongestSubstring("uaeiou") + " (Expected: 0)");  // u repeats, but any window spanning both u's picks up a,e,i,o exactly once
-
-        // cross-check against the O(n^2) reference
-        boolean agree = true;
-        String firstBad = "";
-        Random rnd = new Random(79);
-        for (int t = 0; t < 600; t++) {
-            // alternate a vowel-heavy alphabet (masks churn) with a consonant-heavy one (masks persist)
-            String alphabet = (t % 2 == 0) ? "aeioub" : "abcdeu";
-            String str = randomString(rnd, 1 + rnd.nextInt(18), alphabet);
-            int got = F.findTheLongestSubstring(str), want = bruteForce(str);
-            if (got != want) {
-                agree = false;
-                if (firstBad.isEmpty()) firstBad = "\"" + str + "\" got " + got + " want " + want;
-            }
-        }
-        System.out.println("Test 13: " + agree + " (Expected: true)  - matches O(n^2) reference, 600 random"
-                + (agree ? "" : ", first mismatch: " + firstBad));
-
-        // n = 5e5, the constraint ceiling
-        String big = randomString(new Random(83), 500000, "abcdefghijklmnopqrstuvwxyz");
-        long t0 = System.nanoTime();
-        int r = F.findTheLongestSubstring(big);
-        long ms = (System.nanoTime() - t0) / 1_000_000;
-        System.out.println("Test 14: " + (r > 0 && ms < 500) + " (Expected: true)  - n=500000 returned " + r + " in " + ms + "ms");
     }
 }

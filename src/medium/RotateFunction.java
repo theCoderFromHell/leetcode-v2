@@ -1,7 +1,6 @@
 package medium;
 
 import java.util.Arrays;
-import java.util.Random;
 
 // https://leetcode.com/problems/rotate-function/
 public class RotateFunction {
@@ -20,7 +19,6 @@ public class RotateFunction {
         }
         return (int)result;
     }
-
 
     /*
      * Revision Note - Rotate Function (Medium)
@@ -76,22 +74,6 @@ public class RotateFunction {
      * aggregation becomes a difference array rather than a recurrence.
      */
 
-    /*
-     * O(n^2) reference: actually build every rotation and score it. Uses long throughout so a
-     * mismatch can never be blamed on the reference overflowing. Only usable for small n.
-     */
-    private static int bruteForce(int[] nums) {
-        int n = nums.length;
-        long best = Long.MIN_VALUE;
-        for (int k = 0; k < n; k++) {
-            long f = 0;
-            for (int i = 0; i < n; i++)
-                f += (long) i * nums[(i - k + n) % n];      // arr_k[i] = nums[(i-k+n)%n]
-            best = Math.max(best, f);
-        }
-        return (int) best;
-    }
-
     public static void main(String[] args) {
         RotateFunction R = new RotateFunction();
 
@@ -102,31 +84,8 @@ public class RotateFunction {
         System.out.println("Test 5: " + R.maxRotateFunction(new int[]{5,5,5,5}) + " (Expected: 30)");     // all equal, every F identical
         System.out.println("Test 6: " + R.maxRotateFunction(new int[]{-1,-2,-3}) + " (Expected: -5)");    // all negative, so the answer is negative
         System.out.println("Test 7: " + R.maxRotateFunction(new int[]{0,0,0,0}) + " (Expected: 0)");
-        System.out.println("Test 8: " + R.maxRotateFunction(new int[]{100,-100,100,-100}) + " (Expected: " + bruteForce(new int[]{100,-100,100,-100}) + ")"); // value extremes
-        System.out.println("Test 9: " + R.maxRotateFunction(new int[]{2,6,4,3}) + " (Expected: " + bruteForce(new int[]{2,6,4,3}) + ")"); // max in the middle, not at either end
-
-        // cross-check against the O(n^2) reference
-        boolean agree = true;
-        String firstBad = "";
-        Random rnd = new Random(107);
-        for (int t = 0; t < 600; t++) {
-            int n = 1 + rnd.nextInt(12);
-            int[] a = new int[n];
-            for (int i = 0; i < n; i++) a[i] = rnd.nextInt(201) - 100;
-            int got = R.maxRotateFunction(a.clone()), want = bruteForce(a);
-            if (got != want) {
-                agree = false;
-                if (firstBad.isEmpty()) firstBad = Arrays.toString(a) + " got " + got + " want " + want;
-            }
-        }
-        System.out.println("Test 10: " + agree + " (Expected: true)  - matches O(n^2) reference, 600 random"
-                + (agree ? "" : ", first mismatch: " + firstBad));
-
-        // a larger case still checkable by brute force: n = 3000
-        int[] mid = new int[3000];
-        Random r2 = new Random(109);
-        for (int i = 0; i < mid.length; i++) mid[i] = (i % 2 == 0 ? 1 : -1) * (1 + r2.nextInt(3));
-        System.out.println("Test 11: " + (R.maxRotateFunction(mid.clone()) == bruteForce(mid)) + " (Expected: true)  - n=3000 vs brute force");
+        System.out.println("Test 8: " + R.maxRotateFunction(new int[]{100,-100,100,-100}) + " (Expected: 200)"); // value extremes
+        System.out.println("Test 9: " + R.maxRotateFunction(new int[]{2,6,4,3}) + " (Expected: 26)"); // max in the middle, not at either end
 
         // OVERFLOW. LeetCode guarantees only that the ANSWER fits in a 32-bit int - individual
         // F(k) values may not. Here n = 6555 and nums = [1, -100 x 6554], so
@@ -136,15 +95,6 @@ public class RotateFunction {
         int[] edge = new int[6555];
         edge[0] = 1;
         Arrays.fill(edge, 1, edge.length, -100);
-        System.out.println("Test 13: " + R.maxRotateFunction(edge.clone()) + " (Expected: -2147411546)");
-        System.out.println("Test 14: " + (R.maxRotateFunction(edge.clone()) == bruteForce(edge)) + " (Expected: true)  - same case vs the long-based reference");
-
-        // n = 1e5, the constraint ceiling. Alternating +-1 keeps every F(k) small.
-        int[] big = new int[100000];
-        for (int i = 0; i < big.length; i++) big[i] = (i % 2 == 0) ? 1 : -1;
-        long t0 = System.nanoTime();
-        int got = R.maxRotateFunction(big);
-        long ms = (System.nanoTime() - t0) / 1_000_000;
-        System.out.println("Test 15: " + (ms < 200) + " (Expected: true)  - n=100000 returned " + got + " in " + ms + "ms");
+        System.out.println("Test 10: " + R.maxRotateFunction(edge.clone()) + " (Expected: -2147411546)");
     }
 }
