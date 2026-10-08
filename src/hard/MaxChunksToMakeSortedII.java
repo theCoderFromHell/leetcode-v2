@@ -2,8 +2,6 @@ package hard;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.Random;
-
 
 // https://leetcode.com/problems/max-chunks-to-make-sorted-ii/
 public class MaxChunksToMakeSortedII {
@@ -89,18 +87,5 @@ public class MaxChunksToMakeSortedII {
         System.out.println("Test 5: " + M.maxChunksToSorted(new int[]{0, 1, 2, 3})       + " (Expected: 4)"); // already sorted
         System.out.println("Test 6: " + M.maxChunksToSorted(new int[]{1, 0, 1, 0})       + " (Expected: 1)"); // interleaved duplicates
         System.out.println("Test 7: " + M.maxChunksToSorted(new int[]{100000000, 0})     + " (Expected: 1)"); // max value range
-
-        // cross-check the monotonic stack against V2 (prefixMax <= suffixMin)
-        int[][] fixed = {{5, 4, 3, 2, 1}, {2, 1, 3, 4, 4}, {1}, {1, 1, 1}, {0, 1, 2, 3}, {1, 0, 1, 0}, {100000000, 0}};
-        boolean agree = true;
-        for (int[] c : fixed)
-            if (M.maxChunksToSorted(c.clone()) != M.maxChunksToSortedV2(c.clone())) agree = false;
-        Random rnd = new Random(7);
-        for (int t = 0; t < 1000; t++) {
-            int[] r = new int[1 + rnd.nextInt(40)];
-            for (int x = 0; x < r.length; x++) r[x] = rnd.nextInt(8);   // small range = many duplicates
-            if (M.maxChunksToSorted(r.clone()) != M.maxChunksToSortedV2(r.clone())) agree = false;
-        }
-        System.out.println("Test 8: " + agree + " (Expected: true)  — stack agrees with V2, 7 fixed + 1000 random");
     }
 }

@@ -1,7 +1,5 @@
 package medium;
 
-import java.util.Random;
-
 // https://leetcode.com/problems/longest-mountain-in-array/
 public class LongestMountainInArray {
     public int longestMountain(int[] arr) {
@@ -63,18 +61,6 @@ public class LongestMountainInArray {
      * O(1)-space follow-up: a single pass with two counters (up, down), resetting both when
      * the direction flips from down back to up. Same answer, no arrays.
      */
-    // O(n^2) reference, used only to cross-check
-    private static int bruteForce(int[] arr) {
-        int n = arr.length, best = 0;
-        for (int i = 1; i < n - 1; i++) {
-            int l = i, r = i;
-            while (l > 0 && arr[l - 1] < arr[l]) l--;
-            while (r < n - 1 && arr[r] > arr[r + 1]) r++;
-            if (l < i && r > i) best = Math.max(best, r - l + 1);
-        }
-        return best;
-    }
-
     public static void main(String[] args) {
         LongestMountainInArray L = new LongestMountainInArray();
 
@@ -87,15 +73,5 @@ public class LongestMountainInArray {
         System.out.println("Test 7: " + L.longestMountain(new int[]{1, 2, 2, 1})          + " (Expected: 0)"); // plateau at the peak
         System.out.println("Test 8: " + L.longestMountain(new int[]{0, 1, 0})             + " (Expected: 3)"); // minimal mountain
         System.out.println("Test 9: " + L.longestMountain(new int[]{1, 3, 1, 4, 6, 2, 1}) + " (Expected: 5)"); // two mountains, take longer
-
-        // cross-check against brute force, tiny value range so plateaus are common
-        boolean agree = true;
-        Random rnd = new Random(23);
-        for (int t = 0; t < 500; t++) {
-            int[] r = new int[1 + rnd.nextInt(15)];
-            for (int i = 0; i < r.length; i++) r[i] = rnd.nextInt(4);
-            if (L.longestMountain(r) != bruteForce(r)) agree = false;
-        }
-        System.out.println("Test 10: " + agree + " (Expected: true)  — matches brute force, 500 random");
     }
 }

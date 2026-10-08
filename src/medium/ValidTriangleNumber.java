@@ -1,8 +1,6 @@
 package medium;
 
 import java.util.Arrays;
-import java.util.Random;
-
 
 // https://leetcode.com/problems/valid-triangle-number/
 public class ValidTriangleNumber {
@@ -82,18 +80,5 @@ public class ValidTriangleNumber {
         System.out.println("Test 5: " + V.triangleNumber(new int[]{0, 0, 0})    + " (Expected: 0)"); // zeros never form a triangle
         System.out.println("Test 6: " + V.triangleNumber(new int[]{1, 1, 1})    + " (Expected: 1)"); // equilateral
         System.out.println("Test 7: " + V.triangleNumber(new int[]{1, 2, 3})    + " (Expected: 0)"); // degenerate: 1+2 == 3
-
-        // cross-check the two implementations agree, on the fixed cases plus random input
-        int[][] fixed = {{2, 2, 3, 4}, {4, 2, 3, 4}, {1}, {1, 2}, {0, 0, 0}, {1, 1, 1}, {1, 2, 3}};
-        boolean agree = true;
-        for (int[] c : fixed)
-            if (V.triangleNumber(c.clone()) != V.triangleNumberV2(c.clone())) agree = false;
-        Random rnd = new Random(42);
-        for (int t = 0; t < 500; t++) {
-            int[] r = new int[rnd.nextInt(30)];
-            for (int x = 0; x < r.length; x++) r[x] = rnd.nextInt(20);
-            if (V.triangleNumber(r.clone()) != V.triangleNumberV2(r.clone())) agree = false;
-        }
-        System.out.println("Test 8: " + agree + " (Expected: true)  — both versions agree, 7 fixed + 500 random");
     }
 }

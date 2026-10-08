@@ -2,9 +2,23 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 32 · Solved 23 · Total 55** — updated 2026-10-06
+**Pending 36 · Solved 23 · Total 59** — updated 2026-10-07
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 881. Boats to Save People
+*Array · Two Pointers · Greedy · Sorting · sort, then let the heaviest remaining element decide — pair it with the lightest if they fit, otherwise it goes alone; if the lightest cannot share with the heaviest, nobody can*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 2576 | [Find the Maximum Number of Marked Indices](https://leetcode.com/problems/find-the-maximum-number-of-marked-indices/) | Medium | ☐ | Same sort-then-pair, but pairing the extremes is now WRONG — match the smaller half against the larger half under `2*nums[i] <= nums[j]`, giving each small element the smallest partner that works. On [2,3,4,5,9,10] extremes mark 4, half-split marks 6 |
+| 2563 | [Count the Number of Fair Pairs](https://leetcode.com/problems/count-the-number-of-fair-pairs/) | Medium | ☐ | Same `a + b <= limit` test on a sorted array, but COUNTS every qualifying pair instead of consuming them — `count(sum <= upper) - count(sum <= lower - 1)`, each half a converging two-pointer pass |
+| 870 | [Advantage Shuffle](https://leetcode.com/problems/advantage-shuffle/) | Medium | ☐ | The same "the extreme decides" logic across TWO sorted arrays: if your best cannot beat their best, throw your worst at it — boats' heaviest-goes-alone, recast as a deliberate sacrifice |
+| 2071 | [Maximum Number of Tasks You Can Assign](https://leetcode.com/problems/maximum-number-of-tasks-you-can-assign/) | Hard | ☐ | The extension: binary-search the answer k, then greedily match the k easiest tasks to the k strongest workers through a deque, spending a pill only when forced — sorted greedy pairing under a budget |
+
+*Filtered as already solved: 1877 (Minimize Maximum Pair Sum in Array — the direct sibling, identical extreme-pairing), 948 (Bag of Tokens), 2410 (Maximum Matching of Players With Trainers), 1561 (Maximum Number of Coins You Can Get), 2491 (Divide Players Into Teams of Equal Skill). Also skipped: 1498 (already pending under 167), 1679 (Max Number of K-Sum Pairs — LeetCode-75 staple and effectively Two Sum II, high blind-spot risk), 2856 (Minimum Array Length After Pair Removals — real solution is frequency maths, and its two-pointer form duplicates 2576).*
 
 ---
 

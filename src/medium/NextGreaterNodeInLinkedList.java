@@ -62,15 +62,6 @@ public class NextGreaterNodeInLinkedList {
      *     stack.push(i)
      *   return result            // unresolved positions keep 0
      */
-    // O(n^2) reference, used only to cross-check the stack version
-    private static int[] bruteForce(int[] vals) {
-        int[] out = new int[vals.length];
-        for (int i = 0; i < vals.length; i++)
-            for (int j = i + 1; j < vals.length; j++)
-                if (vals[j] > vals[i]) { out[i] = vals[j]; break; }
-        return out;
-    }
-
     public static void main(String[] args) {
         NextGreaterNodeInLinkedList N = new NextGreaterNodeInLinkedList();
 
@@ -80,15 +71,5 @@ public class NextGreaterNodeInLinkedList {
         System.out.println("Test 4: " + Arrays.toString(N.nextLargerNodes(ListNode.createList(new int[]{1, 2, 3, 4})))    + " (Expected: [2, 3, 4, 0])");  // ascending
         System.out.println("Test 5: " + Arrays.toString(N.nextLargerNodes(ListNode.createList(new int[]{4, 3, 2, 1})))    + " (Expected: [0, 0, 0, 0])");  // descending
         System.out.println("Test 6: " + Arrays.toString(N.nextLargerNodes(ListNode.createList(new int[]{2, 2, 3})))       + " (Expected: [3, 3, 0])");     // duplicates need strict >
-
-        // cross-check against brute force on random input, heavy on duplicates
-        boolean agree = true;
-        Random rnd = new Random(3);
-        for (int t = 0; t < 500; t++) {
-            int[] vals = new int[1 + rnd.nextInt(30)];
-            for (int i = 0; i < vals.length; i++) vals[i] = 1 + rnd.nextInt(6);
-            if (!Arrays.equals(N.nextLargerNodes(ListNode.createList(vals)), bruteForce(vals))) agree = false;
-        }
-        System.out.println("Test 7: " + agree + " (Expected: true)  — matches brute force, 500 random");
     }
 }

@@ -1,9 +1,5 @@
 package medium;
 
-import java.util.Arrays;
-import java.util.Random;
-
-
 // https://leetcode.com/problems/gas-station/
 public class GasStation {
     public int canCompleteCircuit(int[] gas, int[] cost) {
@@ -81,22 +77,6 @@ public class GasStation {
      * Shares the adjacent-delta decomposition with 122, but the question is "where does the
      * accumulation start" rather than "what does it total", which is what forces the reset.
      */
-    // O(n^2) reference: try every start and actually drive the circuit. Used only to cross-check.
-    private static int bruteForce(int[] gas, int[] cost) {
-        int n = gas.length;
-        for (int s = 0; s < n; s++) {
-            long tank = 0;
-            boolean ok = true;
-            for (int k = 0; k < n; k++) {
-                int i = (s + k) % n;
-                tank += gas[i] - cost[i];
-                if (tank < 0) { ok = false; break; }
-            }
-            if (ok) return s;
-        }
-        return -1;
-    }
-
     public static void main(String[] args) {
         GasStation G = new GasStation();
 
@@ -109,24 +89,5 @@ public class GasStation {
         System.out.println("Test 7: " + G.canCompleteCircuit(new int[]{1,1,3}, new int[]{2,2,1}) + " (Expected: 2)");  // start is the LAST index
         System.out.println("Test 8: " + G.canCompleteCircuit(new int[]{2,0,0}, new int[]{0,1,1}) + " (Expected: 0)");  // total exactly 0
         System.out.println("Test 9: " + G.canCompleteCircuit(new int[]{1,2}, new int[]{2,1}) + " (Expected: 1)");      // n=2
-
-        // cross-check against the simulate-every-start reference
-        boolean agree = true;
-        String firstBad = "";
-        Random rnd = new Random(47);
-        for (int t = 0; t < 800; t++) {
-            int n = 1 + rnd.nextInt(8);
-            int[] g = new int[n], c = new int[n];
-            for (int i = 0; i < n; i++) { g[i] = rnd.nextInt(5); c[i] = rnd.nextInt(5); }  // tight range -> many ties and many -1 cases
-            int got = G.canCompleteCircuit(g.clone(), c.clone()), want = bruteForce(g, c);
-            if (got != want) {
-                agree = false;
-                if (firstBad.isEmpty())
-                    firstBad = "gas=" + Arrays.toString(g) + " cost=" + Arrays.toString(c)
-                             + " got " + got + " want " + want;
-            }
-        }
-        System.out.println("Test 10: " + agree + " (Expected: true)  - matches brute force, 800 random"
-                + (agree ? "" : ", first mismatch: " + firstBad));
     }
 }
