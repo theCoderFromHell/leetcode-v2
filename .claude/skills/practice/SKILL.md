@@ -199,15 +199,32 @@ If fewer than 3 survive, say so rather than padding with loosely-related problem
 Append the section to `src/PRACTICE.md` (format in Step 6), regenerate the header counts, then
 print the same table to the user.
 
-**The printed table must include the problem URL**, not just the title — the user opens these
-from the terminal. Print a `Link` column with the bare URL, since terminal output cannot carry
-markdown link syntax:
+**Print every problem's URL on its own line, BELOW the table — never inside it.**
+
+The user runs Terminal.app, where a URL opens only with Cmd+double-click, and only if it sits
+unbroken on a single screen line. A URL in a table cell shares its row with a long "why similar"
+sentence, so the row wraps and the URL splits across two lines — at which point Terminal.app no
+longer recognises it as a URL at all, modifier or not. A `Link` column was tried and failed for
+exactly this reason (2026-10-07).
+
+So keep the table for scanning, without a link column, and list the URLs underneath, one per
+line, prefixed by the problem number:
 
 ```
-| # | Problem | Diff | Why similar | Link |
-|---|---------|------|-------------|------|
-| 438 | Find All Anagrams in a String | Medium | Same count-vector signature under a sliding window | https://leetcode.com/problems/find-all-anagrams-in-a-string/ |
+| # | Problem | Diff | Why similar |
+|---|---------|------|-------------|
+| 438 | Find All Anagrams in a String | Medium | Same count-vector signature under a sliding window |
+| 567 | Permutation in String | Medium | Fixed-size window instead of all windows — same signature check |
+
+438  https://leetcode.com/problems/find-all-anagrams-in-a-string/
+567  https://leetcode.com/problems/permutation-in-string/
 ```
+
+Bare URLs only: no markdown link syntax, no angle brackets, and nothing immediately after the
+URL on that line, so no trailing punctuation gets swallowed into it.
+
+This rule is about **terminal output only**. `src/PRACTICE.md` keeps its `[Title](url)` links —
+that file is read in a markdown renderer (GitHub, IntelliJ preview), where they work fine.
 
 **Do not scaffold any files.** Close with:
 
@@ -235,8 +252,13 @@ Next up:
         Dummy node + prefix-sum map over a list — same removal
         pattern as 1836, harder bookkeeping.
 
+  https://leetcode.com/problems/remove-zero-sum-consecutive-nodes-from-linked-list/
+
   /dsa-together 1171 to start
 ```
+
+The URL goes on its own line for the same reason as Step 3e — it must never share a line with
+wrapped prose, or Terminal.app cannot open it.
 
 If nothing is pending, say so and suggest running `/practice <a recently solved problem>`.
 
@@ -246,6 +268,9 @@ If nothing is pending, say so and suggest running `/practice <a recently solved 
 
 Refresh statuses exactly as in Mode A, then print every pending row grouped by source problem.
 Include the counts. No "next up" pick — this mode is for scanning.
+
+Same link rule as Step 3e: tables with no link column, then each group's URLs one per line
+beneath that group's table, prefixed by problem number.
 
 ---
 
