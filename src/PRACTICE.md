@@ -2,9 +2,23 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 36 · Solved 23 · Total 59** — updated 2026-10-07
+**Pending 35 · Solved 28 · Total 63** — updated 2026-10-16
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 155. Min Stack
+*Stack · Design · store the aggregate of everything BENEATH each element alongside it — push (val, min-so-far), so the answer is always at the top and a pop restores the previous answer for free*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 1352 | [Product of the Last K Numbers](https://leetcode.com/problems/product-of-the-last-k-numbers/) | Medium | ☑ 2026-10-15 | Same "keep a running aggregate per pushed entry" idea, but the aggregate is a prefix PRODUCT queried over the last k entries — and a 0 forces you to reset the whole history instead of dividing by it |
+| 1438 | [Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit](https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/) | Medium | ☑ 2026-10-16 | Min Stack answers "min of everything so far"; here you need min AND max of a sliding window, so elements also leave from the FRONT — the min-stack becomes two monotonic deques |
+| 716 | [Max Stack](https://leetcode.com/problems/max-stack/) | Hard | ☐ | The mirror of 155 plus `popMax`, which removes from the MIDDLE and breaks the per-entry aggregate trick — forces a TreeMap + doubly linked list (or lazy deletion with two heaps) |
+| 2398 | [Maximum Number of Robots Within Budget](https://leetcode.com/problems/maximum-number-of-robots-within-budget/) | Hard | ☐ | The extension: an O(1) window max (monotonic deque) combined with a running window sum inside a two-pointer loop, under a cost formula `max + k * sum` |
+
+*Filtered as already solved: 901 (Online Stock Span — `StockSpanner`, the closest sibling: each stack entry carries an aggregated span), 1381 (Design a Stack With Increment Operation — `CustomStack`, a lazy per-entry increment), 895 (Maximum Frequency Stack — `FreqStackV2`), 239 (Sliding Window Maximum). Note: 155 was solved on LeetCode but never committed — backfilled as `MinStack` on 2026-10-14.*
 
 ---
 
@@ -13,9 +27,9 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 2576 | [Find the Maximum Number of Marked Indices](https://leetcode.com/problems/find-the-maximum-number-of-marked-indices/) | Medium | ☐ | Same sort-then-pair, but pairing the extremes is now WRONG — match the smaller half against the larger half under `2*nums[i] <= nums[j]`, giving each small element the smallest partner that works. On [2,3,4,5,9,10] extremes mark 4, half-split marks 6 |
-| 2563 | [Count the Number of Fair Pairs](https://leetcode.com/problems/count-the-number-of-fair-pairs/) | Medium | ☐ | Same `a + b <= limit` test on a sorted array, but COUNTS every qualifying pair instead of consuming them — `count(sum <= upper) - count(sum <= lower - 1)`, each half a converging two-pointer pass |
-| 870 | [Advantage Shuffle](https://leetcode.com/problems/advantage-shuffle/) | Medium | ☐ | The same "the extreme decides" logic across TWO sorted arrays: if your best cannot beat their best, throw your worst at it — boats' heaviest-goes-alone, recast as a deliberate sacrifice |
+| 2576 | [Find the Maximum Number of Marked Indices](https://leetcode.com/problems/find-the-maximum-number-of-marked-indices/) | Medium | ☑ 2026-10-08 | Same sort-then-pair, but pairing the extremes is now WRONG — match the smaller half against the larger half under `2*nums[i] <= nums[j]`, giving each small element the smallest partner that works. On [2,3,4,5,9,10] extremes mark 4, half-split marks 6 |
+| 2563 | [Count the Number of Fair Pairs](https://leetcode.com/problems/count-the-number-of-fair-pairs/) | Medium | ☑ 2026-10-09 | Same `a + b <= limit` test on a sorted array, but COUNTS every qualifying pair instead of consuming them — `count(sum <= upper) - count(sum <= lower - 1)`, each half a converging two-pointer pass |
+| 870 | [Advantage Shuffle](https://leetcode.com/problems/advantage-shuffle/) | Medium | ☑ 2026-10-14 | The same "the extreme decides" logic across TWO sorted arrays: if your best cannot beat their best, throw your worst at it — boats' heaviest-goes-alone, recast as a deliberate sacrifice |
 | 2071 | [Maximum Number of Tasks You Can Assign](https://leetcode.com/problems/maximum-number-of-tasks-you-can-assign/) | Hard | ☐ | The extension: binary-search the answer k, then greedily match the k easiest tasks to the k strongest workers through a deque, spending a pill only when forced — sorted greedy pairing under a budget |
 
 *Filtered as already solved: 1877 (Minimize Maximum Pair Sum in Array — the direct sibling, identical extreme-pairing), 948 (Bag of Tokens), 2410 (Maximum Matching of Players With Trainers), 1561 (Maximum Number of Coins You Can Get), 2491 (Divide Players Into Teams of Equal Skill). Also skipped: 1498 (already pending under 167), 1679 (Max Number of K-Sum Pairs — LeetCode-75 staple and effectively Two Sum II, high blind-spot risk), 2856 (Minimum Array Length After Pair Removals — real solution is frequency maths, and its two-pointer form duplicates 2576).*
