@@ -2,7 +2,7 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 35 · Solved 28 · Total 63** — updated 2026-10-16
+**Pending 37 · Solved 30 · Total 67** — updated 2026-10-16
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
@@ -33,6 +33,18 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 | 2071 | [Maximum Number of Tasks You Can Assign](https://leetcode.com/problems/maximum-number-of-tasks-you-can-assign/) | Hard | ☐ | The extension: binary-search the answer k, then greedily match the k easiest tasks to the k strongest workers through a deque, spending a pill only when forced — sorted greedy pairing under a budget |
 
 *Filtered as already solved: 1877 (Minimize Maximum Pair Sum in Array — the direct sibling, identical extreme-pairing), 948 (Bag of Tokens), 2410 (Maximum Matching of Players With Trainers), 1561 (Maximum Number of Coins You Can Get), 2491 (Divide Players Into Teams of Equal Skill). Also skipped: 1498 (already pending under 167), 1679 (Max Number of K-Sum Pairs — LeetCode-75 staple and effectively Two Sum II, high blind-spot risk), 2856 (Minimum Array Length After Pair Removals — real solution is frequency maths, and its two-pointer form duplicates 2576).*
+## 42. Trapping Rain Water
+*Array · Two Pointers · Monotonic Stack · water at i = min(maxLeft, maxRight) − h[i]: split it into a left pass and a right pass and combine per index. Two pointers make it O(1) space, because the lower side's bound is already final*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 2012 | [Sum of Beauty in the Array](https://leetcode.com/problems/sum-of-beauty-in-the-array/) | Medium | ☑ 2026-10-07 | 42's DP form stripped to the bone: prefix-max and suffix-min arrays, then each index is judged against both sides. Same two-pass split, but the per-index combine is a comparison instead of min(L, R) − h |
+| 2866 | [Beautiful Towers II](https://leetcode.com/problems/beautiful-towers-ii/) | Medium | ☑ 2026-10-16 | Left pass + right pass combined at each index again (the peak), but each pass needs a monotonic stack to build the best non-increasing profile. 42's prefix/suffix method and its stack method in one problem |
+| 1944 | [Number of Visible People in a Queue](https://leetcode.com/problems/number-of-visible-people-in-a-queue/) | Hard | ☐ | 42's stack form: a decreasing stack where each taller arrival pops the shorter bars it hides. In 42 each pop fills a basin; here each pop counts a line of sight |
+| 407 | [Trapping Rain Water II](https://leetcode.com/problems/trapping-rain-water-ii/) | Hard | ☐ | 42 in 2D. "Advance the lower side, its bound is final" becomes "pop the lowest boundary cell from a min-heap": a Dijkstra-like flood inward from the edges |
+
+*Filtered as already solved: 84 (Largest Rectangle in Histogram), 907 (Sum of Subarray Minimums), 1856 (Maximum Subarray Min-Product), 769 (Max Chunks To Make Sorted), 768 (Max Chunks To Make Sorted II), 2017 (Grid Game).*
+*Note: 42 itself and 238 (Product of Array Except Self, the other two-pass prefix/suffix staple) are both solved on LeetCode but not committed here, so this concept area is more picked-over than the repo shows. Rows checked against the repo only. 407 is the riskiest, as the famous direct sequel; the other three are contest-era.*
 
 ---
 
