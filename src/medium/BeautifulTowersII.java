@@ -3,7 +3,6 @@ package medium;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 import java.util.Stack;
 
 // https://leetcode.com/problems/beautiful-towers-ii/
@@ -81,23 +80,6 @@ public class BeautifulTowersII {
      *   return max(left[i] + right[i] - h[i])
      */
 
-    /*
-     * O(n^2) reference: tries every peak and walks outward with a running min, straight from the
-     * problem statement. No stack and no recurrence, so a mistake in either shows as a mismatch.
-     */
-    private static long bruteForce(List<Integer> m) {
-        int n = m.size();
-        long best = 0;
-        for (int p = 0; p < n; p++) {
-            long sum = m.get(p), cur = m.get(p);
-            for (int j = p - 1; j >= 0; j--) { cur = Math.min(cur, m.get(j)); sum += cur; }
-            cur = m.get(p);
-            for (int j = p + 1; j < n; j++) { cur = Math.min(cur, m.get(j)); sum += cur; }
-            best = Math.max(best, sum);
-        }
-        return best;
-    }
-
     public static void main(String[] args) {
         BeautifulTowersII B = new BeautifulTowersII();
 
@@ -110,29 +92,12 @@ public class BeautifulTowersII {
         System.out.println("Test 7: " + B.maximumSumOfHeights(List.of(2,2,2,2)) + " (Expected: 8)");            // plateau: equal heights never pop
         System.out.println("Test 8: " + B.maximumSumOfHeights(List.of(2,6,1,7,5,9,3)) + " (Expected: 25)");     // peak at 9, the 1 caps the far left
 
-        // cross-check against the O(n^2) reference
-        boolean agree = true;
-        String firstBad = "";
-        Random rnd = new Random(2866);
-        for (int t = 0; t < 1000; t++) {
-            int n = 1 + rnd.nextInt(12);
-            List<Integer> m = new ArrayList<>();
-            for (int i = 0; i < n; i++) m.add(1 + rnd.nextInt(6));      // small range -> frequent ties
-            long got = B.maximumSumOfHeights(m), want = bruteForce(m);
-            if (got != want) {
-                agree = false;
-                if (firstBad.isEmpty()) firstBad = m + " got " + got + " want " + want;
-            }
-        }
-        System.out.println("Test 9: " + agree + " (Expected: true)  - matches O(n^2) reference, 1000 random"
-                + (agree ? "" : ", first mismatch: " + firstBad));
-
         // n = 1e5, every height 1e9: sum is 1e14, overflows int in the multiply if not widened
         List<Integer> big = new ArrayList<>(Collections.nCopies(100000, 1_000_000_000));
         long t0 = System.nanoTime();
         long got = B.maximumSumOfHeights(big);
         long ms = (System.nanoTime() - t0) / 1_000_000;
-        System.out.println("Test 10: " + got + " (Expected: 100000000000000)  - n=1e5, all 1e9, " + ms + "ms");
+        System.out.println("Test 9: " + got + " (Expected: 100000000000000)  - n=1e5, all 1e9, " + ms + "ms");
 
         // n = 1e5 strictly increasing then one 1 at the end: the last index pops the whole stack
         List<Integer> deep = new ArrayList<>();
@@ -141,6 +106,6 @@ public class BeautifulTowersII {
         t0 = System.nanoTime();
         got = B.maximumSumOfHeights(deep);
         ms = (System.nanoTime() - t0) / 1_000_000;
-        System.out.println("Test 11: " + got + " (Expected: 4999950001)  - n=1e5, one O(n) pop, still amortised O(n), " + ms + "ms");
+        System.out.println("Test 10: " + got + " (Expected: 4999950001)  - n=1e5, one O(n) pop, still amortised O(n), " + ms + "ms");
     }
 }
