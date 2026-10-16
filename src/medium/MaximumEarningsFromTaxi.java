@@ -2,7 +2,6 @@ package medium;
 
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Random;
 
 // https://leetcode.com/problems/maximum-earnings-from-taxi/
 public class MaximumEarningsFromTaxi {
@@ -41,8 +40,6 @@ public class MaximumEarningsFromTaxi {
         }
         return size;
     }
-
-
 
     /*
      * V2 - the same ride-indexed take-or-skip DP, but with BOTH the comparator sort and the
@@ -163,63 +160,6 @@ public class MaximumEarningsFromTaxi {
      * form is the one worth owning.
      */
 
-    /*
-     * Reference 1 - fully independent: enumerate EVERY subset of rides, keep the feasible ones,
-     * take the best total. Exponential, so only usable for <= ~14 rides, but it shares no logic
-     * at all with the DP, which makes it the strongest possible check on small inputs.
-     */
-    private static long bruteForceSubsets(int[][] rides) {
-        int k = rides.length;
-        long best = 0;
-        for (int mask = 0; mask < (1 << k); mask++) {
-            int[][] chosen = new int[Integer.bitCount(mask)][];
-            int c = 0;
-            for (int i = 0; i < k; i++) if ((mask & (1 << i)) != 0) chosen[c++] = rides[i];
-            Arrays.sort(chosen, Comparator.comparingInt(o -> o[0]));
-            boolean feasible = true;
-            long total = 0;
-            int lastEnd = 0;
-            for (int[] r : chosen) {
-                if (r[0] < lastEnd) { feasible = false; break; }
-                total += r[1] - r[0] + r[2];
-                lastEnd = r[1];
-            }
-            if (feasible) best = Math.max(best, total);
-        }
-        return best;
-    }
-
-    /*
-     * Reference 2 - same take-or-skip recurrence, but finds the next compatible ride by a LINEAR
-     * SCAN instead of a binary search. O(rides^2). Its whole purpose is to isolate find(): if the
-     * DP agrees with this but not with reference 1, the recurrence is wrong; if it agrees with
-     * reference 1 but not with the real solution, find() is wrong.
-     */
-    private static long bruteForceLinear(int[][] input) {
-        int k = input.length;
-        int[][] r = new int[k][];
-        for (int i = 0; i < k; i++) r[i] = input[i].clone();
-        Arrays.sort(r, Comparator.comparingInt(o -> o[0]));
-        long[] dp = new long[k + 1];
-        for (int i = k - 1; i >= 0; i--) {
-            long value = r[i][1] - r[i][0] + r[i][2];
-            int next = k;
-            for (int j = i + 1; j < k; j++)
-                if (r[j][0] >= r[i][1]) { next = j; break; }
-            dp[i] = Math.max(dp[i + 1], value + dp[next]);
-        }
-        return dp[0];
-    }
-
-    private static int[][] randomRides(Random rnd, int k, int n) {
-        int[][] a = new int[k][3];
-        for (int i = 0; i < k; i++) {
-            int s = 1 + rnd.nextInt(n - 1);
-            a[i] = new int[]{s, s + 1 + rnd.nextInt(n - s), 1 + rnd.nextInt(5)};
-        }
-        return a;
-    }
-
     public static void main(String[] args) {
         MaximumEarningsFromTaxi M = new MaximumEarningsFromTaxi();
 
@@ -239,48 +179,9 @@ public class MaximumEarningsFromTaxi {
         for (int i = 0; i < k; i++) big[i] = new int[]{i + 1, i + 2, 100000};
         System.out.println("Test 10: " + M.maxTaxiEarnings(100001, big) + " (Expected: 3000030000)");
 
-        // cross-check 1: exhaustive subsets, tiny inputs
-        boolean agree1 = true;
-        String bad1 = "";
-        Random rnd = new Random(59);
-        for (int t = 0; t < 300; t++) {
-            int[][] a = randomRides(rnd, 1 + rnd.nextInt(8), 12);
-            int[][] c1 = new int[a.length][]; for (int i = 0; i < a.length; i++) c1[i] = a[i].clone();
-            long got = M.maxTaxiEarnings(12, c1), want = bruteForceSubsets(a);
-            if (got != want) { agree1 = false; if (bad1.isEmpty()) bad1 = Arrays.deepToString(a) + " got " + got + " want " + want; }
-        }
-        System.out.println("Test 11: " + agree1 + " (Expected: true)  - matches exhaustive subsets, 300 random"
-                + (agree1 ? "" : ", first mismatch: " + bad1));
-
-        // cross-check 2: linear-scan DP, larger inputs - isolates find()
-        boolean agree2 = true;
-        String bad2 = "";
-        for (int t = 0; t < 400; t++) {
-            int[][] a = randomRides(rnd, 1 + rnd.nextInt(40), 25);
-            int[][] c2 = new int[a.length][]; for (int i = 0; i < a.length; i++) c2[i] = a[i].clone();
-            long got = M.maxTaxiEarnings(25, c2), want = bruteForceLinear(a);
-            if (got != want) { agree2 = false; if (bad2.isEmpty()) bad2 = Arrays.deepToString(a) + " got " + got + " want " + want; }
-        }
-        System.out.println("Test 12: " + agree2 + " (Expected: true)  - matches linear-scan DP, 400 random"
-                + (agree2 ? "" : ", first mismatch: " + bad2));
-
-        // cross-check 3: V2 (counting sort + nxt[] sweep) against the primary
-        boolean agree3 = true;
-        String bad3 = "";
-        for (int t = 0; t < 400; t++) {
-            int nn = 10 + rnd.nextInt(40);
-            int[][] a = randomRides(rnd, 1 + rnd.nextInt(40), nn);
-            int[][] c3 = new int[a.length][]; for (int i = 0; i < a.length; i++) c3[i] = a[i].clone();
-            int[][] c4 = new int[a.length][]; for (int i = 0; i < a.length; i++) c4[i] = a[i].clone();
-            long got = M.maxTaxiEarnings(nn, c3), v2 = M.maxTaxiEarningsV2(nn, c4);
-            if (got != v2) { agree3 = false; if (bad3.isEmpty()) bad3 = "n=" + nn + " " + Arrays.deepToString(a) + " primary " + got + " V2 " + v2; }
-        }
-        System.out.println("Test 13: " + agree3 + " (Expected: true)  - V2 matches the primary, 400 random"
-                + (agree3 ? "" : ", first mismatch: " + bad3));
-
         // V2 on the overflow input too
         int[][] big2 = new int[k][3];
         for (int i = 0; i < k; i++) big2[i] = new int[]{i + 1, i + 2, 100000};
-        System.out.println("Test 14: " + M.maxTaxiEarningsV2(100001, big2) + " (Expected: 3000030000)");
+        System.out.println("Test 11: " + M.maxTaxiEarningsV2(100001, big2) + " (Expected: 3000030000)");
     }
 }

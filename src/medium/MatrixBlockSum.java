@@ -1,7 +1,6 @@
 package medium;
 
 import java.util.Arrays;
-import java.util.Random;
 
 // https://leetcode.com/problems/matrix-block-sum/
 public class MatrixBlockSum {
@@ -66,18 +65,6 @@ public class MatrixBlockSum {
      * Rule of thumb: a prefix pass removes one dimension of work per dimension precomputed.
      * Rows only -> O(k) per cell. Both -> O(1) per cell.
      */
-    // O(m*n*k^2) reference, used only to cross-check
-    private static int[][] bruteForce(int[][] mat, int k) {
-        int m = mat.length, n = mat[0].length;
-        int[][] out = new int[m][n];
-        for (int i = 0; i < m; i++)
-            for (int j = 0; j < n; j++)
-                for (int r = Math.max(0, i - k); r <= Math.min(m - 1, i + k); r++)
-                    for (int c = Math.max(0, j - k); c <= Math.min(n - 1, j + k); c++)
-                        out[i][j] += mat[r][c];
-        return out;
-    }
-
     public static void main(String[] args) {
         MatrixBlockSum M = new MatrixBlockSum();
 
@@ -98,17 +85,5 @@ public class MatrixBlockSum {
 
         System.out.println("Test 6: " + Arrays.deepToString(M.matrixBlockSum(new int[][]{{1}, {2}, {3}}, 1))
                 + " (Expected: [[3], [6], [5]])");                             // single column
-
-        // cross-check against brute force on random matrices and k values
-        boolean agree = true;
-        Random rnd = new Random(5);
-        for (int t = 0; t < 400; t++) {
-            int m = 1 + rnd.nextInt(8), n = 1 + rnd.nextInt(8), k = 1 + rnd.nextInt(10);
-            int[][] g = new int[m][n];
-            for (int i = 0; i < m; i++)
-                for (int j = 0; j < n; j++) g[i][j] = 1 + rnd.nextInt(100);
-            if (!Arrays.deepEquals(M.matrixBlockSum(g, k), bruteForce(g, k))) agree = false;
-        }
-        System.out.println("Test 7: " + agree + " (Expected: true)  — matches brute force, 400 random grids");
     }
 }

@@ -3,12 +3,7 @@ package medium;
 import common.TreeNode;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.IdentityHashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Queue;
-import java.util.Random;
 
 // https://leetcode.com/problems/binary-tree-longest-consecutive-sequence-ii/
 public class BinaryTreeLongestConsecutiveSequenceII {
@@ -37,7 +32,6 @@ public class BinaryTreeLongestConsecutiveSequenceII {
         }
         return new int[]{0,0};
     }
-
 
     /*
      * Revision Note - Binary Tree Longest Consecutive Sequence II (Medium)
@@ -115,63 +109,6 @@ public class BinaryTreeLongestConsecutiveSequenceII {
         return root;
     }
 
-    /*
-     * Brute-force reference, deliberately a different paradigm: forget the tree entirely and
-     * treat it as an UNDIRECTED graph. Any consecutive path is a simple path whose values rise
-     * by exactly 1 at every step, so values strictly increase and a node can never be revisited
-     * — no visited set needed. Longest increasing path == longest decreasing path reversed, so
-     * one direction suffices. O(n^2) worst case, which is fine for the small random trees below.
-     */
-    private static int bruteForce(TreeNode root) {
-        if (root == null) return 0;
-        // IdentityHashMap, NOT HashMap: TreeNode overrides equals/hashCode by value and
-        // children, so two structurally identical leaves would collide into one key
-        Map<TreeNode, List<TreeNode>> adj = new IdentityHashMap<>();
-        List<TreeNode> all = new ArrayList<>();
-        Queue<TreeNode> q = new ArrayDeque<>();
-        q.add(root);
-        while (!q.isEmpty()) {
-            TreeNode n = q.poll();
-            all.add(n);
-            adj.computeIfAbsent(n, k -> new ArrayList<>());
-            for (TreeNode c : new TreeNode[]{n.left, n.right}) {
-                if (c != null) {
-                    adj.computeIfAbsent(n, k -> new ArrayList<>()).add(c);
-                    adj.computeIfAbsent(c, k -> new ArrayList<>()).add(n);
-                    q.add(c);
-                }
-            }
-        }
-        int best = 0;
-        for (TreeNode n : all) best = Math.max(best, walk(n, adj));
-        return best;
-    }
-
-    private static int walk(TreeNode n, Map<TreeNode, List<TreeNode>> adj) {
-        int best = 1;
-        for (TreeNode v : adj.get(n))
-            if (v.val == n.val + 1) best = Math.max(best, 1 + walk(v, adj));
-        return best;
-    }
-
-    private static TreeNode randomTree(Random rnd, int size, int spread) {
-        if (size == 0) return null;
-        TreeNode root = new TreeNode(rnd.nextInt(spread));
-        List<TreeNode> nodes = new ArrayList<>();
-        nodes.add(root);
-        for (int i = 1; i < size; i++) {
-            TreeNode parent = nodes.get(rnd.nextInt(nodes.size()));
-            TreeNode child = new TreeNode(rnd.nextInt(spread));
-            if (parent.left == null && parent.right == null) {
-                if (rnd.nextBoolean()) parent.left = child; else parent.right = child;
-            } else if (parent.left == null) parent.left = child;
-            else if (parent.right == null) parent.right = child;
-            else { i--; continue; }
-            nodes.add(child);
-        }
-        return root;
-    }
-
     public static void main(String[] args) {
         BinaryTreeLongestConsecutiveSequenceII B = new BinaryTreeLongestConsecutiveSequenceII();
 
@@ -194,16 +131,5 @@ public class BinaryTreeLongestConsecutiveSequenceII {
 
         // longest path avoids the root entirely - the bend is one level down
         System.out.println("Test 13: " + B.longestConsecutive(build(10, 1, null, 2, 0)) + " (Expected: 3)");
-
-        // cross-check against the undirected-graph brute force
-        boolean agree = true;
-        int firstBad = -1;
-        Random rnd = new Random(37);
-        for (int t = 0; t < 600; t++) {
-            TreeNode r = randomTree(rnd, 1 + rnd.nextInt(12), 5);   // tiny value spread -> dense consecutive runs and ties
-            if (B.longestConsecutive(r) != bruteForce(r)) { agree = false; if (firstBad < 0) firstBad = t; }
-        }
-        System.out.println("Test 14: " + agree + " (Expected: true)  - matches brute force, 600 random trees"
-                + (agree ? "" : ", first mismatch at t=" + firstBad));
     }
 }

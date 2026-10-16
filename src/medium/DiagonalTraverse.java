@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
-
 
 // https://leetcode.com/problems/diagonal-traverse/
 public class DiagonalTraverse {
@@ -68,7 +66,7 @@ public class DiagonalTraverse {
      *
      * V2 — bucket every cell into a list indexed by r+c, reverse the even-indexed lists, then
      * concatenate. Makes the grouping key completely explicit and needs no bound reasoning at
-     * all, which is why it works as a cross-check. Same O(m*n) time, but O(m*n) extra space
+     * all. Same O(m*n) time, but O(m*n) extra space
      * plus boxing on every element, so the direct walk above is the one to submit.
      */
     public int[] findDiagonalOrderV2(int[][] mat) {
@@ -108,23 +106,5 @@ public class DiagonalTraverse {
                 + " (Expected: [1, 2, 4, 5, 3, 6])");                     // wider than tall
         System.out.println("Test 7: " + Arrays.toString(D.findDiagonalOrder(new int[][]{{1, 2}, {3, 4}, {5, 6}}))
                 + " (Expected: [1, 2, 3, 5, 4, 6])");                     // taller than wide
-
-        // cross-check the direct walk against V2 (bucket by r+c)
-        int[][][] fixed = {
-                {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}, {{1, 2}, {3, 4}}, {{1}},
-                {{1, 2, 3, 4}}, {{1}, {2}, {3}, {4}}, {{1, 2, 3}, {4, 5, 6}}, {{1, 2}, {3, 4}, {5, 6}}
-        };
-        boolean agree = true;
-        for (int[][] g : fixed)
-            if (!Arrays.equals(D.findDiagonalOrder(g), D.findDiagonalOrderV2(g))) agree = false;
-        Random rnd = new Random(29);
-        for (int t = 0; t < 300; t++) {
-            int m = 1 + rnd.nextInt(7), n = 1 + rnd.nextInt(7);
-            int[][] g = new int[m][n];
-            for (int r = 0; r < m; r++)
-                for (int c = 0; c < n; c++) g[r][c] = rnd.nextInt(100);
-            if (!Arrays.equals(D.findDiagonalOrder(g), D.findDiagonalOrderV2(g))) agree = false;
-        }
-        System.out.println("Test 8: " + agree + " (Expected: true)  — matches V2, 7 fixed + 300 random shapes");
     }
 }

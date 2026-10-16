@@ -1,9 +1,6 @@
 package medium;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
 
 // https://leetcode.com/problems/find-the-duplicate-number/
 public class FindTheDuplicateNumber {
@@ -48,7 +45,7 @@ public class FindTheDuplicateNumber {
      * functional graph, which must contain a cycle because two indices map to the same value;
      * the cycle entrance is the duplicate. Phase 1 finds a meeting point with slow/fast, phase 2
      * walks one pointer from index 0 to the entrance. Read-only, O(1) space, O(n) time - it is
-     * included below as a cross-check reference.
+     * included below as an alternative implementation.
      *
      * Complexity: O(n) time, one pass with O(1) work per element. O(1) extra space, though the
      * input array is destroyed - so "constant space" here is bought by mutation.
@@ -78,26 +75,6 @@ public class FindTheDuplicateNumber {
         return slow;
     }
 
-    // Reference 2: the obvious O(n) time, O(n) space answer. Shares no logic with either.
-    private static int withSet(int[] nums) {
-        Set<Integer> seen = new HashSet<>();
-        for (int v : nums)
-            if (!seen.add(v)) return v;
-        return -1;
-    }
-
-    // a valid 287 input: n+1 slots, values in [1,n], exactly one value repeated
-    private static int[] randomInput(Random rnd, int n) {
-        int[] a = new int[n + 1];
-        for (int i = 0; i < n; i++) a[i] = i + 1;
-        a[n] = 1 + rnd.nextInt(n);                     // the repeat
-        for (int i = a.length - 1; i > 0; i--) {       // shuffle
-            int j = rnd.nextInt(i + 1);
-            int t = a[i]; a[i] = a[j]; a[j] = t;
-        }
-        return a;
-    }
-
     public static void main(String[] args) {
         FindTheDuplicateNumber F = new FindTheDuplicateNumber();
 
@@ -109,28 +86,11 @@ public class FindTheDuplicateNumber {
         System.out.println("Test 6: " + F.findDuplicate(new int[]{2,1,3,4,2}) + " (Expected: 2)");           // duplicate sits at index 0
         System.out.println("Test 7: " + F.findDuplicate(new int[]{1,1,2,3,4,5,6,7,8,9}) + " (Expected: 1)"); // detected on the second element
 
-        // cross-check against both references; clone every time, since the solution destroys its input
-        boolean agree = true;
-        String firstBad = "";
-        Random rnd = new Random(61);
-        for (int t = 0; t < 600; t++) {
-            int[] a = randomInput(rnd, 1 + rnd.nextInt(30));
-            int got = F.findDuplicate(a.clone());
-            int wantFloyd = floyd(a.clone()), wantSet = withSet(a.clone());
-            if (got != wantSet || wantFloyd != wantSet) {
-                agree = false;
-                if (firstBad.isEmpty())
-                    firstBad = Arrays.toString(a) + " got " + got + ", floyd " + wantFloyd + ", set " + wantSet;
-            }
-        }
-        System.out.println("Test 8: " + agree + " (Expected: true)  - agrees with Floyd and HashSet, 600 random"
-                + (agree ? "" : ", first mismatch: " + firstBad));
-
         // confirm the input really is mutated - the documented caveat, asserted rather than claimed
         int[] probe = {1,3,4,2,2};
         int[] before = probe.clone();
         F.findDuplicate(probe);
-        System.out.println("Test 9: " + !Arrays.equals(before, probe) + " (Expected: true)  - input IS modified: "
+        System.out.println("Test 8: " + !Arrays.equals(before, probe) + " (Expected: true)  - input IS modified: "
                 + Arrays.toString(before) + " -> " + Arrays.toString(probe));
     }
 }

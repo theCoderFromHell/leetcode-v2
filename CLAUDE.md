@@ -75,7 +75,7 @@ Or run the `main` method directly from IntelliJ IDEA (`.iml` at `src/leetcode-v2
 Once a solution is correct, adding these is **Claude's responsibility, done automatically and without asking**:
 
 1. **Problem URL** comment directly above the class
-2. **Test cases** in `main()` — including a brute-force or alternate-implementation cross-check on randomised input, since LeetCode's sample tests systematically miss ties, boundaries and overflow
+2. **Test cases** in `main()` — hand-picked cases that each guard a specific trap: ties, boundaries, overflow, and whatever bug came up while solving. **Verify** against a brute-force or alternate implementation on randomised input during review, since LeetCode's sample tests systematically miss ties, boundaries and overflow — but do that in the scratchpad and **don't commit the harness**: no brute-force helpers or random-input loops in the solution file. Add a large-input test only when it guards something real (overflow at scale, an O(n²) that would time out); otherwise leave it out.
 3. **Revision note** block comment before the helpers/`main()` — pattern, key insight, gotchas, complexity, template
 
 Never ask permission for these. The user only writes solutions that pass the online judge.

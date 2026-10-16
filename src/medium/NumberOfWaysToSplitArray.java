@@ -1,7 +1,6 @@
 package medium;
 
 import java.util.Arrays;
-import java.util.Random;
 
 // https://leetcode.com/problems/number-of-ways-to-split-array/
 public class NumberOfWaysToSplitArray {
@@ -48,18 +47,6 @@ public class NumberOfWaysToSplitArray {
      *     if currSum >= total - currSum: count++
      *   return count
      */
-    // O(n^2) reference, used only to cross-check
-    private static int bruteForce(int[] nums) {
-        int count = 0;
-        for (int i = 0; i < nums.length - 1; i++) {
-            long left = 0, right = 0;
-            for (int j = 0; j <= i; j++) left += nums[j];
-            for (int j = i + 1; j < nums.length; j++) right += nums[j];
-            if (left >= right) count++;
-        }
-        return count;
-    }
-
     public static void main(String[] args) {
         NumberOfWaysToSplitArray N = new NumberOfWaysToSplitArray();
 
@@ -74,15 +61,5 @@ public class NumberOfWaysToSplitArray {
         int[] big = new int[100000];
         Arrays.fill(big, 100000);
         System.out.println("Test 7: " + N.waysToSplitArray(big) + " (Expected: 50000)");
-
-        // cross-check against brute force on random input, including equalities
-        boolean agree = true;
-        Random rnd = new Random(13);
-        for (int t = 0; t < 400; t++) {
-            int[] r = new int[2 + rnd.nextInt(20)];
-            for (int i = 0; i < r.length; i++) r[i] = rnd.nextInt(7) - 3;   // small range -> frequent ties
-            if (N.waysToSplitArray(r) != bruteForce(r)) agree = false;
-        }
-        System.out.println("Test 8: " + agree + " (Expected: true)  — matches brute force, 400 random");
     }
 }

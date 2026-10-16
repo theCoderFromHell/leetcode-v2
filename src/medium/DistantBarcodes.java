@@ -3,8 +3,6 @@ package medium;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.PriorityQueue;
-import java.util.Random;
-
 
 // https://leetcode.com/problems/distant-barcodes/
 public class DistantBarcodes {
@@ -104,21 +102,5 @@ public class DistantBarcodes {
 
         int[] t6 = {2, 2, 2, 2, 2, 1, 3, 4, 5};
         System.out.println("Test 6: " + isValid(t6, D.rearrangeBarcodes(t6)) + " (Expected: true)"); // one value at exactly ceil(n/2)
-
-        // stress: random inputs that always admit an answer
-        Random rnd = new Random(11);
-        boolean allValid = true;
-        for (int t = 0; t < 300; t++) {
-            int n = 1 + rnd.nextInt(40);
-            int[] r = new int[n];
-            for (int i = 0; i < n; i++) r[i] = 1 + rnd.nextInt(4);
-            int[] counts = new int[5];
-            for (int x : r) counts[x]++;
-            int max = 0;
-            for (int c : counts) max = Math.max(max, c);
-            if (max > (n + 1) / 2) continue;                          // no answer exists, skip
-            if (!isValid(r, D.rearrangeBarcodes(r))) allValid = false;
-        }
-        System.out.println("Test 7: " + allValid + " (Expected: true)  — 300 random solvable inputs");
     }
 }

@@ -1,7 +1,6 @@
 package medium;
 
 import java.util.Arrays;
-import java.util.Random;
 
 // https://leetcode.com/problems/minimum-average-difference/
 public class MinimumAverageDifference {
@@ -65,23 +64,6 @@ public class MinimumAverageDifference {
      * The seed trick only works because the special case is an ENDPOINT. When it is not,
      * run the loop over all n indices with an explicit guard on the empty side instead.
      */
-    // O(n^2) reference, used only to cross-check
-    private static int bruteForce(int[] nums) {
-        int n = nums.length;
-        long best = Long.MAX_VALUE;
-        int bestIdx = 0;
-        for (int i = 0; i < n; i++) {
-            long left = 0, right = 0;
-            for (int j = 0; j <= i; j++) left += nums[j];
-            for (int j = i + 1; j < n; j++) right += nums[j];
-            long leftAvg = left / (i + 1);
-            long rightAvg = (n - i - 1 == 0) ? 0 : right / (n - i - 1);
-            long diff = Math.abs(leftAvg - rightAvg);
-            if (diff < best) { best = diff; bestIdx = i; }
-        }
-        return bestIdx;
-    }
-
     public static void main(String[] args) {
         MinimumAverageDifference M = new MinimumAverageDifference();
 
@@ -95,15 +77,5 @@ public class MinimumAverageDifference {
         int[] big = new int[100000];
         Arrays.fill(big, 100000);
         System.out.println("Test 6: " + M.minimumAverageDifference(big) + " (Expected: 0)");
-
-        // cross-check against brute force, small values so ties are frequent
-        boolean agree = true;
-        Random rnd = new Random(17);
-        for (int t = 0; t < 400; t++) {
-            int[] r = new int[1 + rnd.nextInt(20)];
-            for (int i = 0; i < r.length; i++) r[i] = rnd.nextInt(5);
-            if (M.minimumAverageDifference(r) != bruteForce(r)) agree = false;
-        }
-        System.out.println("Test 7: " + agree + " (Expected: true)  — matches brute force, 400 random");
     }
 }

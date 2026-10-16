@@ -3,7 +3,6 @@ package medium;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 // https://leetcode.com/problems/rotate-image/
 public class RotateImage {
@@ -101,16 +100,6 @@ public class RotateImage {
      * COMPOSING two cheap self-inverse operations rather than moving elements to their final
      * positions directly.
      */
-    // Reference: rotate out of place into a fresh matrix. rotated[j][n-1-i] = m[i][j].
-    private static int[][] bruteForce(int[][] m) {
-        int n = m.length;
-        int[][] out = new int[n][n];
-        for (int i = 0; i < n; i++)
-            for (int j = 0; j < n; j++)
-                out[j][n - 1 - i] = m[i][j];
-        return out;
-    }
-
     private static int[][] copy(int[][] m) {
         int[][] c = new int[m.length][];
         for (int i = 0; i < m.length; i++) c[i] = m[i].clone();
@@ -158,26 +147,7 @@ public class RotateImage {
         for (int r = 0; r < 4; r++) R.rotate(t8);
         System.out.println("Test 8: " + Arrays.deepEquals(t8, original) + " (Expected: true)  - four rotations are the identity");
 
-        // cross-check against the out-of-place reference for every n from 1 to 20
-        boolean agree = true;
-        String firstBad = "";
-        Random rnd = new Random(103);
-        for (int t = 0; t < 400; t++) {
-            int n = 1 + rnd.nextInt(20);
-            int[][] m = new int[n][n];
-            for (int i = 0; i < n; i++)
-                for (int j = 0; j < n; j++) m[i][j] = rnd.nextInt(2001) - 1000;
-            int[][] mine = copy(m), want = bruteForce(m);
-            R.rotate(mine);
-            if (!Arrays.deepEquals(mine, want)) {
-                agree = false;
-                if (firstBad.isEmpty()) firstBad = "n=" + n + " " + show(m);
-            }
-        }
-        System.out.println("Test 9: " + agree + " (Expected: true)  - matches out-of-place reference, 400 random, n=1..20"
-                + (agree ? "" : ", first mismatch: " + firstBad));
-
         // the return value is always empty, which the signature note explains
-        System.out.println("Test 10: " + R.rotate(new int[][]{{1,2},{3,4}}).isEmpty() + " (Expected: true)  - returned list is vestigial");
+        System.out.println("Test 9: " + R.rotate(new int[][]{{1,2},{3,4}}).isEmpty() + " (Expected: true)  - returned list is vestigial");
     }
 }

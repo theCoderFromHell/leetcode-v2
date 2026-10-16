@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 // https://leetcode.com/problems/count-triplets-that-can-form-two-arrays-of-equal-xor/
 public class CountTripletsThatCanFormTwoArraysOfEqualXOR {
@@ -27,7 +26,6 @@ public class CountTripletsThatCanFormTwoArraysOfEqualXOR {
         }
         return result;
     }
-
 
     /*
      * Revision Note - Count Triplets That Can Form Two Arrays of Equal XOR (Medium)
@@ -67,7 +65,7 @@ public class CountTripletsThatCanFormTwoArraysOfEqualXOR {
      *   insight, which makes it easy to stop early and miss the point of the problem
      *
      * Complexity: storing a LIST of indices per prefix value and iterating all matches is
-     * O(n^2) worst case - n=300 all-equal gives ~45k inner steps, which is why Test 10 is
+     * O(n^2) worst case - n=300 all-equal gives ~45k inner steps, which is why Test 9 is
      * instant. O(n) space.
      *
      * The true single pass: pull the constant out of the sum.
@@ -91,26 +89,6 @@ public class CountTripletsThatCanFormTwoArraysOfEqualXOR {
      * deliberately when a prefix-map problem does not fit the 560 template exactly.
      */
 
-    /*
-     * O(n^3) reference: enumerate every (i, j, k) directly and compare a against b, using a
-     * prefix-XOR table so each comparison is O(1). Shares nothing with the hash-map counting,
-     * and n <= 300 keeps it usable as a check on real-sized inputs.
-     */
-    private static int bruteForce(int[] arr) {
-        int n = arr.length;
-        int[] p = new int[n + 1];
-        for (int t = 0; t < n; t++) p[t + 1] = p[t] ^ arr[t];
-        int count = 0;
-        for (int i = 0; i < n; i++)
-            for (int j = i + 1; j < n; j++)
-                for (int k = j; k < n; k++) {
-                    int a = p[j] ^ p[i];          // arr[i..j-1]
-                    int b = p[k + 1] ^ p[j];      // arr[j..k]
-                    if (a == b) count++;
-                }
-        return count;
-    }
-
     public static void main(String[] args) {
         CountTripletsThatCanFormTwoArraysOfEqualXOR C = new CountTripletsThatCanFormTwoArraysOfEqualXOR();
 
@@ -121,24 +99,7 @@ public class CountTripletsThatCanFormTwoArraysOfEqualXOR {
         System.out.println("Test 5: " + C.countTriplets(new int[]{1,1}) + " (Expected: 1)");         // n=2, the only triplet works
         System.out.println("Test 6: " + C.countTriplets(new int[]{1,2,4,8}) + " (Expected: 0)");     // all prefixes distinct, never matches
         System.out.println("Test 7: " + C.countTriplets(new int[]{2,2,2,2}) + " (Expected: 6)");     // three equal prefixes AND a separate pair
-        System.out.println("Test 8: " + C.countTriplets(new int[]{1,3,2,5,4,6}) + " (Expected: " + bruteForce(new int[]{1,3,2,5,4,6}) + ")");
-
-        // cross-check against the O(n^3) reference; small value range so prefixes collide often
-        boolean agree = true;
-        String firstBad = "";
-        Random rnd = new Random(73);
-        for (int t = 0; t < 500; t++) {
-            int[] a = new int[1 + rnd.nextInt(12)];
-            for (int i = 0; i < a.length; i++) a[i] = 1 + rnd.nextInt(4);
-            int got = C.countTriplets(a.clone()), want = bruteForce(a);
-            if (got != want) {
-                agree = false;
-                if (firstBad.isEmpty())
-                    firstBad = Arrays.toString(a) + " got " + got + " want " + want;
-            }
-        }
-        System.out.println("Test 9: " + agree + " (Expected: true)  - matches O(n^3) reference, 500 random"
-                + (agree ? "" : ", first mismatch: " + firstBad));
+        System.out.println("Test 8: " + C.countTriplets(new int[]{1,3,2,5,4,6}) + " (Expected: 5)");
 
         // n = 300 all equal: the constraint ceiling AND the worst case for matching prefixes
         int[] big = new int[300];
@@ -146,6 +107,6 @@ public class CountTripletsThatCanFormTwoArraysOfEqualXOR {
         long t0 = System.nanoTime();
         int got = C.countTriplets(big);
         long ms = (System.nanoTime() - t0) / 1_000_000;
-        System.out.println("Test 10: " + got + " (Expected: " + bruteForce(big) + ")  - n=300 all equal, " + ms + "ms");
+        System.out.println("Test 9: " + got + " (Expected: 2250050)  - n=300 all equal, " + ms + "ms");
     }
 }

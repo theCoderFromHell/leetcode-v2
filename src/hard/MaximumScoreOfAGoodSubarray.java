@@ -1,7 +1,6 @@
 package hard;
 
 import java.util.Arrays;
-import java.util.Random;
 
 // https://leetcode.com/problems/maximum-score-of-a-good-subarray/
 public class MaximumScoreOfAGoodSubarray {
@@ -26,7 +25,6 @@ public class MaximumScoreOfAGoodSubarray {
         }
         return result;
     }
-
 
     /*
      * Revision Note - Maximum Score of a Good Subarray (Hard)
@@ -59,7 +57,7 @@ public class MaximumScoreOfAGoodSubarray {
      *   whether the pointer is in range - easy to write as left > 0 || right < size and be wrong
      * - Ties between the two neighbours can go either way; both lead to the same optimum
      * - No overflow: 2e4 * 1e5 = 2e9 against Integer.MAX_VALUE = 2,147,483,647, about 7% of room.
-     *   Test 11 sits exactly on that boundary
+     *   Test 10 sits exactly on that boundary
      *
      * Complexity: O(n) time - left only decreases, right only increases, one moves per iteration,
      * so exactly n-1 iterations. O(1) space.
@@ -79,24 +77,6 @@ public class MaximumScoreOfAGoodSubarray {
      * survives variants where there is no single pivot to expand from.
      */
 
-    /*
-     * O(n^2) reference: for every left endpoint i <= k, walk j rightwards carrying the running
-     * minimum, and score each window that reaches k. No greedy choice anywhere, so it shares
-     * none of the "which side to extend" logic.
-     */
-    private static int bruteForce(int[] nums, int k) {
-        int n = nums.length;
-        long best = 0;
-        for (int i = k; i >= 0; i--) {
-            long m = Integer.MAX_VALUE;
-            for (int j = i; j < n; j++) {
-                m = Math.min(m, nums[j]);
-                if (j >= k) best = Math.max(best, m * (j - i + 1));
-            }
-        }
-        return (int) best;
-    }
-
     public static void main(String[] args) {
         MaximumScoreOfAGoodSubarray M = new MaximumScoreOfAGoodSubarray();
 
@@ -108,25 +88,7 @@ public class MaximumScoreOfAGoodSubarray {
         System.out.println("Test 6: " + M.maximumScore(new int[]{4,3,2,1}, 3) + " (Expected: 4)");      // k at the RIGHT edge, can only expand left
         System.out.println("Test 7: " + M.maximumScore(new int[]{7,1,1,1,1}, 0) + " (Expected: 7)");    // never widen - the pivot alone wins
         System.out.println("Test 8: " + M.maximumScore(new int[]{1,1,1,1,7}, 4) + " (Expected: 7)");    // mirror of 7
-        System.out.println("Test 9: " + M.maximumScore(new int[]{6,5,6,5,6}, 2) + " (Expected: " + bruteForce(new int[]{6,5,6,5,6}, 2) + ")"); // ties on both sides
-
-        // cross-check against the O(n^2) reference
-        boolean agree = true;
-        String firstBad = "";
-        Random rnd = new Random(127);
-        for (int t = 0; t < 600; t++) {
-            int n = 1 + rnd.nextInt(14);
-            int[] a = new int[n];
-            for (int i = 0; i < n; i++) a[i] = 1 + rnd.nextInt(8);      // small range -> frequent ties, which is where a greedy goes wrong
-            int k = rnd.nextInt(n);
-            int got = M.maximumScore(a.clone(), k), want = bruteForce(a, k);
-            if (got != want) {
-                agree = false;
-                if (firstBad.isEmpty()) firstBad = Arrays.toString(a) + " k=" + k + " got " + got + " want " + want;
-            }
-        }
-        System.out.println("Test 10: " + agree + " (Expected: true)  - matches O(n^2) reference, 600 random"
-                + (agree ? "" : ", first mismatch: " + firstBad));
+        System.out.println("Test 9: " + M.maximumScore(new int[]{6,5,6,5,6}, 2) + " (Expected: 25)"); // ties on both sides
 
         // n = 1e5 all equal at the value ceiling: score = 2e4 * 1e5 = 2e9, just inside int
         int[] big = new int[100000];
@@ -134,6 +96,6 @@ public class MaximumScoreOfAGoodSubarray {
         long t0 = System.nanoTime();
         int got = M.maximumScore(big, 50000);
         long ms = (System.nanoTime() - t0) / 1_000_000;
-        System.out.println("Test 11: " + got + " (Expected: 2000000000)  - n=1e5 at the int boundary, " + ms + "ms");
+        System.out.println("Test 10: " + got + " (Expected: 2000000000)  - n=1e5 at the int boundary, " + ms + "ms");
     }
 }

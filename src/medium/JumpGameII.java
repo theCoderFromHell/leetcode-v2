@@ -1,8 +1,5 @@
 package medium;
 
-import java.util.Arrays;
-import java.util.Random;
-
 // https://leetcode.com/problems/jump-game-ii/
 public class JumpGameII {
     public int jump(int[] nums) {
@@ -70,21 +67,6 @@ public class JumpGameII {
      * Greedy-by-layers beats DP here. The O(n^2) DP (dp[i] = min jumps to i) is the obvious first
      * answer and is what the band argument replaces - worth being able to write both.
      */
-    // O(n^2) DP reference: dp[i] = fewest jumps to reach i. Used only to cross-check.
-    private static int bruteForce(int[] nums) {
-        int n = nums.length;
-        if (n <= 1) return 0;
-        int[] dp = new int[n];
-        Arrays.fill(dp, Integer.MAX_VALUE);
-        dp[0] = 0;
-        for (int i = 0; i < n; i++) {
-            if (dp[i] == Integer.MAX_VALUE) continue;
-            for (int j = i + 1; j <= Math.min(n - 1, i + nums[i]); j++)
-                dp[j] = Math.min(dp[j], dp[i] + 1);
-        }
-        return dp[n - 1];
-    }
-
     public static void main(String[] args) {
         JumpGameII J = new JumpGameII();
 
@@ -97,24 +79,5 @@ public class JumpGameII {
         System.out.println("Test 7: " + J.jump(new int[]{10,1,1,1,1}) + " (Expected: 1)");         // reach overshoots the array
         System.out.println("Test 8: " + J.jump(new int[]{2,1}) + " (Expected: 1)");                // overshoot at n=2
         System.out.println("Test 9: " + J.jump(new int[]{1,2,1,1,1}) + " (Expected: 3)");          // greedy must look past the nearest option
-
-        // cross-check against the O(n^2) DP. nums[i] >= 1 for i < n-1 guarantees reachability.
-        boolean agree = true;
-        String firstBad = "";
-        Random rnd = new Random(53);
-        for (int t = 0; t < 800; t++) {
-            int n = 1 + rnd.nextInt(12);
-            int[] a = new int[n];
-            for (int i = 0; i < n - 1; i++) a[i] = 1 + rnd.nextInt(3);   // small steps -> many layers
-            if (n > 0) a[n - 1] = rnd.nextInt(3);
-            int got = J.jump(a.clone()), want = bruteForce(a);
-            if (got != want) {
-                agree = false;
-                if (firstBad.isEmpty())
-                    firstBad = Arrays.toString(a) + " got " + got + " want " + want;
-            }
-        }
-        System.out.println("Test 10: " + agree + " (Expected: true)  - matches O(n^2) DP, 800 random"
-                + (agree ? "" : ", first mismatch: " + firstBad));
     }
 }

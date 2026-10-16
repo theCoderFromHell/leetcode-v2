@@ -2,7 +2,6 @@ package medium;
 
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Random;
 
 // https://leetcode.com/problems/non-overlapping-intervals/
 public class NonOverlappingIntervals {
@@ -68,37 +67,6 @@ public class NonOverlappingIntervals {
      * sorted ends plus binary search (2008, 1235).
      */
 
-    /*
-     * O(n^2) reference, deliberately a different paradigm: weighted-interval-scheduling DP
-     * rather than a greedy. Sort by END, let dp[i] be the largest non-overlapping set that ends
-     * with interval i, then the answer is n minus the best dp. No exchange argument needed.
-     */
-    private static int bruteForce(int[][] input) {
-        int n = input.length;
-        if (n == 0) return 0;
-        int[][] a = new int[n][];
-        for (int i = 0; i < n; i++) a[i] = input[i].clone();
-        Arrays.sort(a, Comparator.comparingInt(o -> o[1]));
-        int[] dp = new int[n];
-        int best = 0;
-        for (int i = 0; i < n; i++) {
-            dp[i] = 1;
-            for (int j = 0; j < i; j++)
-                if (a[j][1] <= a[i][0]) dp[i] = Math.max(dp[i], dp[j] + 1);
-            best = Math.max(best, dp[i]);
-        }
-        return n - best;
-    }
-
-    private static int[][] randomIntervals(Random rnd, int n, int spread) {
-        int[][] a = new int[n][2];
-        for (int i = 0; i < n; i++) {
-            int s = rnd.nextInt(spread);
-            a[i] = new int[]{s, s + 1 + rnd.nextInt(spread)};   // width >= 1: the constraint is start < end
-        }
-        return a;
-    }
-
     public static void main(String[] args) {
         NonOverlappingIntervals N = new NonOverlappingIntervals();
 
@@ -111,22 +79,5 @@ public class NonOverlappingIntervals {
         System.out.println("Test 7: " + N.eraseOverlapIntervals(new int[][]{{1,10},{2,3},{4,5}}) + " (Expected: 1)");     // nested: min(end) is what saves this
         System.out.println("Test 8: " + N.eraseOverlapIntervals(new int[][]{{1,10},{2,9},{3,8},{4,7}}) + " (Expected: 3)"); // fully nested cascade
         System.out.println("Test 9: " + N.eraseOverlapIntervals(new int[][]{{-100,-50},{-60,-40},{-45,0}}) + " (Expected: 1)"); // negatives
-
-        // cross-check against the DP reference, small spread so clashes and ties are dense
-        boolean agree = true;
-        String firstBad = "";
-        Random rnd = new Random(43);
-        for (int t = 0; t < 600; t++) {
-            int[][] a = randomIntervals(rnd, 1 + rnd.nextInt(9), 6);
-            int[][] copy = new int[a.length][];
-            for (int i = 0; i < a.length; i++) copy[i] = a[i].clone();
-            int got = N.eraseOverlapIntervals(copy), want = bruteForce(a);
-            if (got != want) {
-                agree = false;
-                if (firstBad.isEmpty()) firstBad = Arrays.deepToString(a) + " got " + got + " want " + want;
-            }
-        }
-        System.out.println("Test 10: " + agree + " (Expected: true)  - matches DP reference, 600 random sets"
-                + (agree ? "" : ", first mismatch: " + firstBad));
     }
 }

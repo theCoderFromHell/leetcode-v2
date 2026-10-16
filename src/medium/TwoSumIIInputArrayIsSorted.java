@@ -1,7 +1,6 @@
 package medium;
 
 import java.util.Arrays;
-import java.util.Random;
 
 // https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/
 public class TwoSumIIInputArrayIsSorted {
@@ -62,25 +61,6 @@ public class TwoSumIIInputArrayIsSorted {
      * move settles many pairs at once, and to 719 where the converging scan becomes a counting
      * subroutine inside a binary search on the answer.
      */
-    // O(n^2) reference: find any valid pair by brute force. Used only to cross-check.
-    private static int[] bruteForce(int[] numbers, int target) {
-        for (int i = 0; i < numbers.length; i++)
-            for (int j = i + 1; j < numbers.length; j++)
-                if (numbers[i] + numbers[j] == target) return new int[]{i + 1, j + 1};
-        return new int[2];
-    }
-
-    /*
-     * The problem guarantees exactly one solution, but a random array may admit several. So the
-     * check is a PROPERTY check rather than an index comparison: the returned positions must be
-     * 1-based, in range, strictly increasing, and actually sum to the target.
-     */
-    private static boolean validAnswer(int[] numbers, int target, int[] got) {
-        if (got == null || got.length != 2) return false;
-        int i = got[0], j = got[1];
-        if (i < 1 || j > numbers.length || i >= j) return false;
-        return numbers[i - 1] + numbers[j - 1] == target;
-    }
 
     public static void main(String[] args) {
         TwoSumIIInputArrayIsSorted T = new TwoSumIIInputArrayIsSorted();
@@ -93,46 +73,5 @@ public class TwoSumIIInputArrayIsSorted {
         System.out.println("Test 6: " + Arrays.toString(T.twoSum(new int[]{1,2,3,4,4,9,56,90}, 8)) + " (Expected: [4, 5])"); // answer adjacent in the middle
         System.out.println("Test 7: " + Arrays.toString(T.twoSum(new int[]{-1000,-999,999,1000}, 0)) + " (Expected: [1, 4])"); // value extremes
         System.out.println("Test 8: " + Arrays.toString(T.twoSum(new int[]{0,0,3,4}, 0)) + " (Expected: [1, 2])");    // zeros, answer at the very start
-
-        // property cross-check: random sorted arrays, target taken from a real pair
-        boolean ok = true;
-        String firstBad = "";
-        Random rnd = new Random(97);
-        for (int t = 0; t < 800; t++) {
-            int n = 2 + rnd.nextInt(14);
-            int[] a = new int[n];
-            for (int i = 0; i < n; i++) a[i] = rnd.nextInt(41) - 20;
-            Arrays.sort(a);
-            int i = rnd.nextInt(n - 1), j = i + 1 + rnd.nextInt(n - i - 1);
-            int target = a[i] + a[j];
-            int[] got = T.twoSum(a.clone(), target);
-            if (!validAnswer(a, target, got)) {
-                ok = false;
-                if (firstBad.isEmpty())
-                    firstBad = Arrays.toString(a) + " target " + target + " got " + Arrays.toString(got);
-            }
-        }
-        System.out.println("Test 9: " + ok + " (Expected: true)  - 800 random sorted arrays, answer verified by property"
-                + (ok ? "" : ", first bad: " + firstBad));
-
-        // agreement with the O(n^2) reference where the solution is unique by construction
-        boolean agree = true;
-        for (int t = 0; t < 400; t++) {
-            int n = 2 + rnd.nextInt(10);
-            int[] a = new int[n];
-            for (int i = 0; i < n; i++) a[i] = i * 7 + 1;          // strictly increasing, distinct gaps
-            int i = rnd.nextInt(n - 1), j = i + 1 + rnd.nextInt(n - i - 1);
-            int target = a[i] + a[j];
-            if (!Arrays.equals(T.twoSum(a.clone(), target), bruteForce(a, target))) agree = false;
-        }
-        System.out.println("Test 10: " + agree + " (Expected: true)  - matches brute force, 400 unique-solution cases");
-
-        // n = 3e4, the constraint ceiling, answer at the far ends
-        int[] big = new int[30000];
-        for (int i = 0; i < big.length; i++) big[i] = -1000 + (i * 2000) / big.length;
-        long t0 = System.nanoTime();
-        int[] r = T.twoSum(big.clone(), big[0] + big[big.length - 1]);
-        long ms = (System.nanoTime() - t0) / 1_000_000;
-        System.out.println("Test 11: " + Arrays.toString(r) + " (Expected: [1, 30000])  - n=30000 in " + ms + "ms");
     }
 }
