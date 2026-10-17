@@ -2,9 +2,64 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 37 · Solved 30 · Total 67** — updated 2026-10-16
+**Pending 44 · Solved 38 · Total 82** — updated 2026-10-18
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 19. Remove Nth Node From End of List
+*Linked List · Two Pointers · fixed-gap pointers — a lead pointer starts n steps ahead, so when it reaches the end the trailer sits exactly before the target; a dummy node makes "delete the head" an ordinary case*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 369 | [Plus One Linked List](https://leetcode.com/problems/plus-one-linked-list/) | Medium | ☑ 2026-10-17 | Dummy node in front for the case where the head itself changes (999 → 1000), plus a trailing pointer that remembers the last non-9 node instead of the node n from the end |
+| 708 | [Insert into a Sorted Circular Linked List](https://leetcode.com/problems/insert-into-a-sorted-circular-linked-list/) | Medium | ☑ 2026-10-18 | prev/curr pair walking a list to find a splice point, but circular: no null to stop on, and the max→min wrap plus the all-equal list are the edge cases a dummy can't absorb |
+| 2905 | [Find Indices With Index and Value Difference II](https://leetcode.com/problems/find-indices-with-index-and-value-difference-ii/) | Medium | ☐ | 19's gap moved onto an array: j leads, i = j − indexDifference trails at a fixed distance, and the trailer feeds a running min/max so each j is checked in O(1) |
+| 220 | [Contains Duplicate III](https://leetcode.com/problems/contains-duplicate-iii/) | Hard | ☐ | The extension: the gap becomes "at most k apart", so the trailer evicts nums[i − k − 1] from a bucket map (or TreeSet) while j leads; the value check needs width-(valueDiff+1) buckets |
+
+*Filtered as already solved: 1721 (Swapping Nodes — k-th from the start and the end), 2095 (Delete the Middle Node), 61 (Rotate List), 2674 (Split a Circular Linked List), 1650 (LCA of a Binary Tree III — pointer switching to equalise distances), 237 (Delete Node in a Linked List), 3217 (Delete Nodes From Linked List Present in Array), 2817 (Minimum Absolute Difference Between Elements With Constraint — the gap-pointer array version, already done), 142, 2130, 138. 876 and 160 skipped as Easy. Checked against the repo only, and the repo is NOT trustworthy for linked lists (2130 and 138 were retracted under 143). 369, 708 and 2 (Add Two Numbers, left out as Top-150 risk) have no file.*
+
+---
+
+## 143. Reorder List
+*Linked List · Two Pointers · in-place restructure in three passes — slow/fast pointers to find the middle, reverse the second half, then weave the two halves together by rewiring next pointers*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 2816 | [Double a Number Represented as a Linked List](https://leetcode.com/problems/double-a-number-represented-as-a-linked-list/) | Medium | ☑ 2026-10-17 | Reverse to process from the far end, then reverse back — the reversal is a tool rather than the goal; the follow-up drops it entirely by looking one node ahead for the carry |
+| 2074 | [Reverse Nodes in Even Length Groups](https://leetcode.com/problems/reverse-nodes-in-even-length-groups/) | Medium | ☑ 2026-10-17 | Reversal plus reconnection inside one list: groups of size 1, 2, 3… and only even-length ones flip, so each group needs its own before/after links stitched back — the trap is a short last group whose actual length decides the flip |
+| 2046 | [Sort Linked List Already Sorted Using Absolute Values](https://leetcode.com/problems/sort-linked-list-already-sorted-using-absolute-values/) | Medium | ☑ 2026-10-17 | Pure pointer rewiring in one pass: the negatives sit in reverse order, so cut each one out and push it to the head — head insertion is how a reversal is built, applied selectively instead of to the whole list |
+
+*Filtered as already solved: 2130 (Maximum Twin Sum of a Linked List — solved on LeetCode but not committed; backfilled 2026-10-17), 138 (Copy List with Random Pointer — same, backfilled 2026-10-17), 25 (Reverse Nodes in k-Group), 92 (Reverse Linked List II), 328 (Odd Even Linked List — the inverse of the weave), 148 (Sort List — middle split + merge), 2095 (Delete the Middle Node), 1721 (Swapping Nodes), 24 (Swap Nodes in Pairs), 142 (Linked List Cycle II), 445 (Add Two Numbers II), 61, 86, 725, 1669, 2058, 2487. 234 (Palindrome Linked List — middle + reverse + compare) skipped as Easy. No Hard: the linked-list Hards (25, 23) are both solved. Two rows (2130, 138) were retracted as uncommitted solves, so the repo is NOT trustworthy for linked lists — verify the remaining rows on the LeetCode profile via chrome. 143 itself and 206 (Reverse Linked List) also have no file.*
+
+---
+
+## 209. Minimum Size Subarray Sum
+*Array · Sliding Window · variable window minimising length — grow right until the window qualifies, then shrink left while it still qualifies; works only because the aggregate is monotonic (positive numbers: shrinking can only lower the sum)*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 1234 | [Replace the Substring for Balanced String](https://leetcode.com/problems/replace-the-substring-for-balanced-string/) | Medium | ☑ 2026-10-16 | Same grow-then-shrink loop minimising length, but the condition is on what lies OUTSIDE the window: every letter's count outside must be ≤ n/4, so it's tracked by subtracting window chars from the global counts |
+| 2875 | [Minimum Size Subarray in Infinite Array](https://leetcode.com/problems/minimum-size-subarray-in-infinite-array/) | Medium | ☑ 2026-10-17 | 209 on an infinitely repeated array with sum EXACTLY target: take whole copies with target / total, then run the window over two concatenated copies for the remainder |
+| 3097 | [Shortest Subarray With OR at Least K II](https://leetcode.com/problems/shortest-subarray-with-or-at-least-k-ii/) | Medium | ☐ | Same shrink-while-valid loop, but OR can't be undone by subtraction — keep a count per bit (32 counters) so removing nums[left] knows which bits actually disappear |
+| 2302 | [Count Subarrays With Score Less Than K](https://leetcode.com/problems/count-subarrays-with-score-less-than-k/) | Hard | ☐ | The extension: the window is still monotonic (sum × length only grows), but you COUNT every valid window instead of minimising one — each right end adds right − left + 1 |
+
+*Filtered as already solved: 1658 (Minimum Operations to Reduce X to Zero — 209's complement, longest window with sum total − x), 713 (Subarray Product Less Than K), 1004 (Max Consecutive Ones III), 1838 (Frequency of the Most Frequent Element), 2958 (Length of Longest Subarray With at Most K Frequency), 1695 (Maximum Erasure Value). Also skipped: 862 (Shortest Subarray with Sum at Least K — 209 with negatives, where shrinking stops being safe and a monotonic deque of prefix sums takes over) is already pending under 560. Checked against the repo only.*
+
+---
+
+## 567. Permutation in String
+*String · Sliding Window · Hash Table · fixed-size window carrying a 26-count signature — slide by adding one char and removing one, and track how many letters currently match instead of comparing whole arrays each step*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 1297 | [Maximum Number of Occurrences of a Substring](https://leetcode.com/problems/maximum-number-of-occurrences-of-a-substring/) | Medium | ☑ 2026-10-16 | Same fixed window with a count array, but the window test is "distinct letters ≤ maxLetters" (a running distinct counter) and qualifying substrings go into a frequency map. The trap: maxSize is a decoy, since any longer valid window contains a minSize one that occurs at least as often |
+| 3297 | [Count Substrings That Can Be Rearranged to Contain a String I](https://leetcode.com/problems/count-substrings-that-can-be-rearranged-to-contain-a-string-i/) | Medium | ☐ | 567 asks whether a window IS a permutation of the target; this asks whether it CONTAINS one. The window stops being fixed-size: shrink from the left while the "letters still needed" counter is 0, and every valid left endpoint counts all its extensions to the right |
+| 2953 | [Count Complete Substrings](https://leetcode.com/problems/count-complete-substrings/) | Hard | ☐ | The extension: 567's fixed window run 26 times, once per possible distinct-letter count c, with length c*k and the matches counter tracking "letters with exactly k occurrences". The adjacent-difference ≤ 2 rule first splits the string into independent segments |
+| 30 | [Substring with Concatenation of All Words](https://leetcode.com/problems/substring-with-concatenation-of-all-words/) | Hard | ☐ | 567 with whole words as the alphabet: the signature is a HashMap of word counts, the window slides one word at a time, and it has to be run once per starting offset 0..wordLen-1 to cover every alignment |
+
+*Filtered as already solved: 76 (Minimum Window Substring — the variable-window version of 3297's counter), 2461 (Maximum Sum of Distinct Subarrays With Length K), 239 (Sliding Window Maximum), 438 (Find All Anagrams in a String — the direct sibling, solved on LeetCode but not committed). Note: 567 itself is not in the repo either, so it is another LeetCode-only solve. Checked against the repo only; 30 is a Top-150 staple, so it has the highest risk of being an uncommitted solve.*
 
 ---
 
