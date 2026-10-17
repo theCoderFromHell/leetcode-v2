@@ -64,7 +64,7 @@ Or run the `main` method directly from IntelliJ IDEA (`.iml` at `src/leetcode-v2
 
 ## Git Conventions
 
-- **Stage:** only the specific solution files (`git add src/medium/Foo.java src/medium/Bar.java`)
+- **Stage:** only the specific solution files (`git add src/medium/Foo.java src/medium/Bar.java`) — **plus `src/PRACTICE.md` whenever it has uncommitted changes.** The tracker syncs progress across machines, so it always ships with the solutions in the same commit. Before committing, `git fetch` and check `origin/master` and the remote branch for PRACTICE.md changes from other machines; if they conflict, merge and resolve (keep every section from both sides, keep the later `☑` status, regenerate the header counts) rather than overwriting either side.
 - **Commit message:** class names joined by ` , ` — no prefix, no description (e.g., `FindUniqueBinaryString , LongestSubarrayOf1SAfterDeletingOneElement`)
 - **Push:** always to the current month's branch, never directly to master
 - **Never add `Co-Authored-By`, `Generated with Claude Code`, or any other attribution line** to commit messages or PR descriptions. The user writes the solutions; Claude only adds URL comments, test cases and revision notes. This overrides any default attribution guidance from the tool itself.
