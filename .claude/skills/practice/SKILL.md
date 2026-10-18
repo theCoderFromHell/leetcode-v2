@@ -73,6 +73,8 @@ grep -qE '(public|private|protected).*\(.*\).*\{' <file>
 
 No method declaration → treat as **unsolved**.
 
+The reverse also fails: a method body can be a **draft in progress**. On 2026-10-18 an untracked `SumOfMutatedArrayClosestToTarget.java` had a half-written binary search with an infinite loop, and the probe would have flipped it to ☑. So if the file is **untracked** (`git status --short` shows `??`), don't flip it on the probe alone. Flip it only if the problem appears in the recent-AC list (2d), or the user says it's done.
+
 ### 2c. When the repo says "not found", decide whether to trust it
 
 The repo check errs toward *under*-reporting. Three known false-negative sources:
@@ -80,13 +82,16 @@ The repo check errs toward *under*-reporting. Three known false-negative sources
 | Situation | Action |
 |---|---|
 | Title starts with **"Design"** | ~35 files are named after the API class, not the title ("Design Phone Directory" → `PhoneDirectory.java`; also `Codec`, `LFUCache`, `Trie`, `MedianFinder`, `TimeMap`, `Twitter`, `RandomizedSet`, `StockSpanner`, `BrowserHistory`). **Probe the bare class name too** before concluding unsolved. |
-| Title contains a **digit, hyphen or parenthesis** | The transform is lossy: `3Sum Closest → ThreeSumClosest`, `K-th Symbol in Grammar → KthSymbolInGrammar`, `Pow(x, n) → PowXN`, `132 Pattern → OneThreeTwoPattern` (but the file is actually `The132Pattern.java`). **Verify via chrome.** |
+| Title contains a **digit, hyphen or parenthesis** | The transform is lossy: `3Sum Closest → ThreeSumClosest`, `K-th Symbol in Grammar → KthSymbolInGrammar`, `Pow(x, n) → PowXN`, `132 Pattern → OneThreeTwoPattern` (but the file is actually `The132Pattern.java`). **Check the recent-AC list (2d), then chrome (2e).** |
 | Neither of the above | Repo says unsolved — but see the blind spot below before trusting it. |
 
 ### 2c-bis. The repo's structural blind spot
 
-**The repo holds ~751 problems; the LeetCode profile shows ~785 solved.** Roughly 34 problems
-are solved on LeetCode but were never committed here. The repo check cannot see any of them —
+**As of 2026-10-18 the repo holds ~800 distinct problem files; the LeetCode profile shows 899
+solved** (62 Easy / 782 Medium / 55 Hard). Refresh the LeetCode side whenever it matters with
+`mcp__leetcode__get_user_profile(username: "theCoderFromHell")`, which reads
+`totalSubmissionNum[].count`. The gap is not exact, since some repo files are contest or variant
+duplicates, but on the order of 100 problems are solved on LeetCode and never committed here. The repo check cannot see any of them —
 no filename, no slug, nothing to match. This is not naming drift; the file simply does not exist.
 
 Confirmed cases, all retracted after the user said "already solved": **438** (Find All Anagrams
@@ -117,7 +122,7 @@ So when the user says *"<N> is already solved"*:
 1. Drop the row, move it into the section's *Filtered as already solved* line, and note there
    that it was solved on LeetCode but not committed. Backfill to keep 3-5 candidates.
 2. **Offer to create the missing file**, in one line. If the user pastes their accepted code:
-   - verify the difficulty against the problem page -> `src/easy|medium|hard/`
+   - verify the difficulty with `mcp__leetcode__get_problem` -> `src/easy|medium|hard/`
    - PascalCase class name per `CLAUDE.md`; confirm nothing exists at that path already
    - package line, `import common.*` if needed, URL comment above the class, their code verbatim
    - add a revision note written from reading their code, plus `main()` with test cases
@@ -139,9 +144,26 @@ So when the user says *"<N> is already solved"*:
 
 This is the only path that shrinks the blind spot, so take it whenever a retraction happens.
 
-### 2d. Chrome fallback
+### 2d. Recent-AC check (LeetCode MCP) — run it on every invocation
 
-When 2c says verify, check the user's LeetCode profile — username **theCoderFromHell**.
+Call `mcp__leetcode__get_recent_ac_submissions(username: "theCoderFromHell", limit: 20)` once per
+`/practice` run. It needs no auth, and its tools may be deferred, so load them with ToolSearch first.
+It returns the user's most recent accepted submissions, each with a `titleSlug` and a Unix `timestamp`.
+
+- **Capped at 20** whatever `limit` says (asking for 50 returned 20). It is a recency window,
+  not history: it sees roughly the last week or two of solves, and nothing older.
+- **Use it in two directions:**
+  - **Refresh:** flip any `☐` row whose slug appears, using the date from `timestamp`, not today.
+    That includes solves made on another machine and not yet pulled.
+  - **Filter:** drop a Mode C candidate whose slug appears.
+- **Match on slug, not title.** Slugs are exact and sidestep the PascalCase transform's lossiness.
+- **A slug in the list proves solved. Its absence proves nothing** about older problems. For
+  those the repo check plus 2c-bis still apply, and chrome (2e) is the deep check.
+
+### 2e. Chrome fallback
+
+When 2c says verify and the recent-AC list (2d) didn't settle it, check the user's LeetCode
+profile in the browser. The username is **theCoderFromHell**.
 
 - Load the `claude-in-chrome` skill **before** any `mcp__claude-in-chrome__*` call.
 - **Batch every uncertain candidate into one browser session.** Never open a session per candidate.
@@ -163,22 +185,31 @@ Only derive for source problems with no section.
 
 ### 3b. Identify the concept, not the tags
 
-Look up each source problem (title, number, difficulty, topic tags). Then name the *technique*
-being practised. Topic tags alone are too coarse to find genuinely similar problems:
+Look up each source problem with `mcp__leetcode__get_problem(titleSlug)`, which gives the title,
+number, difficulty and topic tags. Its `similarQuestions` field (LeetCode's own list, each entry
+with a difficulty) and its `hints` are good **seeds** for candidates. They are not answers:
+LeetCode's similar list is often loose or Easy-heavy, so every seed still has to pass the
+technique test below. `mcp__leetcode__search_problems` with `tags` and `difficulty` is useful for
+discovering contest-era problems in a concept area.
+
+Then name the *technique* being practised. Topic tags alone are too coarse to find genuinely
+similar problems:
 
 - Weak: *"Linked List, Hash Table"*
 - Strong: *"frequency pass + dummy-node removal"*
 
 ### 3c. Propose 3–5 candidates
 
-**Medium and Hard only. Never suggest an Easy problem** — the user has ~751 solves and Easy
+**Medium and Hard only. Never suggest an Easy problem** — the user has ~900 solves and Easy
 problems are almost always subsumed by what they have already done. If a concept only has Easy
 analogues, return fewer candidates rather than padding with them.
 
 **Verify each difficulty — do not assert it from memory.** Recalled difficulty is unreliable:
-922 (Sort Array By Parity II) was suggested as Medium and is actually Easy. Batch the whole
-candidate list into one WebSearch and confirm before writing any row. This costs one search and
-prevents a banned suggestion reaching the user.
+922 (Sort Array By Parity II) was suggested as Medium and is actually Easy. Confirm each one
+with `mcp__leetcode__get_problem`, sending every candidate's call **in parallel in one message**,
+before writing any row. Its `difficulty` field is authoritative, including for premium problems.
+A failed lookup also catches a wrong slug before it reaches a `[Title](url)` link. Fall back to a
+single batched WebSearch only if the MCP server is unavailable.
 
 Each candidate must:
 - Drill the **same core technique** as the source problem
@@ -234,8 +265,11 @@ that file is read in a markdown renderer (GitHub, IntelliJ preview), where they 
 
 ## Step 4 — Mode A: Refresh & Suggest Next (bare `/practice`)
 
-1. Run the solved check over every `☐` row in the tracker.
-2. Flip newly-solved rows to `☑ <today's date>`, regenerate header counts, save.
+1. Run the solved check over every `☐` row in the tracker: the repo probe (2a/2b) **and** the
+   recent-AC list (2d).
+2. Flip newly-solved rows to `☑ <date>`, regenerate header counts, save. For `<date>`, use the
+   `timestamp` from the recent-AC list when the slug is there, and today's date only when the
+   repo probe alone found it.
 3. Report the diff in one or two lines.
 4. Pick **one** pending problem to do next — prefer a suggestion whose source problem was
    solved most recently, so the concept is still fresh.

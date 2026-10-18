@@ -3,7 +3,11 @@ name: dsa-review
 description: Full DSA review of the most recently edited solution — correctness, complexity, and alternatives
 ---
 
-Find the most recently modified `.java` file in `src/easy/`, `src/medium/`, or `src/hard/`. Read it fully, then produce a structured review:
+Find the most recently modified `.java` file in `src/easy/`, `src/medium/`, or `src/hard/`. Read it fully.
+
+Then pull the problem with `mcp__leetcode__get_problem(titleSlug)`, taking the slug from the file's URL comment (or derive it from the class name). Load the tool via ToolSearch if it's deferred. Edge-case and overflow verdicts depend on the **real constraints** and examples, not remembered ones; the LeetCode examples also become Tests 1–N. Use the response's `topicTags` and `similarQuestions` to sanity-check the "Alternative Approach" section. Don't use the community-solution tools (`list_problem_solutions` / `get_problem_solution`): the review should be your own analysis.
+
+Then produce a structured review:
 
 ## 1. Problem Summary
 One sentence: what does this problem ask for?

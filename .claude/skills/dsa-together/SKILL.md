@@ -9,12 +9,18 @@ The user has invoked `/dsa-together` with a LeetCode problem number or name. Wor
 
 ## Step 1 — Identify the Problem
 
-Parse the argument to extract the problem number or name. Use WebSearch or WebFetch to look up the problem on leetcode.com and retrieve:
-- Problem title
-- **Difficulty** (Easy / Medium / Hard) — needed for the package and directory
-- Full problem statement (constraints, examples)
-- Topic tags (e.g. BFS, DP, Sliding Window, Two Pointers)
-- **The Java method signature** from LeetCode's code template (e.g. `public int smallestCommonElement(int[][] mat)`)
+Parse the argument to extract the problem number or name, then look it up with the **LeetCode MCP server** (configured in the repo's `.mcp.json`, so every machine has it). Its tools may be deferred — load them with ToolSearch (`select:mcp__leetcode__get_problem,mcp__leetcode__search_problems`) first.
+
+- **`mcp__leetcode__get_problem(titleSlug)`** returns everything this step needs in one call:
+  - `title`, `questionId`
+  - `difficulty` (Easy / Medium / Hard): this decides the package and directory
+  - `content`: the full statement, including constraints and examples
+  - `topicTags`, e.g. BFS, DP, Sliding Window, Two Pointers
+  - `codeSnippets`: take the entry with `langSlug: "java"` for the **verbatim method signature**
+- **Number only, slug unknown?** Use `mcp__leetcode__search_problems` with `searchKeywords` set to the number or title words, and match on the returned `questionId`/title.
+- **Keep `hints` and `similarQuestions` to yourself.** The response includes them, and they are spoilers. Use `hints` only as the "smallest useful hint" in Step 3c when the user is stuck. Never paste them unprompted.
+- **Premium problems** return `content: null` and empty `codeSnippets` (272 is one). The difficulty and tags are still reliable. Fall back to WebSearch for the statement and signature.
+- **Fall back to WebSearch/WebFetch** only for those premium gaps, or if the MCP server is unavailable. Never WebFetch leetcode.com itself, which returns 403 behind auth.
 
 ### Deriving the URL slug
 
@@ -28,7 +34,7 @@ Lowercase the title, replace spaces with hyphens, drop characters that are not a
 
 Final URL: `https://leetcode.com/problems/<slug>/`
 
-Confirm the slug resolves — if WebSearch returns a different canonical URL, use that one.
+Confirm the slug resolves: a successful `get_problem` call is the confirmation. If it errors or returns no problem, the slug is wrong; find the canonical one with `search_problems` and use that.
 
 ### Deriving the class name
 
@@ -162,35 +168,21 @@ Classify into one of three states:
 - **ATTEMPTED** — tried it, not accepted
 - **NEVER ATTEMPTED** — fresh problem
 
-> **Do not try to fetch LeetCode submission history.** It sits behind authentication, so WebFetch cannot read it — the request either fails or silently returns the logged-out page, and acting on that produces a confidently wrong answer. The user's LeetCode handle is **theCoderFromHell**, which is useful for attribution but gets you nothing here.
+> **The user's rule (2026-10-17): invoking `/dsa-together` means the problem is unsolved — never ask "solved, attempted, or new?".** Don't look up LeetCode submission history to second-guess it either: the MCP server's `get_recent_ac_submissions` exists, but it is for `/practice`'s tracker, not for overriding the user here.
 
-Use these signals instead, in order.
-
-### Signal 1 — the repo (authoritative when it fires)
+### Signal 1 — the repo (the only check)
 
 Step 1b already established whether `src/<difficulty>/<ClassName>.java` exists.
 
 | Repo state | Conclude |
 |---|---|
-| File exists, method body is **filled in** | **SOLVED** — go straight to review, no need to ask |
-| File exists, body is **empty or a stub** | Inconclusive — the scaffold was created but nothing written. Fall through to Signal 2 |
-| File does not exist | Inconclusive — fall through to Signal 2 |
+| File exists, method body is **filled in** | The user's own work is already there. Read it and pick up from it: review it if it looks complete, or continue guiding from where it stands if it's a draft. Never ignore or overwrite it |
+| File exists, body is **empty or a stub** | **NEVER ATTEMPTED** — collaborative mode |
+| File does not exist | **NEVER ATTEMPTED** — collaborative mode |
 
-Also check for variant files (`<ClassName>V2.java`, `V3`) — a variant means SOLVED at least once.
+Also check for variant files (`<ClassName>V2.java`, `V3`). A variant means the problem was solved at least once, so treat it like a filled-in file.
 
-### Signal 2 — ask, in one line
-
-When the repo is inconclusive, ask directly and wait:
-
-> **Have you solved this one before — solved it, attempted it, or is it new?**
-
-That single question costs one turn and is strictly more reliable than any inference.
-
-### Default when unanswered
-
-If the user doesn't answer or is ambiguous, treat it as **NEVER ATTEMPTED** and enter collaborative mode.
-
-This default is deliberate and asymmetric: guessing NEVER-ATTEMPTED when they've actually solved it costs a little redundant guidance, whereas guessing SOLVED when they haven't **spoils the problem permanently** by dumping a full review with the answer in it. Bias toward the recoverable error.
+Do not ask a status question in any of these cases. Defaulting to NEVER ATTEMPTED is deliberately asymmetric. Guessing never-attempted when the user has actually solved it costs a little redundant guidance. Guessing SOLVED when they haven't **spoils the problem permanently** by dumping a full review with the answer in it.
 
 ---
 
