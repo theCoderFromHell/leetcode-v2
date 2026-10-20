@@ -2,7 +2,7 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 44 · Solved 38 · Total 82** — updated 2026-10-18
+**Pending 47 · Solved 44 · Total 91** — updated 2026-10-20
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
@@ -35,6 +35,23 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
+## 658. Find K Closest Elements
+*Array · Binary Search · Two Pointers · Sorting · in sorted order the k closest to x are always a contiguous window — shrink from whichever end is farther (a tie drops the larger), or binary-search the window's LEFT edge in [0, n − k] by comparing x − arr[mid] with arr[mid + k] − x*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 475 | [Heaters](https://leetcode.com/problems/heaters/) | Medium | ☑ 2026-10-17 | 658's "x sits between two sorted neighbours" step, asked once per house: sort the heaters, find each house's insertion point, take the nearer of its two neighbours, and answer the max over houses. Or sort both and sweep with two pointers, converging without any binary search |
+| 1818 | [Minimum Absolute Sum Difference](https://leetcode.com/problems/minimum-absolute-sum-difference/) | Medium | ☐ | For every i, the best replacement is the value in sorted(nums1) closest to nums2[i] — the lower bound or its predecessor, the same two-neighbour check — found in O(log n) per query instead of a linear scan. Adds "best single improvement to a total" and a mod |
+| 1300 | [Sum of Mutated Array Closest to Target](https://leetcode.com/problems/sum-of-mutated-array-closest-to-target/) | Medium | ☑ 2026-10-20 | The same "closest, ties to the smaller" rule moved onto the ANSWER space: the capped sum is monotone in value, so binary-search where it crosses target and compare the candidates either side — 658's comparison applied to a value you search for, not one you are handed |
+| 272 | [Closest Binary Search Tree Value II](https://leetcode.com/problems/closest-binary-search-tree-value-ii/) | Hard | ☐ | 658 on a BST: an inorder traversal IS the sorted array, so a k-sized deque that evicts the farther end is the shrink-from-both-ends solution verbatim. The real lesson is O(log n + k): predecessor and successor stacks expanding outward from target, without materialising the array |
+| 1847 | [Closest Room](https://leetcode.com/problems/closest-room/) | Hard | ☐ | Closest id to `preferred` with ties to the SMALLER id — 658's exact tie rule — but only among rooms of size >= minSize. Sort queries by minSize descending, add rooms to a TreeSet as they qualify, then `floor` / `ceiling` around preferred: offline ordering turns a changing candidate set into a sorted one |
+
+*Filtered as already solved: 2817 (Minimum Absolute Difference Between Elements With Constraint — the direct sibling, a TreeSet floor/ceiling closest-value lookup), 4 (Median of Two Sorted Arrays — binary search on a cut comparing the boundary elements, the same move as 658's `arr[mid]` vs `arr[mid + k]`), 373 (Find K Pairs with Smallest Sums), 378 (Kth Smallest Element in a Sorted Matrix), 16 (3Sum Closest).*
+*Deliberately NOT suggested: 973 (K Closest Points to Origin) is unfound in the repo but a NeetCode / Top-150 staple, exactly where the blind spot concentrates — and it is the heap / quickselect version over UNSORTED input, which the two heap versions in `FindKClosestElements` already drill. 719 (Find K-th Smallest Pair Distance) is already pending under 167. 270 (Closest Binary Search Tree Value) is Easy.*
+*Source note: `FindKClosestElements.java` holds four versions — shrink from both ends (the main one, O(n − k)), two heaps split at x, expand outward from the closest index, and a sort-everything heap. None is the O(log(n − k) + k) binary search on the window's left edge. Rows checked against the repo only; 475 is the best-known of the five, 1818 / 1300 / 1847 are contest-era, and 272 needs Premium.*
+
+---
+
 ## 209. Minimum Size Subarray Sum
 *Array · Sliding Window · variable window minimising length — grow right until the window qualifies, then shrink left while it still qualifies; works only because the aggregate is monotonic (positive numbers: shrinking can only lower the sum)*
 
@@ -63,6 +80,22 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
+## 3. Longest Substring Without Repeating Characters
+*Hash Table · String · Sliding Window · grow the window right; the moment the invariant (all distinct) breaks, move left past the duplicate — a last-seen index lets it JUMP instead of step — and the answer is the widest valid window*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 2401 | [Longest Nice Subarray](https://leetcode.com/problems/longest-nice-subarray/) | Medium | ☑ 2026-10-16 | 3 over a 30-letter alphabet: "no two elements share a set bit" is "no repeated character" over bits, so the seen-set becomes a single OR mask — add with `\|`, evict with `^` — and the shrink loop is unchanged. LeetCode lists 3 as its first similar question |
+| 1438 | [Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit](https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/) | Medium | ☑ 2026-10-16 | Same longest-valid-window loop, but validity depends on the window's max and min, which a hash set cannot hand back after an eviction — two monotonic deques carry them, and left can no longer jump, it has to step |
+| 395 | [Longest Substring with At Least K Repeating Characters](https://leetcode.com/problems/longest-substring-with-at-least-k-repeating-characters/) | Medium | ☐ | The counter-example: "every character appears >= k times" is NOT shrink-safe — shrinking can break it and growing can fix it — so 3's expand/shrink loop is simply wrong here. Fix the number of distinct letters (1..26) to make it monotone again, or split at letters whose total count is below k |
+| 992 | [Subarrays with K Different Integers](https://leetcode.com/problems/subarrays-with-k-different-integers/) | Hard | ☐ | From the LONGEST window to COUNTING windows: "exactly k distinct" is not monotone either, but atMost(k) − atMost(k−1) is, and each atMost pass is 3's shrink-on-violation loop adding `right − left + 1` per step |
+
+*Filtered as already solved: 2958 (Length of Longest Subarray With at Most K Frequency — 3 generalised from one copy to k, the direct sibling), 1695 (Maximum Erasure Value — 3 over integers, maximising a sum), 2461 (Maximum Sum of Distinct Subarrays With Length K), 159 (Longest Substring with At Most Two Distinct Characters), 340 (Longest Substring with At Most K Distinct Characters), 904 (Fruit Into Baskets), 1004 (Max Consecutive Ones III), 487 (Max Consecutive Ones II), 1493 (Longest Subarray of 1's After Deleting One Element), 1208 (Get Equal Substrings Within Budget), 76 (Minimum Window Substring), 2009 (Minimum Number of Operations to Make Array Continuous), 1358 (Number of Substrings Containing All Three Characters), 2799 (Count Complete Subarrays in an Array), 1248 (Count Number of Nice Subarrays), 209 (Minimum Size Subarray Sum), 1658 (Minimum Operations to Reduce X to Zero), 239 (Sliding Window Maximum), 438 (Find All Anagrams in a String — solved on LeetCode, not committed).*
+*Deliberately NOT suggested: 424 (Longest Repeating Character Replacement) and 567 (Permutation in String) are unfound in the repo but are Blind-75 / NeetCode staples, exactly where the uncommitted-solve blind spot concentrates; 2024 (Maximize the Confusion of an Exam) is 1004 with two letters. The fair fifth pick, 1234 (Replace the Substring for Balanced String, Medium — the window flipped, the SHORTEST window whose complement satisfies the counts), has since been solved and committed (`ReplaceTheSubstringForBalancedString`, 2026-10-16).*
+*Source note: 3 itself is not in the repo — a Blind-75 staple almost certainly solved on LeetCode but never committed.*
+
+---
+
 ## 155. Min Stack
 *Stack · Design · store the aggregate of everything BENEATH each element alongside it — push (val, min-so-far), so the answer is always at the top and a pop restores the previous answer for free*
 
@@ -88,6 +121,9 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 | 2071 | [Maximum Number of Tasks You Can Assign](https://leetcode.com/problems/maximum-number-of-tasks-you-can-assign/) | Hard | ☐ | The extension: binary-search the answer k, then greedily match the k easiest tasks to the k strongest workers through a deque, spending a pill only when forced — sorted greedy pairing under a budget |
 
 *Filtered as already solved: 1877 (Minimize Maximum Pair Sum in Array — the direct sibling, identical extreme-pairing), 948 (Bag of Tokens), 2410 (Maximum Matching of Players With Trainers), 1561 (Maximum Number of Coins You Can Get), 2491 (Divide Players Into Teams of Equal Skill). Also skipped: 1498 (already pending under 167), 1679 (Max Number of K-Sum Pairs — LeetCode-75 staple and effectively Two Sum II, high blind-spot risk), 2856 (Minimum Array Length After Pair Removals — real solution is frequency maths, and its two-pointer form duplicates 2576).*
+
+---
+
 ## 42. Trapping Rain Water
 *Array · Two Pointers · Monotonic Stack · water at i = min(maxLeft, maxRight) − h[i]: split it into a left pass and a right pass and combine per index. Two pointers make it O(1) space, because the lower side's bound is already final*
 
@@ -136,7 +172,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 923 | [3Sum With Multiplicity](https://leetcode.com/problems/3sum-with-multiplicity/) | Medium | ☐ | Same converging scan, but COUNTING rather than finding — ties force real combinatorics (`C(n,2)` when both pointers sit on equal values), which is the case a find-one solution never has to think about |
+| 923 | [3Sum With Multiplicity](https://leetcode.com/problems/3sum-with-multiplicity/) | Medium | ☑ 2026-10-06 | Same converging scan, but COUNTING rather than finding — ties force real combinatorics (`C(n,2)` when both pointers sit on equal values), which is the case a find-one solution never has to think about |
 | 1498 | [Number of Subsequences That Satisfy the Given Sum Condition](https://leetcode.com/problems/number-of-subsequences-that-satisfy-the-given-sum-condition/) | Medium | ☐ | Converging pointers where ONE match settles 2^(j-i) subsequences at once — the same "a single pointer move resolves many answers" leverage as 611, but with modular powers of two |
 | 826 | [Most Profit Assigning Work](https://leetcode.com/problems/most-profit-assigning-work/) | Medium | ☐ | Two pointers that both sweep FORWARD over two separately sorted arrays while carrying a running max, instead of converging from the ends — the other half of the two-pointer family |
 | 719 | [Find K-th Smallest Pair Distance](https://leetcode.com/problems/find-k-th-smallest-pair-distance/) | Hard | ☐ | Two pointers become a COUNTING SUBROUTINE inside a binary search on the answer: guess a distance, count pairs within it in O(n), and bisect. Already scaffolded empty at `src/hard/FindKThSmallestPairDistance.java` |
@@ -152,7 +188,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 1798 | [Maximum Number of Consecutive Values You Can Make](https://leetcode.com/problems/maximum-number-of-consecutive-values-you-can-make/) | Medium | ☐ | The "first gap" half of 41 in isolation — sweep sorted coins tracking the smallest unreachable total, and stop the moment a coin exceeds it. No array trickery, just the gap argument |
+| 1798 | [Maximum Number of Consecutive Values You Can Make](https://leetcode.com/problems/maximum-number-of-consecutive-values-you-can-make/) | Medium | ☑ 2026-10-05 | The "first gap" half of 41 in isolation — sweep sorted coins tracking the smallest unreachable total, and stop the moment a coin exceeds it. No array trickery, just the gap argument |
 | 765 | [Couples Holding Hands](https://leetcode.com/problems/couples-holding-hands/) | Hard | ☐ | The swap-into-place half of 41, taken seriously: keep a value-to-index map and swap each person to their partner. Counting the swaps is cycle decomposition, which is what 41's while-loop is doing implicitly |
 | 330 | [Patching Array](https://leetcode.com/problems/patching-array/) | Hard | ☐ | "Smallest value not yet reachable" promoted from an answer to a loop invariant — you may insert numbers to close gaps, so the gap you track drives the greedy rather than terminating it |
 | 2003 | [Smallest Missing Genetic Value in Each Subtree](https://leetcode.com/problems/smallest-missing-genetic-value-in-each-subtree/) | Hard | ☐ | Literally 41 answered for every subtree at once. Needs a presence array indexed by value, plus small-to-large merging so the total stays near-linear instead of O(n^2) |
