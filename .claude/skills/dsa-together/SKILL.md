@@ -71,6 +71,17 @@ public class FindSmallestCommonElementInAllRows {
     public static void main(String[] args) {
         FindSmallestCommonElementInAllRows F = new FindSmallestCommonElementInAllRows();
 
+        // Test 1: LeetCode example 1
+        System.out.println("Test 1: " + F.smallestCommonElement(new int[][]{{1, 2, 3, 4, 5}, {2, 4, 5, 8, 10}, {3, 5, 7, 9, 11}, {1, 3, 5, 7, 9}}) + " (Expected: 5)");
+
+        // Test 2: LeetCode example 2
+        System.out.println("Test 2: " + F.smallestCommonElement(new int[][]{{1, 2, 3}, {2, 3, 4}, {2, 3, 5}}) + " (Expected: 2)");
+
+        // Test 3: no element common to every row
+        System.out.println("Test 3: " + F.smallestCommonElement(new int[][]{{1, 2}, {3, 4}}) + " (Expected: -1)");
+
+        // Test 4: single row
+        System.out.println("Test 4: " + F.smallestCommonElement(new int[][]{{4, 7, 9}}) + " (Expected: 4)");
     }
 }
 ```
@@ -80,8 +91,37 @@ Rules for the scaffold:
 - Problem URL as a `//` comment on the line directly above `public class` — this is the project convention.
 - Method signature copied **verbatim** from LeetCode's Java template, with an **empty body**. Do not add a placeholder `return`, and do not attempt an implementation — the empty body is intentional and mirrors what LeetCode gives. It will not compile until the user fills it in; that is expected.
 - If the problem needs `ListNode`, `TreeNode`, `Node`, or `DoubleListNode`, add `import common.<Type>;`.
-- Empty `main()` with the instance variable named using the first letter of the class (`F` for `FindSmallestCommonElementInAllRows`). Test cases get added later, at review time.
+- `main()` declares the instance variable named using the first letter of the class (`F` for `FindSmallestCommonElementInAllRows`), followed by the **test cases, written upfront**. See the next section.
 - Do **not** commit the scaffold. The user commits once the solution works.
+
+### Test cases go in upfront
+
+The user's rule (2026-10-20): write the test cases into `main()` **at scaffold time**, so the moment their solution is ready they can run the file and check every result against its expected value. The method body still stays empty. The file won't compile until the user fills it in, exactly as before.
+
+**Which tests:**
+- **Tests 1–N are the LeetCode examples**, in order, and their outputs are authoritative. `get_problem`'s `exampleTestcases` field holds the example inputs one argument per line. It is filled in even for premium problems, where `content` is null and the outputs have to be computed.
+- **Then add 2–4 tests for traps**, picked from the constraints: the smallest legal input (one element, k == n, …), duplicates, ties, boundary values, and overflow scale when sums or products can pass 2³¹ − 1. Add a large input only when it guards something real (overflow at scale, an O(n²) that would time out).
+
+**No spoilers.** The user reads these tests before they've thought about the problem.
+- Comment each extra test with the **input shape only**: `// Test 4: even length`, `// Test 5: all values negative`, `// Test 6: k == n`.
+- Never write the reason it's tricky, the bug it catches, or the technique that handles it. For example, "even length — the centre is the LOWER median" gives the gotcha away.
+
+**Every expected value must be right.** A wrong expected value sends the user debugging correct code.
+- Example outputs come straight from the statement.
+- For any other test, compute the expected value with a quick brute force in the scratchpad, run it, then delete it. Never put the brute force in the solution file, and never show it to the user. Don't hand-derive expected values; that is where wrong tests come from.
+- If no brute force is practical, use inputs small enough to check by hand, and check them twice.
+
+**Format.** Use the `CLAUDE.md` line, `System.out.println("Test N: " + X.method(args) + " (Expected: Y)");`, plus:
+- **Arrays:** wrap `int[]` / `long[]` in `Arrays.toString(...)` and `int[][]` in `Arrays.deepToString(...)`, with `import java.util.Arrays;`.
+- **"Return the answer in any order":** sort the result before printing, e.g. `Arrays.toString(Arrays.stream(r).sorted().toArray())`, and write the expected value sorted. Otherwise a correct answer in a different order looks wrong.
+- **`ListNode` input:** use `ListNode.createList(new int[]{...})`.
+- **List output, tree input or tree output:** add small `private static` test helpers below the method, such as `show(ListNode)` or `build(Integer...)` from a level-order array (see `ReverseNodesInEvenLengthGroups` and `BinaryTreeLongestConsecutiveSequenceII`). Helpers are test plumbing only, never solution logic.
+- **Design problems:** replay each example's call sequence on one fresh instance, and print every call that returns a value as `Test N.M`.
+
+**At review time** (`/dsa-review`, or Step 4 after a solve), keep these tests rather than rewriting them:
+- Expand the comments with the reasons.
+- Add a test for each bug that came up while solving.
+- Verify everything against a brute force on randomised input, as `CLAUDE.md` requires.
 
 ### Design problems — nested class structure
 
@@ -116,6 +156,8 @@ public class DesignOrderManagementSystem {
     public static void main(String[] args) {
         OrderManagementSystem O = new OrderManagementSystem();
 
+        // Test 1: LeetCode example 1, replayed call by call on this instance
+        // Test 1.1, 1.2, ...: one println per call that returns a value
     }
 }
 ```
@@ -123,7 +165,7 @@ public class DesignOrderManagementSystem {
 The `main()` instance variable follows the first-letter rule based on the **inner** class name (`OrderManagementSystem O = ...`), since that is the object under test.
 
 After creating it, tell the user the path in one line, then move on:
-> Created `src/medium/FindSmallestCommonElementInAllRows.java` — Medium, tagged Binary Search / Hash Table.
+> Created `src/medium/FindSmallestCommonElementInAllRows.java` — Medium, tagged Binary Search / Hash Table, with 4 test cases ready in `main()`.
 
 **Open the file in IntelliJ yourself — do not print a path and hope it is clickable.** Run:
 
@@ -261,3 +303,5 @@ After the user arrives at a working solution, write a short revision note in thi
 ---
 
 Keep the note short enough to be useful as a 30-second refresher before a similar problem.
+
+Then finish the upfront tests from Step 1b. Keep them, expand their comments with the reasons, add a test for each bug that came up during the session, and verify them against a brute force.
