@@ -2,9 +2,24 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 47 · Solved 44 · Total 91** — updated 2026-10-20
+**Pending 50 · Solved 46 · Total 96** — updated 2026-10-21
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 235. Lowest Common Ancestor of a Binary Search Tree
+*Tree · BST · the LCA is the split point — the first node on the root path where p and q stop going the same way (BST order tells you which way without searching)*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 776 | [Split BST](https://leetcode.com/problems/split-bst/) | Medium | ☑ 2026-10-21 | Same one-path walk steered by BST order (go left or right of the target), but you rebuild two trees along that path instead of stopping at a split |
+| 2096 | [Step-By-Step Directions From a Binary Tree Node to Another](https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another/) | Medium | ☑ 2026-10-21 | The split point as a tool: no BST order, so record root→s and root→t paths; their common prefix ends at the LCA, then emit U's up and L/R down |
+| 1740 | [Find Distance in a Binary Tree](https://leetcode.com/problems/find-distance-in-a-binary-tree/) | Medium | ☐ | LCA plus depths: dist = depth(p) + depth(q) − 2·depth(LCA); the count-only version of 2096 |
+| 1257 | [Smallest Common Region](https://leetcode.com/problems/smallest-common-region/) | Medium | ☐ | LCA on a general n-ary tree given only as parent lists: build a parent map, mark one node's ancestors, walk the other up until it hits a marked one |
+| 2509 | [Cycle Length Queries in a Tree](https://leetcode.com/problems/cycle-length-queries-in-a-tree/) | Hard | ☐ | Heap-numbered tree: the label itself encodes the path (parent = v/2), so walk the larger label up until they meet, the same "move the deeper/bigger side" logic as 235, 10⁵ queries |
+
+*Filtered as already solved: 236 (LCA of a Binary Tree), 1644 (LCA II — nodes may be missing), 1650 (LCA III — parent pointers), 1676 (LCA IV — many nodes), 1123 / 865 (LCA of Deepest Leaves), 285 / 510 (Inorder Successor in BST I/II), 669 (Trim a BST). 1483 (Kth Ancestor, binary lifting) left out as a different technique. Checked against the repo and the last 20 LeetCode ACs only; 235 itself has no file here, so this area may hold more uncommitted solves.*
 
 ---
 

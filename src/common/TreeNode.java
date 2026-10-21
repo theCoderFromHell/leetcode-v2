@@ -19,6 +19,47 @@ public class TreeNode {
         this.right = right;
     }
 
+    // Builds a tree from LeetCode's level-order form: createTree(4, 2, 6, null, 3) is [4,2,6,null,3].
+    public static TreeNode createTree(Integer... level) {
+        if (level.length == 0 || level[0] == null)
+            return null;
+        TreeNode root = new TreeNode(level[0]);
+        Queue<TreeNode> queue = new ArrayDeque<>();
+        queue.add(root);
+        int i = 1;
+        while (!queue.isEmpty() && i < level.length) {
+            TreeNode node = queue.poll();
+            if (i < level.length && level[i++] != null) {
+                node.left = new TreeNode(level[i - 1]);
+                queue.add(node.left);
+            }
+            if (i < level.length && level[i++] != null) {
+                node.right = new TreeNode(level[i - 1]);
+                queue.add(node.right);
+            }
+        }
+        return root;
+    }
+
+    // Reads a tree back in LeetCode's level-order form, with nulls for missing children and
+    // trailing nulls trimmed, so shape is visible: [2,1] and [2,null,1] print differently.
+    public static String serialize(TreeNode root) {
+        List<String> out = new ArrayList<>();
+        List<TreeNode> order = new ArrayList<>();
+        order.add(root);
+        for (int i = 0; i < order.size(); i++) {
+            TreeNode node = order.get(i);
+            out.add(node == null ? "null" : String.valueOf(node.val));
+            if (node != null) {
+                order.add(node.left);
+                order.add(node.right);
+            }
+        }
+        while (!out.isEmpty() && out.get(out.size() - 1).equals("null"))
+            out.remove(out.size() - 1);
+        return "[" + String.join(",", out) + "]";
+    }
+
     public static List<Integer> levelOrder(TreeNode root) {
         List<Integer> out = new ArrayList<>();
         if (root == null) return out;
