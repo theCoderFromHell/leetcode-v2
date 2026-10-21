@@ -27,7 +27,7 @@ src/
 ## Common Utilities (src/common/)
 
 - `ListNode` — singly linked list with `createList()`, `printList()`
-- `TreeNode` — binary tree with `printTree()`
+- `TreeNode` — binary tree with `createTree(Integer...)` (from LeetCode's level-order array, `null` = missing child), `serialize()` (back to `[4,2,null,1]` form, shape-exact) and `printTree()`
 - `DoubleListNode` — doubly linked list
 - `Node` — general tree/graph node
 - `Util` — `printArray()`, `printMatrix()` (overloaded for 2D arrays and `List<List<T>>`)

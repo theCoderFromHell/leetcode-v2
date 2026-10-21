@@ -115,7 +115,8 @@ The user's rule (2026-10-20): write the test cases into `main()` **at scaffold t
 - **Arrays:** wrap `int[]` / `long[]` in `Arrays.toString(...)` and `int[][]` in `Arrays.deepToString(...)`, with `import java.util.Arrays;`.
 - **"Return the answer in any order":** sort the result before printing, e.g. `Arrays.toString(Arrays.stream(r).sorted().toArray())`, and write the expected value sorted. Otherwise a correct answer in a different order looks wrong.
 - **`ListNode` input:** use `ListNode.createList(new int[]{...})`.
-- **List output, tree input or tree output:** add small `private static` test helpers below the method, such as `show(ListNode)` or `build(Integer...)` from a level-order array (see `ReverseNodesInEvenLengthGroups` and `BinaryTreeLongestConsecutiveSequenceII`). Helpers are test plumbing only, never solution logic.
+- **Tree input or output:** use `TreeNode.createTree(4, 2, 6, null, 3)` (LeetCode level-order, `null` = missing child) and `TreeNode.serialize(root)` from `common`. Don't write a local `build`/`show` for trees.
+- **List output:** add a small `private static` test helper below the method, such as `show(ListNode)` (see `ReverseNodesInEvenLengthGroups`). Keep any helper to plumbing for a result shape `common` doesn't cover (e.g. a pair of trees), never solution logic.
 - **Design problems:** replay each example's call sequence on one fresh instance, and print every call that returns a value as `Test N.M`.
 
 **At review time** (`/dsa-review`, or Step 4 after a solve), keep these tests rather than rewriting them:
