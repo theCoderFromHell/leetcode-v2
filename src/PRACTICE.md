@@ -2,7 +2,7 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 50 · Solved 46 · Total 96** — updated 2026-10-21
+**Pending 51 · Solved 49 · Total 100** — updated 2026-10-21
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
@@ -20,6 +20,21 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 | 2509 | [Cycle Length Queries in a Tree](https://leetcode.com/problems/cycle-length-queries-in-a-tree/) | Hard | ☐ | Heap-numbered tree: the label itself encodes the path (parent = v/2), so walk the larger label up until they meet, the same "move the deeper/bigger side" logic as 235, 10⁵ queries |
 
 *Filtered as already solved: 236 (LCA of a Binary Tree), 1644 (LCA II — nodes may be missing), 1650 (LCA III — parent pointers), 1676 (LCA IV — many nodes), 1123 / 865 (LCA of Deepest Leaves), 285 / 510 (Inorder Successor in BST I/II), 669 (Trim a BST). 1483 (Kth Ancestor, binary lifting) left out as a different technique. Checked against the repo and the last 20 LeetCode ACs only; 235 itself has no file here, so this area may hold more uncommitted solves.*
+
+---
+
+## 973. K Closest Points to Origin
+*Array · Heap · Quickselect · Sorting · top-k by a derived key — compare squared distances (no sqrt), then either a size-k max-heap whose root is the current k-th (a closer point evicts it), or a quickselect partition around the k-th distance for O(n) average*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 1471 | [The k Strongest Values in an Array](https://leetcode.com/problems/the-k-strongest-values-in-an-array/) | Medium | ☑ 2026-10-20 | Same "k farthest from a centre", but the centre is the median, so you have to find it first, and ties go to the larger value. Once sorted, the strongest values sit at the two ends, so two pointers moving inward replace the heap |
+| 3275 | [K-th Nearest Obstacle Queries](https://leetcode.com/problems/k-th-nearest-obstacle-queries/) | Medium | ☑ 2026-10-21 | 973 made online: points arrive one at a time and you report the k-th distance after each one. Sorting and quickselect are ruled out, so it HAS to be the size-k max-heap, and its root is the answer |
+| 2512 | [Reward Top K Students](https://leetcode.com/problems/reward-top-k-students/) | Medium | ☑ 2026-10-21 | Compute a score per item, then take the top k, with a tie rule (equal points → lower id first). With a size-k heap the eviction comparator must be the exact reverse of the ranking, tie included, which is where it goes wrong |
+| 3321 | [Find X-Sum of All K-Long Subarrays II](https://leetcode.com/problems/find-x-sum-of-all-k-long-subarrays-ii/) | Hard | ☐ | Top-x by (frequency, value) over a sliding window, so elements leave as well as arrive. A heap can't delete, so the top-x set and the rest become two TreeSets with a running sum, rebalanced on every slide: the step past 3275's insert-only stream |
+
+*Filtered as already solved: 215 (Kth Largest Element in an Array — the quickselect drill), 692 (Top K Frequent Words — top-k with a tie-break comparator), 1985 (Find the Kth Largest Integer in the Array — selection under a custom string comparator), 324 (Wiggle Sort II — quickselect median). Already pending under 347, so not repeated here: 1738 (Find Kth Largest XOR Coordinate Value), 2542 (Maximum Subsequence Score), 857 (Minimum Cost to Hire K Workers).*
+*Source note: 973 has no file in the repo; it was solved on LeetCode but not committed (see 75). Rows checked against the repo and the recent-AC list only. All four are contest-era, where an uncommitted solve is least likely.*
 
 ---
 
@@ -320,7 +335,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 |---|---------|------|--------|-------------|
 | 1054 | [Distant Barcodes](https://leetcode.com/problems/distant-barcodes/) | Medium | ☑ 2026-10-01 | Same frequency map feeding a max-heap, but the counts drive *placement* rather than a top-k cut — pull the most frequent first and interleave |
 | 1738 | [Find Kth Largest XOR Coordinate Value](https://leetcode.com/problems/find-kth-largest-xor-coordinate-value/) | Medium | ☐ | Isolates the selection half: values are computed by prefix-XOR rather than counted, then kth-largest via heap or quickselect |
-| 2542 | [Maximum Subsequence Score](https://leetcode.com/problems/maximum-subsequence-score/) | Hard | ☐ | Size-k heap maintained while sweeping a sorted order — top-k becomes a moving window instead of a one-shot extraction |
+| 2542 | [Maximum Subsequence Score](https://leetcode.com/problems/maximum-subsequence-score/) | Medium | ☐ | Size-k heap maintained while sweeping a sorted order — top-k becomes a moving window instead of a one-shot extraction |
 | 857 | [Minimum Cost to Hire K Workers](https://leetcode.com/problems/minimum-cost-to-hire-k-workers/) | Hard | ☐ | Same size-k heap sweep as 2542 but the sort key is a ratio, so the invariant is far harder to spot |
 
 *Filtered as already solved: 692 (Top K Frequent Words), 451 (Sort Characters By Frequency), 1481 (Least Number of Unique Integers after K Removals), 621 (Task Scheduler), 1642 (Furthest Building You Can Reach).*
