@@ -2,9 +2,22 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 49 · Solved 51 · Total 100** — updated 2026-10-22
+**Pending 49 · Solved 54 · Total 103** — updated 2026-10-23
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 199. Binary Tree Right Side View
+*Tree · BFS / DFS · per-depth bookkeeping — group nodes by depth and keep one fact per level: the last node of each BFS level, or (DFS right child first) the first node to reach a new depth (depth == result.size())*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 662 | [Maximum Width of Binary Tree](https://leetcode.com/problems/maximum-width-of-binary-tree/) | Medium | ☑ 2026-10-23 | Same per-level scan, but you track BOTH ends of each level, as heap positions (2i, 2i+1) so the missing nodes in between count. The index outgrows int on a deep thin tree, so renormalise per level |
+| 987 | [Vertical Order Traversal of a Binary Tree](https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/) | Hard | ☑ 2026-10-23 | The right side view keeps one node per row; this groups every node by (column, row) instead, with a value tie-break when two nodes share a position. The step past 314, which you solved, where ties go by left-to-right order |
+| 2458 | [Height of Binary Tree After Subtree Removal Queries](https://leetcode.com/problems/height-of-binary-tree-after-subtree-removal-queries/) | Hard | ☐ | Per-depth bookkeeping as a precompute: removing a node only touches its own level, so for each depth keep the best and second-best (depth + subtree height) and answer each of 10⁴ queries in O(1) |
+
+*Filtered as already solved: 513 (Find Bottom Left Tree Value — the mirror image), 515 (Largest Value in Each Row), 1161 (Maximum Level Sum), 1302 (Deepest Leaves Sum), 2583 (Kth Largest Level Sum), 545 (Boundary of Binary Tree), 314 (Vertical Order Traversal), 116 / 117 (Populating Next Right Pointers I/II), 1602 (Find Nearest Right Node), 1660 (Correct a Binary Tree), 958 (Check Completeness), 919 (Complete Binary Tree Inserter), 2641 (Cousins II), 2415 (Reverse Odd Levels), 1609 (Even Odd Tree), 2471 (Sort a Tree by Level), 103 (Zigzag), 623 (Add One Row), 2385 (Time to Infect). 3157 (Level with Minimum Sum) left out as a near-copy of 1161. Only 3 survive: level-order is the most picked-over concept in the repo. Checked against the repo and the last 20 LeetCode ACs.*
 
 ---
 
@@ -133,7 +146,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 |---|---------|------|--------|-------------|
 | 1352 | [Product of the Last K Numbers](https://leetcode.com/problems/product-of-the-last-k-numbers/) | Medium | ☑ 2026-10-15 | Same "keep a running aggregate per pushed entry" idea, but the aggregate is a prefix PRODUCT queried over the last k entries — and a 0 forces you to reset the whole history instead of dividing by it |
 | 1438 | [Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit](https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/) | Medium | ☑ 2026-10-16 | Min Stack answers "min of everything so far"; here you need min AND max of a sliding window, so elements also leave from the FRONT — the min-stack becomes two monotonic deques |
-| 716 | [Max Stack](https://leetcode.com/problems/max-stack/) | Hard | ☐ | The mirror of 155 plus `popMax`, which removes from the MIDDLE and breaks the per-entry aggregate trick — forces a TreeMap + doubly linked list (or lazy deletion with two heaps) |
+| 716 | [Max Stack](https://leetcode.com/problems/max-stack/) | Hard | ☑ 2026-10-20 | The mirror of 155 plus `popMax`, which removes from the MIDDLE and breaks the per-entry aggregate trick — forces a TreeMap + doubly linked list (or lazy deletion with two heaps) |
 | 2398 | [Maximum Number of Robots Within Budget](https://leetcode.com/problems/maximum-number-of-robots-within-budget/) | Hard | ☐ | The extension: an O(1) window max (monotonic deque) combined with a running window sum inside a two-pointer loop, under a cost formula `max + k * sum` |
 
 *Filtered as already solved: 901 (Online Stock Span — `StockSpanner`, the closest sibling: each stack entry carries an aggregated span), 1381 (Design a Stack With Increment Operation — `CustomStack`, a lazy per-entry increment), 895 (Maximum Frequency Stack — `FreqStackV2`), 239 (Sliding Window Maximum). Note: 155 was solved on LeetCode but never committed — backfilled as `MinStack` on 2026-10-14.*
