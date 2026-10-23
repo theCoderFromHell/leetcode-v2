@@ -2,9 +2,24 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 49 · Solved 51 · Total 100** — updated 2026-10-22
+**Pending 52 · Solved 52 · Total 104** — updated 2026-10-23
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 215. Kth Largest Element in an Array
+*Array · Quickselect · Heap · select the k-th order statistic without a full sort — quickselect partition (O(n) average), a size-k min-heap, counting over a bounded value range, or binary search on the value with a count*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 2343 | [Query Kth Smallest Trimmed Number](https://leetcode.com/problems/query-kth-smallest-trimmed-number/) | Medium | ☐ | Selection under a custom key with a tie rule (equal trimmed value → lower index), repeated per query. Quickselect per query works; the follow-up swaps it for radix sort, where each trim length is one more LSD pass |
+| 2448 | [Minimum Cost to Make Array Equal](https://leetcode.com/problems/minimum-cost-to-make-array-equal/) | Hard | ☐ | Weighted median: the k-th element where k is counted in total weight, not in elements. Same "select the middle, then sum the distances" as 462 and 2033, but with per-element costs and long arithmetic (answers up to 2⁵³) |
+| 668 | [Kth Smallest Number in Multiplication Table](https://leetcode.com/problems/kth-smallest-number-in-multiplication-table/) | Hard | ☐ | The k-th of an implicit m·n set (up to 9·10⁸ entries) that can't be built or partitioned, so you binary-search the VALUE and count entries ≤ it. Same counting idea as 719 (pending under 167), but the count has a closed form per row instead of two pointers |
+| 2386 | [Find the K-Sum of an Array](https://leetcode.com/problems/find-the-k-sum-of-an-array/) | Hard | ☐ | k-th largest of 2ⁿ subsequence sums: the set is far too big for any selection, so a max-heap generates the sums in decreasing order and you pop k times, where 215's heap only holds k |
+
+*Filtered as already solved: 2033 (Minimum Operations to Make a Uni-Value Grid — solved on LeetCode, not committed; backfilled as `MinimumOperationsToMakeAUniValueGrid` on 2026-10-23), 378 (Kth Smallest Element in a Sorted Matrix), 786 (K-th Smallest Prime Fraction), 373 (Find K Pairs with Smallest Sums), 973 (K Closest Points to Origin), 324 (Wiggle Sort II), 462 (Minimum Moves to Equal Array Elements II), 692 (Top K Frequent Words), 1985 (Find the Kth Largest Integer in the Array). Already pending elsewhere, so not repeated: 719 (Find K-th Smallest Pair Distance, under 167), 1738 (Find Kth Largest XOR Coordinate Value, under 347), 3321 (Find X-Sum of All K-Long Subarrays II, under 973). Easy, so left out: 703 (Kth Largest Element in a Stream), 414 (Third Maximum Number).*
+*Source note: 215 is in the repo as `KthLargestElementInAnArray`. Rows checked against the repo and the last 20 LeetCode ACs only. Three of the four are contest-era (2343, 2386, 2448), where an uncommitted solve is least likely; 668 is older but not a Top-150 staple.*
 
 ---
 
@@ -133,7 +148,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 |---|---------|------|--------|-------------|
 | 1352 | [Product of the Last K Numbers](https://leetcode.com/problems/product-of-the-last-k-numbers/) | Medium | ☑ 2026-10-15 | Same "keep a running aggregate per pushed entry" idea, but the aggregate is a prefix PRODUCT queried over the last k entries — and a 0 forces you to reset the whole history instead of dividing by it |
 | 1438 | [Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit](https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/) | Medium | ☑ 2026-10-16 | Min Stack answers "min of everything so far"; here you need min AND max of a sliding window, so elements also leave from the FRONT — the min-stack becomes two monotonic deques |
-| 716 | [Max Stack](https://leetcode.com/problems/max-stack/) | Hard | ☐ | The mirror of 155 plus `popMax`, which removes from the MIDDLE and breaks the per-entry aggregate trick — forces a TreeMap + doubly linked list (or lazy deletion with two heaps) |
+| 716 | [Max Stack](https://leetcode.com/problems/max-stack/) | Hard | ☑ 2026-10-20 | The mirror of 155 plus `popMax`, which removes from the MIDDLE and breaks the per-entry aggregate trick — forces a TreeMap + doubly linked list (or lazy deletion with two heaps) |
 | 2398 | [Maximum Number of Robots Within Budget](https://leetcode.com/problems/maximum-number-of-robots-within-budget/) | Hard | ☐ | The extension: an O(1) window max (monotonic deque) combined with a running window sum inside a two-pointer loop, under a cost formula `max + k * sum` |
 
 *Filtered as already solved: 901 (Online Stock Span — `StockSpanner`, the closest sibling: each stack entry carries an aggregated span), 1381 (Design a Stack With Increment Operation — `CustomStack`, a lazy per-entry increment), 895 (Maximum Frequency Stack — `FreqStackV2`), 239 (Sliding Window Maximum). Note: 155 was solved on LeetCode but never committed — backfilled as `MinStack` on 2026-10-14.*
