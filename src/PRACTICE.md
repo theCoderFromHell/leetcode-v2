@@ -2,7 +2,7 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 49 · Solved 54 · Total 103** — updated 2026-10-23
+**Pending 52 · Solved 55 · Total 107** — updated 2026-10-24
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
@@ -48,6 +48,20 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 *Filtered as already solved: 215 (Kth Largest Element in an Array — the quickselect drill), 692 (Top K Frequent Words — top-k with a tie-break comparator), 1985 (Find the Kth Largest Integer in the Array — selection under a custom string comparator), 324 (Wiggle Sort II — quickselect median). Already pending under 347, so not repeated here: 1738 (Find Kth Largest XOR Coordinate Value), 2542 (Maximum Subsequence Score), 857 (Minimum Cost to Hire K Workers).*
 *Source note: 973 has no file in the repo; it was solved on LeetCode but not committed (see 75). Rows checked against the repo and the recent-AC list only. All four are contest-era, where an uncommitted solve is least likely.*
+
+---
+
+## 150. Evaluate Reverse Polish Notation
+*Array · Math · Stack · operands wait on a stack until an operator consumes them — pop right THEN left, apply, push the result; truncate toward zero*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 1006 | [Clumsy Factorial](https://leetcode.com/problems/clumsy-factorial/) | Medium | ☑ 2026-10-20 | Same push-operands / apply-operators stack, but the expression is INFIX with a fixed `* / + -` rotation — so precedence appears: apply `*` and `/` to the stack top immediately, defer `+` and `-` by pushing ±value, then sum the stack |
+| 439 | [Ternary Expression Parser](https://leetcode.com/problems/ternary-expression-parser/) | Medium | ☐ | RPN read BACKWARDS: scan right-to-left pushing operands, and when you hit `?` the condition before it pops two operands and pushes the chosen one — the same "operator consumes the stack top" step with a different operator |
+| 1106 | [Parsing A Boolean Expression](https://leetcode.com/problems/parsing-a-boolean-expression/) | Hard | ☐ | Operators become VARIADIC and bracketed: push everything, and on `)` pop operands back to `(`, apply the operator just below it to all of them, push one result — RPN's evaluation step generalised to n operands |
+| 772 | [Basic Calculator III](https://leetcode.com/problems/basic-calculator-iii/) | Hard | ☐ | The full infix calculator: `+ - * /` precedence AND parentheses — each `(` opens a fresh evaluation (a recursive call or a saved stack frame), each `)` collapses it to one operand, which is exactly what RPN makes explicit |
+
+*Filtered as already solved: 227 (Basic Calculator II — `BasicCalculatorII`, the precedence-without-parentheses step 772 builds on), 1628 (Design an Expression Tree With Evaluate Function — the closest sibling: the same postfix scan building tree nodes instead of values). Also skipped: 224 (Basic Calculator — Top-150 staple with high blind-spot risk, and 772 subsumes it), 394 (Decode String — LeetCode-75 staple, same risk). Note: 150 itself has no file in the repo — solved on LeetCode but never committed.*
 
 ---
 
