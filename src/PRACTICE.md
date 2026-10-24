@@ -2,9 +2,22 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 52 · Solved 55 · Total 107** — updated 2026-10-24
+**Pending 54 · Solved 57 · Total 111** — updated 2026-10-24
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 98. Validate Binary Search Tree
+*Tree · BST · value-range propagation — pass an open (low, high) window down (or return min/max/isBST up), so each node is checked against ALL its ancestors, not just its parent*
+*Filtered as already solved: 333 (Largest BST Subtree — the Medium form of 1373), 99 (Recover BST), 1008 (BST from Preorder), 449 (Serialize and Deserialize BST), 285 / 510 (Inorder Successor I/II), 450 (Delete Node), 669 (Trim a BST), 538 / 1038 (BST to Greater Tree), 1214 (Two Sum BSTs), 1382 (Balance a BST), 95 (Unique BSTs II). Left out as Top-150 staples likely solved but not committed: 230 (Kth Smallest in a BST), 173 (BST Iterator). 98 itself is not in the repo either. Checked against the repo and the last 20 LeetCode ACs.*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 255 | [Verify Preorder Sequence in Binary Search Tree](https://leetcode.com/problems/verify-preorder-sequence-in-binary-search-tree/) | Medium | ☑ 2026-10-23 | Same lower-bound check, but on an array with no tree: going right raises the floor every later value must beat. Monotonic stack, or O(1) space by overwriting the input |
+| 1902 | [Depth of BST Given Insertion Order](https://leetcode.com/problems/depth-of-bst-given-insertion-order/) | Medium | ☑ 2026-10-24 | The (low, high) window turned around: each new value lands in the gap between its nearest smaller and larger inserted values, so a TreeMap of gaps gives its depth without building the tree (1e5 values, a skewed build is O(n^2)) |
+| 1373 | [Maximum Sum BST in Binary Tree](https://leetcode.com/problems/maximum-sum-bst-in-binary-tree/) | Hard | ☐ | 98's bottom-up form: return (isBST, min, max, sum) from each subtree and check left.max < node < right.min. Every subtree is a candidate, and an empty BST (sum 0) beats all-negative ones |
+| 1932 | [Merge BSTs to Create Single BST](https://leetcode.com/problems/merge-bsts-to-create-single-bst/) | Hard | ☐ | Graft small trees onto matching leaves, then run 98 on the result with (low, high) bounds. The hard part is the root choice (the only root that is no tree's leaf) and checking every tree got used |
 
 ---
 
