@@ -87,10 +87,19 @@ The repo check errs toward *under*-reporting. Three known false-negative sources
 
 ### 2c-bis. The repo's structural blind spot
 
-**As of 2026-10-18 the repo holds ~800 distinct problem files; the LeetCode profile shows 899
-solved** (62 Easy / 782 Medium / 55 Hard). Refresh the LeetCode side whenever it matters with
-`mcp__leetcode__get_user_profile(username: "theCoderFromHell")`, which reads
-`totalSubmissionNum[].count`. The gap is not exact, since some repo files are contest or variant
+**As of 2026-10-24 the repo holds ~800 distinct problem files; the LeetCode profile shows 900
+solved** (62 Easy / 782 Medium / 56 Hard). Refresh the LeetCode side whenever it matters with
+LeetCode's public GraphQL. It needs no auth and counts **accepted problems only**:
+
+```bash
+curl -s 'https://leetcode.com/graphql' -H 'Content-Type: application/json' \
+  -H 'Referer: https://leetcode.com/u/theCoderFromHell/' \
+  --data '{"query":"query($u:String!){matchedUser(username:$u){submitStatsGlobal{acSubmissionNum{difficulty count}}}}","variables":{"u":"theCoderFromHell"}}'
+```
+
+**Never use `mcp__leetcode__get_user_profile` for this.** It returns only
+`totalSubmissionNum`, which counts every problem with any submission, accepted or not, so it
+reports solved + "Attempting" (914 vs the real 899 on 2026-10-24). The gap is not exact, since some repo files are contest or variant
 duplicates, but on the order of 100 problems are solved on LeetCode and never committed here. The repo check cannot see any of them —
 no filename, no slug, nothing to match. This is not naming drift; the file simply does not exist.
 
