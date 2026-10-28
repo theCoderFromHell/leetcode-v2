@@ -2,9 +2,67 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 51 · Solved 53 · Total 104** — updated 2026-10-28
+**Pending 66 · Solved 59 · Total 125** — updated 2026-10-28
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 739. Daily Temperatures
+*Array · Stack · Monotonic Stack · indices wait on a decreasing stack until a larger value arrives; that arrival resolves every waiting index it beats (pop → answer = i − j), so each index is pushed and popped once — O(n) "next greater" for every element*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 1130 | [Minimum Cost Tree From Leaf Values](https://leetcode.com/problems/minimum-cost-tree-from-leaf-values/) | Medium | ☐ | Same pop-when-something-bigger-arrives loop, but each pop is a greedy MERGE decision: a small leaf pairs with the smaller of its two bigger neighbours (the arrival, or the new top) and pays their product. n <= 40 also admits an O(n³) interval DP — the stack is the O(n) insight |
+| 2297 | [Jump Game VIII](https://leetcode.com/problems/jump-game-viii/) | Medium | ☐ | 739's "next greater" computed twice — next >= and next < — and used as a graph: those two indices are each position's ONLY legal jumps, so two stack passes build the edges and a DP over them gives the minimum cost |
+| 1063 | [Number of Valid Subarrays](https://leetcode.com/problems/number-of-valid-subarrays/) | Hard | ☐ | 739 flipped to next SMALLER and summed: a subarray starting at i stays valid until something smaller than nums[i] appears, so every start contributes a distance. Duplicates decide strict vs non-strict pops |
+| 2454 | [Next Greater Element IV](https://leetcode.com/problems/next-greater-element-iv/) | Hard | ☐ | The SECOND greater: an index popped from the first stack has found its first greater but isn't done — it moves to a second stack and waits for one more larger value. Moving popped indices across without scrambling their order is the whole problem |
+| 975 | [Odd Even Jump](https://leetcode.com/problems/odd-even-jump/) | Hard | ☐ | "Next" by VALUE instead of position: sort indices by value and run 739's stack over that order to get each index's smallest->= (and largest-<=) jump target, then a backward DP over odd/even reachability |
+
+*Filtered as already solved: 1019 (Next Greater Node In Linked List — 739 on a list), 503 (Next Greater Element II — circular, two passes), 901 (Online Stock Span — `StockSpanner`, the previous-greater mirror), 1856 (Maximum Subarray Min-Product), 907 (Sum of Subarray Minimums), 2104 (Sum of Subarray Ranges), 962 (Maximum Width Ramp), 456 (132 Pattern), 84 (Largest Rectangle in Histogram), 85 (Maximal Rectangle), 1762 (Buildings With an Ocean View), 1793 (Maximum Score of a Good Subarray), 2866 (Beautiful Towers II). Already pending elsewhere, so not repeated: 1944 (Number of Visible People in a Queue — under 42), 2289 (Steps to Make Array Non-decreasing) and 1776 (Car Fleet II) — both under 735.*
+*Source note: 739 itself has no file in the repo — a NeetCode / Top-150 staple, almost certainly solved on LeetCode but never committed. Rows checked against the repo and the last 20 LeetCode ACs only; 975 is the best-known of the five, and 2297 / 1063 need Premium. Fair sixth pick: 3113 (Find the Number of Subarrays Where Boundary Elements Are Maximum, Hard — a monotonic stack where EQUAL values are counted, not popped).*
+
+---
+
+## 735. Asteroid Collision
+*Array · Stack · Simulation · the survivors so far sit on a stack; each newcomer fights only the top — pop while it wins, stop when it loses, both vanish on a tie — and only a right-mover on the stack meeting an incoming left-mover can collide*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 2211 | [Count Collisions on a Road](https://leetcode.com/problems/count-collisions-on-a-road/) | Medium | ☑ 2026-10-24 | Same R-meets-L setup, but crashed cars STOP instead of exploding (adding a third state, S), and you count collisions instead of returning survivors. The stack works, then collapses into an observation about which cars can never be hit |
+| 2289 | [Steps to Make Array Non-decreasing](https://leetcode.com/problems/steps-to-make-array-non-decreasing/) | Medium | ☐ | Bigger-eats-the-smaller-to-its-right, but every elimination in a round happens at once and the answer is the number of ROUNDS — so a stack entry has to carry WHEN it dies, not just whether. The hardest invariant in the set despite the Medium label |
+| 2197 | [Replace Non-Coprime Numbers in Array](https://leetcode.com/problems/replace-non-coprime-numbers-in-array/) | Hard | ☐ | 735's "keep fighting the top until nothing changes" loop, but a collision MERGES the pair into their LCM instead of destroying one — and the merged value can then hit the new top. The stated order-independence is what makes one left-to-right pass valid |
+| 2751 | [Robot Collisions](https://leetcode.com/problems/robot-collisions/) | Hard | ☐ | 735 with health: positions arrive unsorted (process them in position order), the winner loses 1 health per fight and keeps fighting, and survivors come back in ORIGINAL input order. LeetCode lists 735 as its only similar question |
+| 1776 | [Car Fleet II](https://leetcode.com/problems/car-fleet-ii/) | Hard | ☐ | Collisions with TIME: cars merge into the slower one and you return each car's collision time with the next. Scan right-to-left; the stack drops any car you can't catch or that merges away before you would reach it — the monotonic stack meets kinematics |
+
+*Filtered as already solved: 1209 (Remove All Adjacent Duplicates in String II — `RemoveAllAdjacentDuplicatesInStringII`, the cancel-against-the-top sibling with counts), 853 (Car Fleet — `CarFleet`, the sort-then-stack version 1776 builds on), 2390 (Removing Stars From a String). Also skipped: 2126 (Destroying Asteroids — LeetCode lists it, but it is sort + greedy with no stack), 1503 (Last Moment Before All Ants Fall Out of a Plank — the "collisions are pass-throughs" trick, a different technique).*
+*Source note: `AsteroidCollision` is in the repo. Rows checked against the repo and the last 20 LeetCode ACs only; all five are contest-era, where an uncommitted solve is least likely.*
+
+---
+
+## 98. Validate Binary Search Tree
+*Tree · BST · value-range propagation — pass an open (low, high) window down (or return min/max/isBST up), so each node is checked against ALL its ancestors, not just its parent*
+*Filtered as already solved: 333 (Largest BST Subtree — the Medium form of 1373), 99 (Recover BST), 1008 (BST from Preorder), 449 (Serialize and Deserialize BST), 285 / 510 (Inorder Successor I/II), 450 (Delete Node), 669 (Trim a BST), 538 / 1038 (BST to Greater Tree), 1214 (Two Sum BSTs), 1382 (Balance a BST), 95 (Unique BSTs II). Left out as Top-150 staples likely solved but not committed: 230 (Kth Smallest in a BST), 173 (BST Iterator). 98 itself is not in the repo either. Checked against the repo and the last 20 LeetCode ACs.*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 255 | [Verify Preorder Sequence in Binary Search Tree](https://leetcode.com/problems/verify-preorder-sequence-in-binary-search-tree/) | Medium | ☑ 2026-10-23 | Same lower-bound check, but on an array with no tree: going right raises the floor every later value must beat. Monotonic stack, or O(1) space by overwriting the input |
+| 1902 | [Depth of BST Given Insertion Order](https://leetcode.com/problems/depth-of-bst-given-insertion-order/) | Medium | ☑ 2026-10-24 | The (low, high) window turned around: each new value lands in the gap between its nearest smaller and larger inserted values, so a TreeMap of gaps gives its depth without building the tree (1e5 values, a skewed build is O(n^2)) |
+| 1373 | [Maximum Sum BST in Binary Tree](https://leetcode.com/problems/maximum-sum-bst-in-binary-tree/) | Hard | ☐ | 98's bottom-up form: return (isBST, min, max, sum) from each subtree and check left.max < node < right.min. Every subtree is a candidate, and an empty BST (sum 0) beats all-negative ones |
+| 1932 | [Merge BSTs to Create Single BST](https://leetcode.com/problems/merge-bsts-to-create-single-bst/) | Hard | ☐ | Graft small trees onto matching leaves, then run 98 on the result with (low, high) bounds. The hard part is the root choice (the only root that is no tree's leaf) and checking every tree got used |
+
+---
+
+## 199. Binary Tree Right Side View
+*Tree · BFS / DFS · per-depth bookkeeping — group nodes by depth and keep one fact per level: the last node of each BFS level, or (DFS right child first) the first node to reach a new depth (depth == result.size())*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 662 | [Maximum Width of Binary Tree](https://leetcode.com/problems/maximum-width-of-binary-tree/) | Medium | ☑ 2026-10-23 | Same per-level scan, but you track BOTH ends of each level, as heap positions (2i, 2i+1) so the missing nodes in between count. The index outgrows int on a deep thin tree, so renormalise per level |
+| 987 | [Vertical Order Traversal of a Binary Tree](https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/) | Hard | ☑ 2026-10-23 | The right side view keeps one node per row; this groups every node by (column, row) instead, with a value tie-break when two nodes share a position. The step past 314, which you solved, where ties go by left-to-right order |
+| 2458 | [Height of Binary Tree After Subtree Removal Queries](https://leetcode.com/problems/height-of-binary-tree-after-subtree-removal-queries/) | Hard | ☐ | Per-depth bookkeeping as a precompute: removing a node only touches its own level, so for each depth keep the best and second-best (depth + subtree height) and answer each of 10⁴ queries in O(1) |
+
+*Filtered as already solved: 513 (Find Bottom Left Tree Value — the mirror image), 515 (Largest Value in Each Row), 1161 (Maximum Level Sum), 1302 (Deepest Leaves Sum), 2583 (Kth Largest Level Sum), 545 (Boundary of Binary Tree), 314 (Vertical Order Traversal), 116 / 117 (Populating Next Right Pointers I/II), 1602 (Find Nearest Right Node), 1660 (Correct a Binary Tree), 958 (Check Completeness), 919 (Complete Binary Tree Inserter), 2641 (Cousins II), 2415 (Reverse Odd Levels), 1609 (Even Odd Tree), 2471 (Sort a Tree by Level), 103 (Zigzag), 623 (Add One Row), 2385 (Time to Infect). 3157 (Level with Minimum Sum) left out as a near-copy of 1161. Only 3 survive: level-order is the most picked-over concept in the repo. Checked against the repo and the last 20 LeetCode ACs.*
 
 ---
 
@@ -50,6 +108,20 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 *Filtered as already solved: 215 (Kth Largest Element in an Array — the quickselect drill), 692 (Top K Frequent Words — top-k with a tie-break comparator), 1985 (Find the Kth Largest Integer in the Array — selection under a custom string comparator), 324 (Wiggle Sort II — quickselect median). Already pending under 347, so not repeated here: 1738 (Find Kth Largest XOR Coordinate Value), 2542 (Maximum Subsequence Score), 857 (Minimum Cost to Hire K Workers).*
 *Source note: 973 has no file in the repo; it was solved on LeetCode but not committed (see 75). Rows checked against the repo and the recent-AC list only. All four are contest-era, where an uncommitted solve is least likely.*
+
+---
+
+## 150. Evaluate Reverse Polish Notation
+*Array · Math · Stack · operands wait on a stack until an operator consumes them — pop right THEN left, apply, push the result; truncate toward zero*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 1006 | [Clumsy Factorial](https://leetcode.com/problems/clumsy-factorial/) | Medium | ☑ 2026-10-20 | Same push-operands / apply-operators stack, but the expression is INFIX with a fixed `* / + -` rotation — so precedence appears: apply `*` and `/` to the stack top immediately, defer `+` and `-` by pushing ±value, then sum the stack |
+| 439 | [Ternary Expression Parser](https://leetcode.com/problems/ternary-expression-parser/) | Medium | ☐ | RPN read BACKWARDS: scan right-to-left pushing operands, and when you hit `?` the condition before it pops two operands and pushes the chosen one — the same "operator consumes the stack top" step with a different operator |
+| 1106 | [Parsing A Boolean Expression](https://leetcode.com/problems/parsing-a-boolean-expression/) | Hard | ☐ | Operators become VARIADIC and bracketed: push everything, and on `)` pop operands back to `(`, apply the operator just below it to all of them, push one result — RPN's evaluation step generalised to n operands |
+| 772 | [Basic Calculator III](https://leetcode.com/problems/basic-calculator-iii/) | Hard | ☐ | The full infix calculator: `+ - * /` precedence AND parentheses — each `(` opens a fresh evaluation (a recursive call or a saved stack frame), each `)` collapses it to one operand, which is exactly what RPN makes explicit |
+
+*Filtered as already solved: 227 (Basic Calculator II — `BasicCalculatorII`, the precedence-without-parentheses step 772 builds on), 1628 (Design an Expression Tree With Evaluate Function — the closest sibling: the same postfix scan building tree nodes instead of values). Also skipped: 224 (Basic Calculator — Top-150 staple with high blind-spot risk, and 772 subsumes it), 394 (Decode String — LeetCode-75 staple, same risk). Note: 150 itself has no file in the repo — solved on LeetCode but never committed.*
 
 ---
 
