@@ -2,9 +2,41 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 54 · Solved 57 · Total 111** — updated 2026-10-24
+**Pending 63 · Solved 58 · Total 121** — updated 2026-10-28
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 739. Daily Temperatures
+*Array · Stack · Monotonic Stack · indices wait on a decreasing stack until a larger value arrives; that arrival resolves every waiting index it beats (pop → answer = i − j), so each index is pushed and popped once — O(n) "next greater" for every element*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 1130 | [Minimum Cost Tree From Leaf Values](https://leetcode.com/problems/minimum-cost-tree-from-leaf-values/) | Medium | ☐ | Same pop-when-something-bigger-arrives loop, but each pop is a greedy MERGE decision: a small leaf pairs with the smaller of its two bigger neighbours (the arrival, or the new top) and pays their product. n <= 40 also admits an O(n³) interval DP — the stack is the O(n) insight |
+| 2297 | [Jump Game VIII](https://leetcode.com/problems/jump-game-viii/) | Medium | ☐ | 739's "next greater" computed twice — next >= and next < — and used as a graph: those two indices are each position's ONLY legal jumps, so two stack passes build the edges and a DP over them gives the minimum cost |
+| 1063 | [Number of Valid Subarrays](https://leetcode.com/problems/number-of-valid-subarrays/) | Hard | ☐ | 739 flipped to next SMALLER and summed: a subarray starting at i stays valid until something smaller than nums[i] appears, so every start contributes a distance. Duplicates decide strict vs non-strict pops |
+| 2454 | [Next Greater Element IV](https://leetcode.com/problems/next-greater-element-iv/) | Hard | ☐ | The SECOND greater: an index popped from the first stack has found its first greater but isn't done — it moves to a second stack and waits for one more larger value. Moving popped indices across without scrambling their order is the whole problem |
+| 975 | [Odd Even Jump](https://leetcode.com/problems/odd-even-jump/) | Hard | ☐ | "Next" by VALUE instead of position: sort indices by value and run 739's stack over that order to get each index's smallest->= (and largest-<=) jump target, then a backward DP over odd/even reachability |
+
+*Filtered as already solved: 1019 (Next Greater Node In Linked List — 739 on a list), 503 (Next Greater Element II — circular, two passes), 901 (Online Stock Span — `StockSpanner`, the previous-greater mirror), 1856 (Maximum Subarray Min-Product), 907 (Sum of Subarray Minimums), 2104 (Sum of Subarray Ranges), 962 (Maximum Width Ramp), 456 (132 Pattern), 84 (Largest Rectangle in Histogram), 85 (Maximal Rectangle), 1762 (Buildings With an Ocean View), 1793 (Maximum Score of a Good Subarray), 2866 (Beautiful Towers II). Already pending elsewhere, so not repeated: 1944 (Number of Visible People in a Queue — under 42), 2289 (Steps to Make Array Non-decreasing) and 1776 (Car Fleet II) — both under 735.*
+*Source note: 739 itself has no file in the repo — a NeetCode / Top-150 staple, almost certainly solved on LeetCode but never committed. Rows checked against the repo and the last 20 LeetCode ACs only; 975 is the best-known of the five, and 2297 / 1063 need Premium. Fair sixth pick: 3113 (Find the Number of Subarrays Where Boundary Elements Are Maximum, Hard — a monotonic stack where EQUAL values are counted, not popped).*
+
+---
+
+## 735. Asteroid Collision
+*Array · Stack · Simulation · the survivors so far sit on a stack; each newcomer fights only the top — pop while it wins, stop when it loses, both vanish on a tie — and only a right-mover on the stack meeting an incoming left-mover can collide*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 2211 | [Count Collisions on a Road](https://leetcode.com/problems/count-collisions-on-a-road/) | Medium | ☑ 2026-10-24 | Same R-meets-L setup, but crashed cars STOP instead of exploding (adding a third state, S), and you count collisions instead of returning survivors. The stack works, then collapses into an observation about which cars can never be hit |
+| 2289 | [Steps to Make Array Non-decreasing](https://leetcode.com/problems/steps-to-make-array-non-decreasing/) | Medium | ☐ | Bigger-eats-the-smaller-to-its-right, but every elimination in a round happens at once and the answer is the number of ROUNDS — so a stack entry has to carry WHEN it dies, not just whether. The hardest invariant in the set despite the Medium label |
+| 2197 | [Replace Non-Coprime Numbers in Array](https://leetcode.com/problems/replace-non-coprime-numbers-in-array/) | Hard | ☐ | 735's "keep fighting the top until nothing changes" loop, but a collision MERGES the pair into their LCM instead of destroying one — and the merged value can then hit the new top. The stated order-independence is what makes one left-to-right pass valid |
+| 2751 | [Robot Collisions](https://leetcode.com/problems/robot-collisions/) | Hard | ☐ | 735 with health: positions arrive unsorted (process them in position order), the winner loses 1 health per fight and keeps fighting, and survivors come back in ORIGINAL input order. LeetCode lists 735 as its only similar question |
+| 1776 | [Car Fleet II](https://leetcode.com/problems/car-fleet-ii/) | Hard | ☐ | Collisions with TIME: cars merge into the slower one and you return each car's collision time with the next. Scan right-to-left; the stack drops any car you can't catch or that merges away before you would reach it — the monotonic stack meets kinematics |
+
+*Filtered as already solved: 1209 (Remove All Adjacent Duplicates in String II — `RemoveAllAdjacentDuplicatesInStringII`, the cancel-against-the-top sibling with counts), 853 (Car Fleet — `CarFleet`, the sort-then-stack version 1776 builds on), 2390 (Removing Stars From a String). Also skipped: 2126 (Destroying Asteroids — LeetCode lists it, but it is sort + greedy with no stack), 1503 (Last Moment Before All Ants Fall Out of a Plank — the "collisions are pass-throughs" trick, a different technique).*
+*Source note: `AsteroidCollision` is in the repo. Rows checked against the repo and the last 20 LeetCode ACs only; all five are contest-era, where an uncommitted solve is least likely.*
 
 ---
 
