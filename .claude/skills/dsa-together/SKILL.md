@@ -19,8 +19,36 @@ Parse the argument to extract the problem number or name, then look it up with t
   - `codeSnippets`: take the entry with `langSlug: "java"` for the **verbatim method signature**
 - **Number only, slug unknown?** Use `mcp__leetcode__search_problems` with `searchKeywords` set to the number or title words, and match on the returned `questionId`/title.
 - **Keep `hints` and `similarQuestions` to yourself.** The response includes them, and they are spoilers. Use `hints` only as the "smallest useful hint" in Step 3c when the user is stuck. Never paste them unprompted.
-- **Premium problems** return `content: null` and empty `codeSnippets` (272 is one). The difficulty and tags are still reliable. Fall back to WebSearch for the statement and signature.
-- **Fall back to WebSearch/WebFetch** only for those premium gaps, or if the MCP server is unavailable. Never WebFetch leetcode.com itself, which returns 403 behind auth.
+- **Premium problems** return `content: null` and empty `codeSnippets` (272 and 2764 are two). The MCP server runs anonymously: `.mcp.json` passes it no session. The difficulty, tags and `exampleTestcases` are still reliable. **Read the statement and Java signature from the user's Chrome**, where they're logged in to LeetCode Premium. This was the user's choice (2026-10-29), over putting a session cookie in the MCP config. See *Premium problems — read them through Chrome* below.
+- **Never WebFetch leetcode.com itself**, which returns 403 behind auth. Use WebSearch only if Chrome isn't available, or if the MCP server is down.
+
+### Premium problems — read them through Chrome
+
+The browser carries the user's session, so LeetCode's own GraphQL returns the full premium statement and code templates from inside the page. This is **read-only**: never click Run or Submit, and never change anything on the page.
+
+1. Load the `claude-in-chrome` skill. Then load the tools in **one** ToolSearch call: `select:mcp__claude-in-chrome__tabs_context_mcp,mcp__claude-in-chrome__navigate,mcp__claude-in-chrome__javascript_tool,mcp__claude-in-chrome__tabs_close_mcp`.
+2. Call `tabs_context_mcp(createIfEmpty: true)`, then navigate that tab to `https://leetcode.com/problems/<slug>/`. The page has to be open: the request below is same-origin and needs its `csrftoken` cookie.
+3. Run this in `javascript_tool`, with the slug filled in. Use `var`, not `const`: the page keeps variables between calls, and redeclaring a `const` throws.
+
+   ```js
+   var csrf = (document.cookie.match(/csrftoken=([^;]+)/) || [])[1] || '';
+   var r = await fetch('/graphql/', {method: 'POST',
+       headers: {'Content-Type': 'application/json', 'x-csrftoken': csrf},
+       body: JSON.stringify({query: 'query q($s:String!){question(titleSlug:$s){content codeSnippets{langSlug code}}}',
+                             variables: {s: '<slug>'}})}).then(x => x.json());
+   var q = r.data.question;
+   var text = q.content.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&quot;/g, '"')
+       .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&#39;/g, "'").replace(/\n{2,}/g, '\n');
+   'JAVA:\n' + q.codeSnippets.find(c => c.langSlug === 'java').code + '\n---\n' + text
+   ```
+
+4. **The result is cut off at roughly 1,000 characters** (it ends in `[TRUNCATED]`). Page through it by re-running only the last line with `text.slice(...)`, e.g. `text.slice(text.indexOf('Example 1'))`, then `text.slice(text.indexOf('Constraints'))`. The variables are still set from step 3. If `text` comes back undefined, re-run the whole of step 3 with the slice on its last line.
+5. Stripping the tags loses `<sup>`, so a constraint printed as `105` means 10⁵, and `231` means 2³¹.
+6. Close the tab with `tabs_close_mcp` as soon as you have the text.
+
+Take only the statement, the examples, the constraints and the Java template. Don't open the hints, the editorial or the solutions tabs. They're spoilers, as in the rule above.
+
+**If Chrome isn't connected, or the page shows the paywall** (the user isn't logged in), say so plainly. Then fall back to WebSearch for the statement. For the signature, translate a public mirror's code (doocs, walkccc) into Java, and say the signature is unverified. Mirror pages carry full solutions, so take only the statement and signature from them.
 
 ### Deriving the URL slug
 

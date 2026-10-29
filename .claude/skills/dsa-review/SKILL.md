@@ -5,7 +5,7 @@ description: Full DSA review of the most recently edited solution — correctnes
 
 Find the most recently modified `.java` file in `src/easy/`, `src/medium/`, or `src/hard/`. Read it fully.
 
-Then pull the problem with `mcp__leetcode__get_problem(titleSlug)`, taking the slug from the file's URL comment (or derive it from the class name). Load the tool via ToolSearch if it's deferred. Edge-case and overflow verdicts depend on the **real constraints** and examples, not remembered ones; the LeetCode examples also become Tests 1–N. Use the response's `topicTags` and `similarQuestions` to sanity-check the "Alternative Approach" section. Don't use the community-solution tools (`list_problem_solutions` / `get_problem_solution`): the review should be your own analysis.
+Then pull the problem with `mcp__leetcode__get_problem(titleSlug)`, taking the slug from the file's URL comment (or derive it from the class name). Load the tool via ToolSearch if it's deferred. Edge-case and overflow verdicts depend on the **real constraints** and examples, not remembered ones; the LeetCode examples also become Tests 1–N. Use the response's `topicTags` and `similarQuestions` to sanity-check the "Alternative Approach" section. Don't use the community-solution tools (`list_problem_solutions` / `get_problem_solution`): the review should be your own analysis. For a **premium** problem, `get_problem` returns `content: null`, so read the real constraints and examples from the user's logged-in Chrome instead. The steps are under *Premium problems — read them through Chrome* in `.claude/skills/dsa-together/SKILL.md`.
 
 Then produce a structured review:
 
