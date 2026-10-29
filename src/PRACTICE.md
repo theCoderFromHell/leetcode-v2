@@ -2,9 +2,24 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 70 · Solved 60 · Total 130** — updated 2026-10-29
+**Pending 74 · Solved 60 · Total 134** — updated 2026-10-29
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 230. Kth Smallest Element in a BST
+*Tree · BST · Order statistics · an inorder walk visits a BST in sorted order, so the kth visit is the kth smallest and you can stop early. 230's follow-up asks about a set that keeps changing: then you keep counts (subtree sizes, a Fenwick tree over values, or a pair of heaps/ordered sets split at k) so each rank query costs O(log n) instead of a fresh walk*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 2476 | [Closest Nodes Queries in a Binary Search Tree](https://leetcode.com/problems/closest-nodes-queries-in-a-binary-search-tree/) | Medium | ☐ | Same "inorder gives a sorted array" step, then many queries: flatten the tree once and answer each floor/ceiling by binary search, rather than walking the tree per query |
+| 2102 | [Sequentially Ordinal Rank Tracker](https://leetcode.com/problems/sequentially-ordinal-rank-tracker/) | Hard | ☐ | 230's follow-up made real: the ith best of a set that keeps growing, where i goes up by one per query. Ties break on name, so the ordering needs a two-key comparator |
+| 1649 | [Create Sorted Array through Instructions](https://leetcode.com/problems/create-sorted-array-through-instructions/) | Hard | ☐ | Rank queries (how many smaller, how many greater) on every insert: the counts 230's follow-up would keep in each node, held in a Fenwick tree over values instead. Duplicates count as neither; the total needs mod 1e9+7 |
+| 1825 | [Finding MK Average](https://leetcode.com/problems/finding-mk-average/) | Hard | ☐ | Kth-smallest and kth-largest boundaries over a sliding window with both inserts and deletes: three ordered multisets (bottom k, middle, top k) with a running sum of the middle, rebalanced on every add |
+
+*Filtered as already solved: 173 / 1586 (BST Iterator I/II), 285 / 510 (Inorder Successor I/II), 99 (Recover BST), 1305 (All Elements in Two BSTs), 538 / 1038 (BST to Greater Tree), 1214 (Two Sum BSTs), 1382 (Balance a BST), 1756 (Design MRU Queue — kth with deletions), 315 (Count of Smaller Numbers After Self). Already in the tracker under 658: 272 (Closest BST Value II).*
+*Source note: 230 is not in the repo (solved on LeetCode, not committed). Rows checked against the repo and the last 20 LeetCode ACs only. 2476, 2102 and 1825 are contest-era, where an uncommitted solve is least likely.*
 
 ---
 
