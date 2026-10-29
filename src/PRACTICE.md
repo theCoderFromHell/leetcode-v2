@@ -2,9 +2,25 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 65 · Solved 60 · Total 125** — updated 2026-10-29
+**Pending 70 · Solved 60 · Total 130** — updated 2026-10-29
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 621. Task Scheduler
+*Greedy · Heap · Counting · the most frequent task sets the frame — (maxFreq − 1) blocks of n + 1 slots, plus one slot per task tied at maxFreq — and everything else fills the idle gaps, so the answer is max(tasks.length, frame). As a simulation: a max-heap of remaining counts plus a cooldown queue that hands each task back n steps later*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 2365 | [Task Scheduler II](https://leetcode.com/problems/task-scheduler-ii/) | Medium | ☐ | 621 with the ORDER fixed: there's no choice of what to run next, so the greedy disappears and only the cooldown bookkeeping is left — remember each type's next allowed day and jump straight to it instead of idling day by day (days reach ~10¹⁰, so long) |
+| 1953 | [Maximum Number of Weeks for Which You Can Work](https://leetcode.com/problems/maximum-number-of-weeks-for-which-you-can-work/) | Medium | ☐ | 621's frame argument with a cooldown of 1, except you stop instead of idling: either the biggest project fits between the others, or the others can only separate a limited number of its milestones. Totals reach 10¹⁴, so long |
+| 2182 | [Construct String With Repeat Limit](https://leetcode.com/problems/construct-string-with-repeat-limit/) | Medium | ☐ | The heap-with-a-hold-back loop from 621's simulation, but ordered by LETTER instead of by count: run the largest letter up to the limit, then slip in one of the next largest to break the run |
+| 358 | [Rearrange String k Distance Apart](https://leetcode.com/problems/rearrange-string-k-distance-apart/) | Hard | ☐ | 621 where you must output the arrangement and can't idle: a max-heap of counts plus a waiting queue that hands each letter back k steps after its use; running dry while letters still wait means it's impossible. Premium |
+| 2141 | [Maximum Running Time of N Computers](https://leetcode.com/problems/maximum-running-time-of-n-computers/) | Hard | ☐ | The same "does the largest item dominate, or does everything fit?" split, on a time budget: a battery longer than the target can only ever power one computer, so it can't lend its excess to the others |
+
+*Filtered as already solved: 767 (Reorganize String — the cooldown-1 construction), 1405 (Longest Happy String), 1054 (Distant Barcodes), 1834 (Single-Threaded CPU), 2402 (Meeting Rooms III). Subsumed by 1405, so left out: 984 (String Without AAA or BBB). Easy, so left out: 2335 (Minimum Amount of Time to Fill Cups).*
+*Source note: 621 is in the repo as `TaskScheduler`. Rows checked against the repo and the last 20 LeetCode ACs only. Four of the five are contest-era (2365, 1953, 2182, 2141), where an uncommitted solve is least likely; 358 is older but premium.*
 
 ---
 
