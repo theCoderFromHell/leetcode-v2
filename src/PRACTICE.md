@@ -2,7 +2,7 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 66 · Solved 59 · Total 125** — updated 2026-10-28
+**Pending 65 · Solved 60 · Total 125** — updated 2026-10-29
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
@@ -73,7 +73,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 |---|---------|------|--------|-------------|
 | 2343 | [Query Kth Smallest Trimmed Number](https://leetcode.com/problems/query-kth-smallest-trimmed-number/) | Medium | ☐ | Selection under a custom key with a tie rule (equal trimmed value → lower index), repeated per query. Quickselect per query works; the follow-up swaps it for radix sort, where each trim length is one more LSD pass |
 | 2448 | [Minimum Cost to Make Array Equal](https://leetcode.com/problems/minimum-cost-to-make-array-equal/) | Hard | ☑ 2026-10-28 | Weighted median: the k-th element where k is counted in total weight, not in elements. Same "select the middle, then sum the distances" as 462 and 2033, but with per-element costs and long arithmetic (answers up to 2⁵³) |
-| 668 | [Kth Smallest Number in Multiplication Table](https://leetcode.com/problems/kth-smallest-number-in-multiplication-table/) | Hard | ☐ | The k-th of an implicit m·n set (up to 9·10⁸ entries) that can't be built or partitioned, so you binary-search the VALUE and count entries ≤ it. Same counting idea as 719 (pending under 167), but the count has a closed form per row instead of two pointers |
+| 668 | [Kth Smallest Number in Multiplication Table](https://leetcode.com/problems/kth-smallest-number-in-multiplication-table/) | Hard | ☑ 2026-10-29 | The k-th of an implicit m·n set (up to 9·10⁸ entries) that can't be built or partitioned, so you binary-search the VALUE and count entries ≤ it. Same counting idea as 719 (pending under 167), but the count has a closed form per row instead of two pointers |
 | 2386 | [Find the K-Sum of an Array](https://leetcode.com/problems/find-the-k-sum-of-an-array/) | Hard | ☐ | k-th largest of 2ⁿ subsequence sums: the set is far too big for any selection, so a max-heap generates the sums in decreasing order and you pop k times, where 215's heap only holds k |
 
 *Filtered as already solved: 2033 (Minimum Operations to Make a Uni-Value Grid — solved on LeetCode, not committed; backfilled as `MinimumOperationsToMakeAUniValueGrid` on 2026-10-23), 378 (Kth Smallest Element in a Sorted Matrix), 786 (K-th Smallest Prime Fraction), 373 (Find K Pairs with Smallest Sums), 973 (K Closest Points to Origin), 324 (Wiggle Sort II), 462 (Minimum Moves to Equal Array Elements II), 692 (Top K Frequent Words), 1985 (Find the Kth Largest Integer in the Array). Already pending elsewhere, so not repeated: 719 (Find K-th Smallest Pair Distance, under 167), 1738 (Find Kth Largest XOR Coordinate Value, under 347), 3321 (Find X-Sum of All K-Long Subarrays II, under 973). Easy, so left out: 703 (Kth Largest Element in a Stream), 414 (Third Maximum Number).*
