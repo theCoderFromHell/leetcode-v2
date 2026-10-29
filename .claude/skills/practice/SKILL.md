@@ -147,7 +147,9 @@ So when the user says *"<N> is already solved"*:
      it may not return promptly. The user codes in IntelliJ and never in the terminal, so a bare
      path in Terminal.app is inert text - a backfilled file is just as much "a file they want to
      look at" as a new scaffold is.
-   - commit and push in the same turn - pasting solutions for this purpose authorises it
+   - commit and push in the same turn - pasting solutions for this purpose authorises it. The
+     tracker change goes to master first (Step 7); then commit the solution file alone to the
+     month branch and push that
 3. A failing test on already-accepted code is far more likely a wrong EXPECTED value than a bug.
    Report the run honestly and never edit their solution to match an expectation.
 
@@ -236,8 +238,8 @@ If fewer than 3 survive, say so rather than padding with loosely-related problem
 
 ### 3e. Write and print
 
-Append the section to `src/PRACTICE.md` (format in Step 6), regenerate the header counts, then
-print the same table to the user.
+Append the section to `src/PRACTICE.md` (format in Step 6), regenerate the header counts, push it
+to master (Step 7), then print the same table to the user.
 
 **Print every problem's URL on its own line, BELOW the table — never inside it.**
 
@@ -276,7 +278,7 @@ that file is read in a markdown renderer (GitHub, IntelliJ preview), where they 
 
 1. Run the solved check over every `☐` row in the tracker: the repo probe (2a/2b) **and** the
    recent-AC list (2d).
-2. Flip newly-solved rows to `☑ <date>`, regenerate header counts, save. For `<date>`, use the
+2. Flip newly-solved rows to `☑ <date>`, regenerate header counts, save, push (Step 7). For `<date>`, use the
    `timestamp` from the recent-AC list when the slug is there, and today's date only when the
    repo probe alone found it.
 3. Report the diff in one or two lines.
@@ -346,11 +348,95 @@ Similar-problem suggestions from `/practice`. Status refreshes on each run.
 
 ---
 
+## Step 7 — Push the tracker straight to master
+
+The user's rule (2026-10-29): **whenever this skill changes `src/PRACTICE.md`, commit that file
+and push it straight to `master` in the same turn.** Don't ask first, and don't route it through
+the month branch. The tracker is shared state across five machines. A section that waits for the
+next month-branch PR is invisible to the other machines until then, so they re-derive it or
+suggest problems it already lists. This covers:
+
+- Mode C's new sections
+- Mode A/B status flips
+- backfill retractions
+- "I solved X" flips
+
+A run that only printed from cache, or flipped nothing, has nothing to push.
+
+The commit holds `src/PRACTICE.md` alone. Solution files still go to the month branch, and
+`.claude/settings.local.json` never goes anywhere.
+
+Work in a temporary worktree, so the current branch and its uncommitted work stay put:
+
+```bash
+git fetch origin
+WT=<scratchpad>/master-wt
+git worktree add "$WT" master && git -C "$WT" merge --ff-only origin/master
+git show "$(git merge-base HEAD origin/master):src/PRACTICE.md" > <scratchpad>/practice-base.md
+git merge-file "$WT/src/PRACTICE.md" <scratchpad>/practice-base.md src/PRACTICE.md
+```
+
+`git merge-file` does a three-way merge into the worktree's copy. Its inputs are master's file,
+the version this branch last shared with master, and the local file. Exit 0 means clean. A
+positive exit code is the number of conflicts, which are left as `<<<<<<<` markers. Resolve them
+the way `CLAUDE.md` says:
+
+- keep every section from both sides, newest at the top
+- for a row both sides changed, keep the `☑`
+- regenerate the header from the merged rows, every time, conflict or not: two machines' header
+  lines conflict even when their sections don't
+
+```bash
+F="$WT/src/PRACTICE.md"
+total=$(grep -cE '^\| [0-9]+ \|' "$F"); solved=$(grep -cE '^\| [0-9]+ \|.*\| ☑' "$F")
+# header: **Pending $((total - solved)) · Solved $solved · Total $total** — updated <today>
+grep -cE '^(<<<<<<<|=======|>>>>>>>)' "$F"     # must print 0 before committing
+```
+
+Then commit, push and clean up:
+
+```bash
+git -C "$WT" add src/PRACTICE.md
+git -C "$WT" commit -m "PRACTICE.md: 621"    # Mode C: source numbers joined by ` , `; else "PRACTICE.md: refresh"
+git -C "$WT" push origin master
+git worktree remove "$WT"
+```
+
+- No attribution lines in the message, as with every commit in this repo.
+- If `--ff-only` fails, local `master` has commits that origin doesn't. Stop and tell the user.
+- If the push is rejected because another machine pushed first, run
+  `git -C "$WT" pull --rebase origin master`, resolve the same way, and push again.
+- If the main tree is on `master` itself, skip the worktree and do the same steps there.
+
+Last, bring the current branch level with master. That way the tracker stops showing as
+modified, and the next solution PR has nothing to conflict on:
+
+```bash
+git checkout -- src/PRACTICE.md     # only after the push succeeded: master's copy now holds it all
+git merge --no-edit master          # fast-forwards when the branch has no commits of its own
+```
+
+- If that merge conflicts on `src/PRACTICE.md`, take master's side, then `git add` it and
+  `git commit --no-edit`:
+
+  ```bash
+  git checkout --theirs src/PRACTICE.md
+  ```
+
+  Master's copy was merged from this branch's file, so it already contains everything.
+- If git refuses because master touches other uncommitted files, stash around the merge.
+- Don't push the branch. The merge goes up with the next solution push.
+
+Report it in one line: *Tracker pushed to master (`<sha>`).*
+
+---
+
 ## Guardrails
 
 - **Never scaffold a `.java` file here.** Only `/dsa-together` does that. If the user asks for
   one, hand off: `/dsa-together <number>`.
-- **Never commit or push unless the user asks in that message.** They batch commits themselves.
+- **Tracker changes push to master by themselves (Step 7). Nothing else does.** Solution files
+  commit only when the user asks, or on a backfill paste, and only to the month branch.
 - **Never suggest a problem without running the Step 2 solved check.**
 - **Never re-derive a source problem that already has a section.**
 - When the user says "I solved X from the list", flip that row and save — don't wait for a

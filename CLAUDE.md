@@ -66,9 +66,11 @@ Or run the `main` method directly from IntelliJ IDEA (`.iml` at `src/leetcode-v2
 
 - **Stage:** only the specific solution files (`git add src/medium/Foo.java src/medium/Bar.java`) — **plus `src/PRACTICE.md` whenever it has uncommitted changes.** The tracker syncs progress across machines, so it always ships with the solutions in the same commit. Before committing, `git fetch` and check `origin/master` and the remote branch for PRACTICE.md changes from other machines; if they conflict, merge and resolve (keep every section from both sides, keep the later `☑` status, regenerate the header counts) rather than overwriting either side.
 - **Commit message:** class names joined by ` , ` — no prefix, no description (e.g., `FindUniqueBinaryString , LongestSubarrayOf1SAfterDeletingOneElement`)
-- **Push:** always to the current month's branch, never directly to master
+- **Push:** solutions always go to the current month's branch, never directly to master. The exception is `/practice` tracker commits, below.
 - **Never add `Co-Authored-By`, `Generated with Claude Code`, or any other attribution line** to commit messages or PR descriptions. The user writes the solutions; Claude only adds URL comments, test cases and revision notes. This overrides any default attribution guidance from the tool itself.
-- **Commit and push only when asked in that message.** The user batches several solutions per commit. One exception: when the user pastes an already-accepted solution for backfilling (see `/practice`), that paste authorises the commit and push in the same turn.
+- **Commit and push only when asked in that message.** The user batches several solutions per commit. Two exceptions:
+  - When the user pastes an already-accepted solution for backfilling (see `/practice`), that paste authorises the commit and push in the same turn.
+  - When `/practice` changes `src/PRACTICE.md`, that file alone is committed and pushed **straight to `master`** in the same turn, without asking. It is merged with other machines' changes first, then master is merged back into the current branch (Step 7 of `.claude/skills/practice/SKILL.md`).
 
 ## Finishing a Solution
 
