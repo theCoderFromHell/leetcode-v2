@@ -2,9 +2,39 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 70 · Solved 60 · Total 130** — updated 2026-10-29
+**Pending 77 · Solved 61 · Total 138** — updated 2026-10-29
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 1325. Delete Leaves With a Given Value
+*Tree · DFS · postorder deletion: settle the children first, then decide the node, and return null (or 0) to cut it off. Deletions cascade upward, because a parent can only be judged once its children's fate is known. On a general tree, the same cut happens bottom-up in a DFS, or by peeling leaves with a degree queue*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 1080 | [Insufficient Nodes in Root to Leaf Paths](https://leetcode.com/problems/insufficient-nodes-in-root-to-leaf-paths/) | Medium | ☐ | Same postorder "return null to delete" with a cascade, but the test is a root-to-leaf path sum passed down instead of a node value. A node that loses all its children is deleted rather than judged as a new leaf: every path through it was already too small |
+| 2872 | [Maximum Number of K-Divisible Components](https://leetcode.com/problems/maximum-number-of-k-divisible-components/) | Hard | ☐ | The bottom-up cut on a general tree: the DFS returns a subtree's leftover sum, and a subtree whose sum is divisible by k is cut off (returns 0) and counted. Sums reach 3e13, so long |
+| 2440 | [Create Components With Same Value](https://leetcode.com/problems/create-components-with-same-value/) | Hard | ☐ | 2872 with the target unknown: try each divisor of the total as the component value and run the same cut-when-the-sum-hits-target DFS. A subtree that overshoots the target makes that divisor fail |
+| 2603 | [Collect Coins in a Tree](https://leetcode.com/problems/collect-coins-in-a-tree/) | Hard | ☐ | 1325's cascade done iteratively from the leaves of an unrooted tree: peel coinless leaves with a degree-1 queue until none are left (each removal can expose a new leaf), then peel two more layers for the distance-2 reach |
+
+*Filtered as already solved: 814 (Binary Tree Pruning), 1110 (Delete Nodes And Return Forest), 366 (Find Leaves of Binary Tree), 1660 (Correct a Binary Tree), 669 (Trim a BST), 2049 (Count Nodes With the Highest Score), 1443 (Minimum Time to Collect All Apples), 310 (Minimum Height Trees), 979 (Distribute Coins). Already in the tracker under 199: 2458 (Height After Subtree Removal Queries). Left out as looser: 2925 (Maximum Score After Applying Operations — keep/take tree DP).*
+*Source note: 1325 is in the repo as `DeleteLeavesWithAGivenValue`. Rows checked against the repo and the last 20 LeetCode ACs only. All four are contest-era except 1080.*
+
+---
+
+## 230. Kth Smallest Element in a BST
+*Tree · BST · Order statistics · an inorder walk visits a BST in sorted order, so the kth visit is the kth smallest and you can stop early. 230's follow-up asks about a set that keeps changing: then you keep counts (subtree sizes, a Fenwick tree over values, or a pair of heaps/ordered sets split at k) so each rank query costs O(log n) instead of a fresh walk*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 2476 | [Closest Nodes Queries in a Binary Search Tree](https://leetcode.com/problems/closest-nodes-queries-in-a-binary-search-tree/) | Medium | ☑ 2026-10-29 | Same "inorder gives a sorted array" step, then many queries: flatten the tree once and answer each floor/ceiling by binary search, rather than walking the tree per query |
+| 2102 | [Sequentially Ordinal Rank Tracker](https://leetcode.com/problems/sequentially-ordinal-rank-tracker/) | Hard | ☐ | 230's follow-up made real: the ith best of a set that keeps growing, where i goes up by one per query. Ties break on name, so the ordering needs a two-key comparator |
+| 1649 | [Create Sorted Array through Instructions](https://leetcode.com/problems/create-sorted-array-through-instructions/) | Hard | ☐ | Rank queries (how many smaller, how many greater) on every insert: the counts 230's follow-up would keep in each node, held in a Fenwick tree over values instead. Duplicates count as neither; the total needs mod 1e9+7 |
+| 1825 | [Finding MK Average](https://leetcode.com/problems/finding-mk-average/) | Hard | ☐ | Kth-smallest and kth-largest boundaries over a sliding window with both inserts and deletes: three ordered multisets (bottom k, middle, top k) with a running sum of the middle, rebalanced on every add |
+
+*Filtered as already solved: 173 / 1586 (BST Iterator I/II), 285 / 510 (Inorder Successor I/II), 99 (Recover BST), 1305 (All Elements in Two BSTs), 538 / 1038 (BST to Greater Tree), 1214 (Two Sum BSTs), 1382 (Balance a BST), 1756 (Design MRU Queue — kth with deletions), 315 (Count of Smaller Numbers After Self). Already in the tracker under 658: 272 (Closest BST Value II).*
+*Source note: 230 is not in the repo (solved on LeetCode, not committed). Rows checked against the repo and the last 20 LeetCode ACs only. 2476, 2102 and 1825 are contest-era, where an uncommitted solve is least likely.*
 
 ---
 
