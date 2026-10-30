@@ -2,9 +2,25 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 79 · Solved 64 · Total 143** — updated 2026-10-30
+**Pending 84 · Solved 64 · Total 148** — updated 2026-10-30
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 355. Design Twitter
+*Design · Hash Table · Heap · per-key collections kept in sync across several maps, and a top-k read across them: per-user tweet lists ordered by a global timestamp, a follow map of sets, and getNewsFeed's top 10 from a heap*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 1348 | [Tweet Counts Per Frequency](https://leetcode.com/problems/tweet-counts-per-frequency/) | Medium | ☐ | The same per-key event log as 355's userId → tweets, but the query is a time RANGE cut into fixed chunks: sorted timestamps (TreeMap, or a sorted list + binary search) replace the heap. The last chunk can be shorter. The easiest of the set |
+| 2349 | [Design a Number Container System](https://leetcode.com/problems/design-a-number-container-system/) | Medium | ☐ | Two maps that must stay in sync, like follow/unfollow: index → number and number → ordered indices. A replace has to unhook the old pairing, or use a min-heap per number and discard stale tops lazily by checking the index map |
+| 3408 | [Design Task Manager](https://leetcode.com/problems/design-task-manager/) | Medium | ☐ | 355's heap, but entries change after they're pushed (edit, rmv): one global max-heap with lazy deletion, where each popped entry is checked against the taskId map before it counts. Ties go to the larger taskId |
+| 1500 | [Design a File Sharing System](https://leetcode.com/problems/design-a-file-sharing-system/) | Medium | ☐ | LeetCode's own sibling of 355: users join and leave like follow/unfollow, a chunk → owners map of sets answers requests, and a min-heap hands out the smallest freed user id. Premium |
+| 1912 | [Design Movie Rental System](https://leetcode.com/problems/design-movie-rental-system/) | Hard | ☐ | getNewsFeed's top 10 becomes top 5 from ordered sets: search reads one movie's set of unrented (price, shop), report reads one global set of rented copies, and rent/drop MOVE an entry between the two. Multi-key tie-breaks |
+
+*Filtered as already solved: 23 (Merge k Sorted Lists), 373 (Find K Pairs with Smallest Sums), 378 (Kth Smallest Element in a Sorted Matrix) and 632 (Smallest Range Covering Elements from K Lists), which cover the k-way merge behind getNewsFeed; 2034 (Stock Price Fluctuation, as `StockPrice`), 2353 (Design a Food Rating System, as `FoodRatings`), 1244 (Design A Leaderboard), 362 (Design Hit Counter, as `HitCounter`). 359 (Logger Rate Limiter) is Easy.*
+*Source note: 355 is in the repo as `Twitter` (named after the API class). Rows checked against the repo and the last 20 LeetCode ACs only. 3408, 2349 and 1912 are contest-era, where an uncommitted solve is least likely; 1500 is premium.*
 
 ---
 
