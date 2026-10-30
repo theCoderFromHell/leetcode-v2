@@ -6,32 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - **Language:** Java (pure, no external dependencies)
 - **IDE:** IntelliJ IDEA
-- **Total solved:** ~711 problems
 - No build system or test framework — solutions are run directly via the IDE or `javac`/`java`
-
-## Structure
-
-```
-src/
-├── easy/          # Easy problems
-├── medium/        # Medium problems (bulk of solutions)
-├── hard/          # Hard problems
-├── common/        # Shared: ListNode, TreeNode, DoubleListNode, Node, Util
-├── interviews/    # Company-specific (Adobe, Atlassian, Microsoft, others)
-├── contests/      # Biweekly contest solutions (grouped by biweekly_NNN)
-├── syllabus/      # Data structure implementations (Fenwick tree, Segment tree) and design patterns
-├── random/        # Miscellaneous Java experiments
-└── PRACTICE.md    # Practice tracker — similar-problem suggestions from /practice, with solve status
-```
-
-## Common Utilities (src/common/)
-
-- `ListNode` — singly linked list with `createList()`, `printList()`
-- `TreeNode` — binary tree with `createTree(Integer...)` (from LeetCode's level-order array, `null` = missing child), `serialize()` (back to `[4,2,null,1]` form, shape-exact) and `printTree()`
-- `DoubleListNode` — doubly linked list
-- `Node` — general tree/graph node
-- `Util` — `printArray()`, `printMatrix()` (overloaded for 2D arrays and `List<List<T>>`)
-- `RemoveSpacesFromLeetcodeQuestionName` — converts "Problem Name With Spaces" → `ProblemNameWithSpaces` (use this to get the correct class/file name)
 
 ## Conventions
 
@@ -47,7 +22,7 @@ src/
 
 ## Adding a New Solution
 
-1. Run `RemoveSpacesFromLeetcodeQuestionName` to get the correct PascalCase file name.
+1. Run `src/common/RemoveSpacesFromLeetcodeQuestionName.java` to get the correct PascalCase file name.
 2. Create `src/<difficulty>/<ProblemName>.java` with `package <difficulty>;` at the top.
 3. Import from `common` package if the problem uses `ListNode`, `TreeNode`, etc.
 4. Add a `main` method with test cases for local verification.
@@ -102,19 +77,3 @@ If the `{month}-{year}` prefix doesn't match, say so in one line and **offer** t
 5. `git stash pop`
 
 Never delete the old month's branch.
-
-## Syncing Branch with Master ("rebase on master")
-When asked to rebase/sync the current branch with master, always follow these steps in order:
-1. `git stash`
-2. `git checkout master && git pull origin master`
-3. `git checkout <current-branch> && git merge master`
-4. `git push origin <current-branch>`
-5. `git stash pop`
-
-## Code Review Checklist
-
-When reviewing any solution always:
-1. **Correctness** — check for bugs and unhandled edge cases (empty input, single element, duplicates, integer overflow, null)
-2. **Complexity** — state Big-O time and space with justification; trace through an example if non-obvious
-3. **Alternatives** — suggest at least one different approach (different paradigm or data structure)
-4. **Java quality** — naming, readability, use of standard collections, modern Java features where appropriate
