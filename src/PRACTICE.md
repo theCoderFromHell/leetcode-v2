@@ -2,9 +2,25 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 77 · Solved 61 · Total 138** — updated 2026-10-29
+**Pending 79 · Solved 64 · Total 143** — updated 2026-10-30
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 901. Online Stock Span
+*Design · Data Stream · Monotonic Stack · a decreasing stack of (price, span) pairs: each new price pops every entry ≤ it and ABSORBS their spans, so a popped day is never looked at again — amortised O(1) "distance to the previous greater" per call*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 2832 | [Maximal Range That Each Element Is Maximum in It](https://leetcode.com/problems/maximal-range-that-each-element-is-maximum-in-it/) | Medium | ☐ | 901's span run in BOTH directions: previous greater (exactly 901) plus next greater, and the range is right − left − 1. Offline, so one pass can settle the right edge at pop time. The easiest of the set; isolates the pattern |
+| 1950 | [Maximum of Minimum Values in All Subarrays](https://leetcode.com/problems/maximum-of-minimum-values-in-all-subarrays/) | Medium | ☐ | The span flipped to "how far is nums[i] still the MINIMUM" on both sides. That span length L becomes an INDEX into the answer (nums[i] is a candidate for every window size ≤ L), finished by a backward max sweep |
+| 2334 | [Subarray With Elements Greater Than Varying Threshold](https://leetcode.com/problems/subarray-with-elements-greater-than-varying-threshold/) | Hard | ☐ | Same both-sided min span: the widest window where nums[i] is the minimum has length L, and it is valid iff nums[i] > threshold / L. Span plus one check; union-find over values in descending order is the alternative |
+| 3113 | [Find the Number of Subarrays Where Boundary Elements Are Maximum](https://leetcode.com/problems/find-the-number-of-subarrays-where-boundary-elements-are-maximum/) | Hard | ☐ | 901's (value, count) pair again, but EQUAL values are counted rather than popped: pop the smaller ones, and if the top equals the new value its count grows and feeds the answer. 901's "absorb what you pop" bookkeeping, where ties are the whole problem |
+| 2281 | [Sum of Total Strength of Wizards](https://leetcode.com/problems/sum-of-total-strength-of-wizards/) | Hard | ☐ | Both-sided min span gives each wizard's contribution range, but summing every subarray SUM over that range needs prefix sums of prefix sums, under mod 10⁹+7. 907's contribution technique at full difficulty |
+
+*Filtered as already solved: 739 (Daily Temperatures — the next-greater mirror, own section), 1019 (Next Greater Node In Linked List), 503 (Next Greater Element II), 907 (Sum of Subarray Minimums), 2104 (Sum of Subarray Ranges), 1856 (Maximum Subarray Min-Product), 84 (Largest Rectangle in Histogram), 85 (Maximal Rectangle), 962 (Maximum Width Ramp), 456 (132 Pattern), 1762 (Buildings With an Ocean View), 1793 (Maximum Score of a Good Subarray), 2866 (Beautiful Towers II). Already pending elsewhere, so not repeated: 1063 (Number of Valid Subarrays) and 2454 (Next Greater Element IV) under 739, 1944 (Number of Visible People in a Queue) under 42, 2289 (Steps to Make Array Non-decreasing) under 735.*
+*Source note: 901 is in the repo as `StockSpanner` (named after the API class). Rows checked against the repo and the last 20 LeetCode ACs only; all five are contest-era, where an uncommitted solve is least likely. 2832 and 1950 need Premium.*
 
 ---
 
@@ -43,8 +59,8 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 2365 | [Task Scheduler II](https://leetcode.com/problems/task-scheduler-ii/) | Medium | ☐ | 621 with the ORDER fixed: there's no choice of what to run next, so the greedy disappears and only the cooldown bookkeeping is left — remember each type's next allowed day and jump straight to it instead of idling day by day (days reach ~10¹⁰, so long) |
-| 1953 | [Maximum Number of Weeks for Which You Can Work](https://leetcode.com/problems/maximum-number-of-weeks-for-which-you-can-work/) | Medium | ☐ | 621's frame argument with a cooldown of 1, except you stop instead of idling: either the biggest project fits between the others, or the others can only separate a limited number of its milestones. Totals reach 10¹⁴, so long |
+| 2365 | [Task Scheduler II](https://leetcode.com/problems/task-scheduler-ii/) | Medium | ☑ 2026-10-29 | 621 with the ORDER fixed: there's no choice of what to run next, so the greedy disappears and only the cooldown bookkeeping is left — remember each type's next allowed day and jump straight to it instead of idling day by day (days reach ~10¹⁰, so long) |
+| 1953 | [Maximum Number of Weeks for Which You Can Work](https://leetcode.com/problems/maximum-number-of-weeks-for-which-you-can-work/) | Medium | ☑ 2026-10-30 | 621's frame argument with a cooldown of 1, except you stop instead of idling: either the biggest project fits between the others, or the others can only separate a limited number of its milestones. Totals reach 10¹⁴, so long |
 | 2182 | [Construct String With Repeat Limit](https://leetcode.com/problems/construct-string-with-repeat-limit/) | Medium | ☐ | The heap-with-a-hold-back loop from 621's simulation, but ordered by LETTER instead of by count: run the largest letter up to the limit, then slip in one of the next largest to break the run |
 | 358 | [Rearrange String k Distance Apart](https://leetcode.com/problems/rearrange-string-k-distance-apart/) | Hard | ☐ | 621 where you must output the arrangement and can't idle: a max-heap of counts plus a waiting queue that hands each letter back k steps after its use; running dry while letters still wait means it's impossible. Premium |
 | 2141 | [Maximum Running Time of N Computers](https://leetcode.com/problems/maximum-running-time-of-n-computers/) | Hard | ☐ | The same "does the largest item dominate, or does everything fit?" split, on a time budget: a battery longer than the target can only ever power one computer, so it can't lend its excess to the others |
@@ -59,7 +75,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 1130 | [Minimum Cost Tree From Leaf Values](https://leetcode.com/problems/minimum-cost-tree-from-leaf-values/) | Medium | ☐ | Same pop-when-something-bigger-arrives loop, but each pop is a greedy MERGE decision: a small leaf pairs with the smaller of its two bigger neighbours (the arrival, or the new top) and pays their product. n <= 40 also admits an O(n³) interval DP — the stack is the O(n) insight |
+| 1130 | [Minimum Cost Tree From Leaf Values](https://leetcode.com/problems/minimum-cost-tree-from-leaf-values/) | Medium | ☑ 2026-10-29 | Same pop-when-something-bigger-arrives loop, but each pop is a greedy MERGE decision: a small leaf pairs with the smaller of its two bigger neighbours (the arrival, or the new top) and pays their product. n <= 40 also admits an O(n³) interval DP — the stack is the O(n) insight |
 | 2297 | [Jump Game VIII](https://leetcode.com/problems/jump-game-viii/) | Medium | ☐ | 739's "next greater" computed twice — next >= and next < — and used as a graph: those two indices are each position's ONLY legal jumps, so two stack passes build the edges and a DP over them gives the minimum cost |
 | 1063 | [Number of Valid Subarrays](https://leetcode.com/problems/number-of-valid-subarrays/) | Hard | ☐ | 739 flipped to next SMALLER and summed: a subarray starting at i stays valid until something smaller than nums[i] appears, so every start contributes a distance. Duplicates decide strict vs non-strict pops |
 | 2454 | [Next Greater Element IV](https://leetcode.com/problems/next-greater-element-iv/) | Hard | ☐ | The SECOND greater: an index popped from the first stack has found its first greater but isn't done — it moves to a second stack and waits for one more larger value. Moving popped indices across without scrambling their order is the whole problem |
