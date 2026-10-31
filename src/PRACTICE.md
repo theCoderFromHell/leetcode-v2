@@ -2,9 +2,24 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 80 · Solved 68 · Total 148** — updated 2026-10-31
+**Pending 84 · Solved 68 · Total 152** — updated 2026-10-31
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 767. Reorganize String
+*Greedy · Counting · the dominant-frequency bound: equal items can be kept apart iff the most frequent one is at most ⌈n/2⌉ of the total — decide feasibility by counting, then build it most-frequent-first (heap, or even slots before odd)*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 1400 | [Construct K Palindrome Strings](https://leetcode.com/problems/construct-k-palindrome-strings/) | Medium | ☐ | 767's "is it possible?" answered by counting alone, with no construction. The bound is on letters with ODD counts rather than on the top count, since each palindrome can hold only one unpaired letter. The easiest of the set; isolates the counting argument |
+| 2856 | [Minimum Array Length After Pair Removals](https://leetcode.com/problems/minimum-array-length-after-pair-removals/) | Medium | ☐ | Removing two DIFFERENT values at a time is 767's "no two equal neighbours" in disguise: the most frequent value decides how much is left over. The sorted input invites two pointers or binary search, but counting alone answers it |
+| 2499 | [Minimum Total Cost to Make Arrays Unequal](https://leetcode.com/problems/minimum-total-cost-to-make-arrays-unequal/) | Hard | ☐ | The clashing indices (nums1[i] == nums2[i]) can be swapped among themselves, unless one value dominates them — 767's majority bound again. The surplus then has to borrow non-clashing indices, cheapest first. Counting + greedy, with a long sum |
+| 3088 | [Make String Anti-palindrome](https://leetcode.com/problems/make-string-anti-palindrome/) | Hard | ☐ | 767's feasibility bound under a MIRRORED constraint, s[i] ≠ s[n − 1 − i] instead of neighbours, and the answer must be lexicographically smallest: sort first, then repair the clash at the middle. Premium |
+
+*Filtered as already solved: 621 (Task Scheduler, own section), 1054 (Distant Barcodes), 1405 (Longest Happy String), 1953 (Maximum Number of Weeks for Which You Can Work), 2170 (Minimum Operations to Make the Array Alternating). Already pending elsewhere, so not repeated: 358 (Rearrange String k Distance Apart) and 2182 (Construct String With Repeat Limit) under 621. 984 (String Without AAA or BBB) is subsumed by 1405.*
+*Source note: 767 is in the repo as `ReorganizeString`. Rows checked against the repo and the last 20 LeetCode ACs only. 2856, 2499 and 3088 are contest-era, where an uncommitted solve is least likely; 1400 is older and the likeliest to have been solved without a commit.*
 
 ---
 
