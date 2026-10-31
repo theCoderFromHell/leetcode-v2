@@ -2,9 +2,25 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 84 · Solved 68 · Total 152** — updated 2026-10-31
+**Pending 89 · Solved 68 · Total 157** — updated 2026-11-01
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 200. Number of Islands
+*DFS / BFS · Union-Find · grid flood fill: every unvisited land cell starts one connected component, and marking cells as the fill reaches them means each is entered once, O(m·n). The variations change what is carried through the fill, or when the grid changes*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 3619 | [Count Islands With Total Value Divisible by K](https://leetcode.com/problems/count-islands-with-total-value-divisible-by-k/) | Medium | ☐ | 200's component count with one aggregate carried through the fill: each island's value sum, tested mod k. Sums reach 10^5 · 10^6, so the total needs a long. Contest-era; the gentlest step up from 200 |
+| 1034 | [Coloring A Border](https://leetcode.com/problems/coloring-a-border/) | Medium | ☐ | One flood fill from a given cell rather than one per component, and every cell is classified as border or interior while the fill runs. So "visited" and "recoloured" have to be tracked separately |
+| 2852 | [Sum of Remoteness of All Cells](https://leetcode.com/problems/sum-of-remoteness-of-all-cells/) | Medium | ☐ | Label each component with its size and value sum, then combine the components with a formula instead of searching per cell. Moves 200 from counting components to per-component aggregates. Premium, contest-era |
+| 827 | [Making A Large Island](https://leetcode.com/problems/making-a-large-island/) | Hard | ☐ | Two passes: a flood fill that labels each island with an id and its size, then a score for every water cell from the islands around it. The ids are what tell two neighbours on the same island apart from two different islands |
+| 305 | [Number of Islands II](https://leetcode.com/problems/number-of-islands-ii/) | Hard | ☐ | 200 made online: land appears one cell at a time and the count is needed after every addition, so re-flooding each time is O(k·m·n). Union-find over cell ids with a running component count replaces the DFS. Premium |
+
+*Filtered as already solved: 1020 (Number of Enclaves), 1254 (Number of Closed Islands), 1905 (Count Sub Islands), 417 (Pacific Atlantic Water Flow), 694 (Number of Distinct Islands), 1559 (Detect Cycles in 2D Grid), 2658 (Maximum Number of Fish in a Grid), 1992 (Find All Groups of Farmland), 959 (Regions Cut By Slashes). Left out although not in the repo: 695 (Max Area of Island) and 130 (Surrounded Regions), Top-150 staples that are the likeliest to have been solved without a commit.*
+*Source note: 200 is in the repo as `NumberOfIslands`. Rows checked against the repo and the last 20 LeetCode ACs only. 3619 and 2852 are contest-era, where an uncommitted solve is least likely; 827 and 1034 are older and the likeliest to have been solved without a commit.*
 
 ---
 
