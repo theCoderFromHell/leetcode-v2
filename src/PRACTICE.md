@@ -2,7 +2,7 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 89 · Solved 68 · Total 157** — updated 2026-11-01
+**Pending 88 · Solved 69 · Total 157** — updated 2026-11-01
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
@@ -60,7 +60,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 2832 | [Maximal Range That Each Element Is Maximum in It](https://leetcode.com/problems/maximal-range-that-each-element-is-maximum-in-it/) | Medium | ☐ | 901's span run in BOTH directions: previous greater (exactly 901) plus next greater, and the range is right − left − 1. Offline, so one pass can settle the right edge at pop time. The easiest of the set; isolates the pattern |
+| 2832 | [Maximal Range That Each Element Is Maximum in It](https://leetcode.com/problems/maximal-range-that-each-element-is-maximum-in-it/) | Medium | ☑ 2026-11-01 | 901's span run in BOTH directions: previous greater (exactly 901) plus next greater, and the range is right − left − 1. Offline, so one pass can settle the right edge at pop time. The easiest of the set; isolates the pattern |
 | 1950 | [Maximum of Minimum Values in All Subarrays](https://leetcode.com/problems/maximum-of-minimum-values-in-all-subarrays/) | Medium | ☐ | The span flipped to "how far is nums[i] still the MINIMUM" on both sides. That span length L becomes an INDEX into the answer (nums[i] is a candidate for every window size ≤ L), finished by a backward max sweep |
 | 2334 | [Subarray With Elements Greater Than Varying Threshold](https://leetcode.com/problems/subarray-with-elements-greater-than-varying-threshold/) | Hard | ☐ | Same both-sided min span: the widest window where nums[i] is the minimum has length L, and it is valid iff nums[i] > threshold / L. Span plus one check; union-find over values in descending order is the alternative |
 | 3113 | [Find the Number of Subarrays Where Boundary Elements Are Maximum](https://leetcode.com/problems/find-the-number-of-subarrays-where-boundary-elements-are-maximum/) | Hard | ☐ | 901's (value, count) pair again, but EQUAL values are counted rather than popped: pop the smaller ones, and if the top equals the new value its count grows and feeds the answer. 901's "absorb what you pop" bookkeeping, where ties are the whole problem |
