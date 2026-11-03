@@ -2,7 +2,7 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 90 · Solved 71 · Total 161** — updated 2026-11-03
+**Pending 89 · Solved 72 · Total 161** — updated 2026-11-03
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
@@ -29,7 +29,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
 | 3619 | [Count Islands With Total Value Divisible by K](https://leetcode.com/problems/count-islands-with-total-value-divisible-by-k/) | Medium | ☑ 2026-11-01 | 200's component count with one aggregate carried through the fill: each island's value sum, tested mod k. Sums reach 10^5 · 10^6, so the total needs a long. Contest-era; the gentlest step up from 200 |
-| 1034 | [Coloring A Border](https://leetcode.com/problems/coloring-a-border/) | Medium | ☐ | One flood fill from a given cell rather than one per component, and every cell is classified as border or interior while the fill runs. So "visited" and "recoloured" have to be tracked separately |
+| 1034 | [Coloring A Border](https://leetcode.com/problems/coloring-a-border/) | Medium | ☑ 2026-11-03 | One flood fill from a given cell rather than one per component, and every cell is classified as border or interior while the fill runs. So "visited" and "recoloured" have to be tracked separately |
 | 2852 | [Sum of Remoteness of All Cells](https://leetcode.com/problems/sum-of-remoteness-of-all-cells/) | Medium | ☑ 2026-11-03 | Label each component with its size and value sum, then combine the components with a formula instead of searching per cell. Moves 200 from counting components to per-component aggregates. Premium, contest-era |
 | 827 | [Making A Large Island](https://leetcode.com/problems/making-a-large-island/) | Hard | ☐ | Two passes: a flood fill that labels each island with an id and its size, then a score for every water cell from the islands around it. The ids are what tell two neighbours on the same island apart from two different islands |
 | 305 | [Number of Islands II](https://leetcode.com/problems/number-of-islands-ii/) | Hard | ☐ | 200 made online: land appears one cell at a time and the count is needed after every addition, so re-flooding each time is O(k·m·n). Union-find over cell ids with a running component count replaces the DFS. Premium |
