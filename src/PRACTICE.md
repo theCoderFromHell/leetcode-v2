@@ -2,9 +2,213 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 89 · Solved 72 · Total 161** — updated 2026-11-03
+**Pending 139 · Solved 72 · Total 211** — updated 2026-11-03
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 198. House Robber
+*1-D DP · take/skip: dp[i] = max(dp[i−1], dp[i−2] + nums[i]), because taking an element rules out its neighbour. The variations change what counts as a neighbour, or ask for a count instead of a maximum*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 2320 | [Count Number of Ways to Place Houses](https://leetcode.com/problems/count-number-of-ways-to-place-houses/) | Medium | ☐ | The same take/skip recurrence, counting valid placements instead of maximising, mod 10^9+7. The two sides of the street add a small twist. Contest-era; the gentlest step from 198 |
+| 3186 | [Maximum Total Damage With Spell Casting](https://leetcode.com/problems/maximum-total-damage-with-spell-casting/) | Medium | ☐ | Delete and Earn (740, solved) with a wider exclusion: casting x forbids x−2..x+2, so the "last allowed" index is no longer i−2 and has to be found. Contest-era |
+| 2830 | [Maximize the Profit as the Salesman](https://leetcode.com/problems/maximize-the-profit-as-the-salesman/) | Medium | ☐ | Take/skip where taking an offer jumps past its last house. The bridge from 198 to weighted interval scheduling (1235, already tracked under 122). Contest-era |
+
+*Filtered as already solved: 740 (Delete and Earn), 2140 (Solving Questions With Brainpower), 2560 (House Robber IV), 2786 (Visit Array Positions to Maximize Score). Left out as already tracked under 122: 2008 (Maximum Earnings From Taxi), 1235 (Maximum Profit in Job Scheduling).*
+*Source note: 198 is solved on LeetCode but not in the repo. Rows checked against the repo and the last 20 LeetCode ACs only.*
+
+---
+
+## 213. House Robber II
+*1-D DP · circular take/skip: a circle has no start, so break it by running the linear DP twice, once without the first element and once without the last. The variations move the same constraint onto a circle with a pick count, a tree, or an array under updates*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 337 | [House Robber III](https://leetcode.com/problems/house-robber-iii/) | Medium | ☐ | Take/skip on a tree: each node hands a (rob, skip) pair up to its parent. Same two-state recurrence, different shape. A Top-150 staple, the likeliest row here to be solved without a commit |
+| 968 | [Binary Tree Cameras](https://leetcode.com/problems/binary-tree-cameras/) | Hard | ☐ | 337's per-node states, with three states instead of two, returned bottom-up |
+| 1388 | [Pizza With 3n Slices](https://leetcode.com/problems/pizza-with-3n-slices/) | Hard | ☐ | 213 with a pick count: exactly n non-adjacent slices from a circle of 3n. The circle breaks the same way, but the DP gains a "how many picked" dimension |
+| 3165 | [Maximum Sum of Subsequence With Non-adjacent Elements](https://leetcode.com/problems/maximum-sum-of-subsequence-with-non-adjacent-elements/) | Hard | ☐ | House Robber under point updates: a segment tree whose nodes store take/skip states for their two ends and merge in O(1). Contest-era |
+
+*Filtered as already solved: 918 (Maximum Sum Circular Subarray), 256 (Paint House), 276 (Paint Fence).*
+*Source note: 213 is solved on LeetCode but not in the repo. Rows checked against the repo and the last 20 LeetCode ACs only.*
+
+---
+
+## 5. Longest Palindromic Substring
+*String DP · palindromes by center expansion, or an isPal[i][j] interval table filled by length. The variations move from substrings to subsequences, where the interval DP is the only route, or demand linear time*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 1312 | [Minimum Insertion Steps to Make a String Palindrome](https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/) | Hard | ☐ | Interval DP over [i, j] like 5's table, but on subsequences instead of substrings. A direct follow-on from 516 (solved) |
+| 1216 | [Valid Palindrome III](https://leetcode.com/problems/valid-palindrome-iii/) | Hard | ☐ | The same subsequence interval DP, asked as yes/no with a budget of k deletions. Premium |
+| 1960 | [Maximum Product of the Length of Two Palindromic Substrings](https://leetcode.com/problems/maximum-product-of-the-length-of-two-palindromic-substrings/) | Hard | ☐ | Needs the longest odd palindrome at every center in O(n) (Manacher), then prefix and suffix maxima to pick two that don't overlap. Where 5's center expansion has to become linear |
+
+*Filtered as already solved: 516 (Longest Palindromic Subsequence).*
+*Source note: 5 is solved on LeetCode but not in the repo. Rows checked against the repo and the last 20 LeetCode ACs only.*
+
+---
+
+## 647. Palindromic Substrings
+*String DP · an isPal[i][j] table (or center expansion) that enumerates every palindromic substring in O(n²). The variations reuse that table as the first layer of a partition DP*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 132 | [Palindrome Partitioning II](https://leetcode.com/problems/palindrome-partitioning-ii/) | Hard | ☐ | 647's table, then a 1-D min-cuts DP over prefixes on top of it. The classic two-layer palindrome DP |
+| 1745 | [Palindrome Partitioning IV](https://leetcode.com/problems/palindrome-partitioning-iv/) | Hard | ☐ | The same table, asked whether the string splits into exactly three palindromes. With the table built, only the two cut points remain |
+| 2472 | [Maximum Number of Non-overlapping Palindrome Substrings](https://leetcode.com/problems/maximum-number-of-non-overlapping-palindrome-substrings/) | Hard | ☐ | Palindromes of length ≥ k, as many non-overlapping ones as possible: palindrome detection plus a take/skip pass over prefixes. Contest-era |
+
+*Filtered as already solved: 131 (Palindrome Partitioning).*
+*Source note: 647 is solved on LeetCode but not in the repo. Rows checked against the repo and the last 20 LeetCode ACs only.*
+
+---
+
+## 91. Decode Ways
+*1-D DP · counting ways to split a string: dp[i] = dp[i−1] if the one-char piece is valid, plus dp[i−2] if the two-char piece is. The variations change which pieces are valid or how long a piece can be*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 2266 | [Count Number of Texts](https://leetcode.com/problems/count-number-of-texts/) | Medium | ☐ | The same counting recurrence with pieces of up to 3 or 4 repeated key presses, mod 10^9+7. Contest-era; the gentlest step from 91 |
+| 639 | [Decode Ways II](https://leetcode.com/problems/decode-ways-ii/) | Hard | ☐ | 91 with a '*' wildcard: each transition is multiplied by how many digit choices make the piece valid. Same recurrence, careful case counting |
+| 1416 | [Restore The Array](https://leetcode.com/problems/restore-the-array/) | Hard | ☐ | A piece can be any length, as long as it is a number in [1, k] with no leading zero, so each dp[i] sums over several earlier positions instead of two |
+| 1977 | [Number of Ways to Separate Numbers](https://leetcode.com/problems/number-of-ways-to-separate-numbers/) | Hard | ☐ | The pieces must be non-decreasing, so the state needs the last piece's length too, and comparing equal-length pieces fast needs an LCP table. The hardest step |
+
+*Filtered as already solved: none.*
+*Source note: 91 is in the repo as `DecodeWays`. Rows checked against the repo and the last 20 LeetCode ACs only.*
+
+---
+
+## 322. Coin Change
+*Unbounded knapsack · min items: dp[a] = 1 + min over coins of dp[a − c], each coin reusable. The variations change the objective, bound the items, or run the problem backwards*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 3592 | [Inverse Coin Change](https://leetcode.com/problems/inverse-coin-change/) | Medium | ☐ | Coin Change run backwards: given the number of ways for every amount, recover which coins exist. Contest-era |
+| 1449 | [Form Largest Integer With Digits That Add up to Target](https://leetcode.com/problems/form-largest-integer-with-digits-that-add-up-to-target/) | Hard | ☐ | Unbounded knapsack at exact cost, maximising the digit count instead of minimising coins, then rebuilding the largest string from the table. The rebuild is the new part |
+| 2585 | [Number of Ways to Earn Points](https://leetcode.com/problems/number-of-ways-to-earn-points/) | Hard | ☐ | Bounded knapsack: each question type has a count limit, so the transition also ranges over how many of that type are used. Counting, mod 10^9+7. Contest-era |
+
+*Filtered as already solved: 983 (Minimum Cost For Tickets). 518 (Coin Change II) is under 377, where the contrast lives.*
+*Source note: 322 is solved on LeetCode but not in the repo. Rows checked against the repo and the last 20 LeetCode ACs only.*
+
+---
+
+## 152. Maximum Product Subarray
+*Kadane with two running states: carry both the max and the min ending here, because a sign flip swaps them. The variations add a reduction in front, a second constraint, or a grid instead of an array*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 2708 | [Maximum Strength of a Group](https://leetcode.com/problems/maximum-strength-of-a-group/) | Medium | ☐ | A subsequence instead of a subarray, but the same max/min carry across negatives. Contest-era |
+| 1594 | [Maximum Non Negative Product in a Matrix](https://leetcode.com/problems/maximum-non-negative-product-in-a-matrix/) | Medium | ☐ | 152's max/min pair carried through a grid path DP instead of along an array |
+| 2321 | [Maximum Score Of Spliced Array](https://leetcode.com/problems/maximum-score-of-spliced-array/) | Hard | ☐ | Swapping a subarray between two arrays reduces to a maximum subarray over a derived array. Kadane hidden behind a reduction. Contest-era |
+| 2272 | [Substring With Largest Variance](https://leetcode.com/problems/substring-with-largest-variance/) | Hard | ☐ | Kadane run once per ordered pair of letters, with an extra condition the plain version can't express. Contest-era |
+
+*Filtered as already solved: 1567 (Maximum Length of Subarray With Positive Product), 1749 (Maximum Absolute Sum of Any Subarray), 1186 (Maximum Subarray Sum with One Deletion), 1191 (K-Concatenation Maximum Sum).*
+*Source note: 152 is solved on LeetCode but not in the repo. Rows checked against the repo and the last 20 LeetCode ACs only.*
+
+---
+
+## 139. Word Break
+*1-D DP over prefixes: dp[i] is true if some dictionary word ends at i and dp[start] was true. The variations change the objective (fewest pieces, every split) or replace the dictionary with a rule*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 2767 | [Partition String Into Minimum Beautiful Substrings](https://leetcode.com/problems/partition-string-into-minimum-beautiful-substrings/) | Medium | ☐ | Word Break where the "dictionary" is a rule about binary numbers, minimising the number of pieces. Contest-era |
+| 3291 | [Minimum Number of Valid Strings to Form Target I](https://leetcode.com/problems/minimum-number-of-valid-strings-to-form-target-i/) | Medium | ☐ | A piece is any prefix of any word, so a trie over the words drives the transitions; minimise the pieces. Contest-era |
+| 472 | [Concatenated Words](https://leetcode.com/problems/concatenated-words/) | Hard | ☐ | 139 run on every word against the rest of the list, requiring at least two pieces |
+| 2430 | [Maximum Deletions on a String](https://leetcode.com/problems/maximum-deletions-on-a-string/) | Hard | ☐ | DP over suffixes where a move is allowed when the next j characters repeat; an LCP table makes each check O(1). Contest-era |
+
+*Filtered as already solved: 2707 (Extra Characters in a String), 140 (Word Break II).*
+*Source note: 139 is in the repo as `WordBreak`. Rows checked against the repo and the last 20 LeetCode ACs only.*
+
+---
+
+## 300. Longest Increasing Subsequence
+*LIS · O(n²) dp[i] over earlier j, or patience sorting with binary search in O(n log n). The variations change the ordering rule, combine two directions, or ask for the answer at every index*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 2370 | [Longest Ideal Subsequence](https://leetcode.com/problems/longest-ideal-subsequence/) | Medium | ☐ | The predecessor rule becomes "letters at most k apart", so the DP is indexed by letter instead of position. Contest-era |
+| 1671 | [Minimum Number of Removals to Make Mountain Array](https://leetcode.com/problems/minimum-number-of-removals-to-make-mountain-array/) | Hard | ☐ | LIS from the left and from the right at every index, combined at the peak |
+| 1964 | [Find the Longest Valid Obstacle Course at Each Position](https://leetcode.com/problems/find-the-longest-valid-obstacle-course-at-each-position/) | Hard | ☐ | Patience sorting with a non-strict order, reporting the length ending at every index. Tests whether the binary-search version is really understood |
+| 2111 | [Minimum Operations to Make the Array K-Increasing](https://leetcode.com/problems/minimum-operations-to-make-the-array-k-increasing/) | Hard | ☐ | k interleaved subsequences, each needing a longest non-decreasing subsequence. Contest-era |
+| 2407 | [Longest Increasing Subsequence II](https://leetcode.com/problems/longest-increasing-subsequence-ii/) | Hard | ☐ | Adjacent difference capped at k, so the DP is indexed by value and each step is a range-max query on a segment tree. Contest-era |
+
+*Filtered as already solved: 673 (Number of Longest Increasing Subsequence), 1626 (Best Team With No Conflicts), 354 (Russian Doll Envelopes), 1048 (Longest String Chain), 646 (Maximum Length of Pair Chain).*
+*Source note: 300 is in the repo as `LongestIncreasingSubsequence`. Rows checked against the repo and the last 20 LeetCode ACs only.*
+
+---
+
+## 416. Partition Equal Subset Sum
+*0/1 knapsack · boolean subset sum: reachable[s] over the items, with s iterated downward so each item is used once. The variations count instead of decide, add a second budget, or track a difference instead of a sum*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 1981 | [Minimize the Difference Between Target and Chosen Elements](https://leetcode.com/problems/minimize-the-difference-between-target-and-chosen-elements/) | Medium | ☐ | A reachable-sum set built row by row (one pick per row instead of take/skip), then the sum closest to target |
+| 879 | [Profitable Schemes](https://leetcode.com/problems/profitable-schemes/) | Hard | ☐ | 0/1 knapsack with two dimensions, members used and profit capped at the minimum, counting schemes mod 10^9+7 |
+| 2518 | [Number of Great Partitions](https://leetcode.com/problems/number-of-great-partitions/) | Hard | ☐ | Knapsack counting combined with a complement over all 2^n splits. Contest-era |
+| 956 | [Tallest Billboard](https://leetcode.com/problems/tallest-billboard/) | Hard | ☐ | Each rod goes left, right or nowhere, so the state is a height difference, not a sum. The hardest twist on 416's two-group split |
+
+*Filtered as already solved: 494 (Target Sum), 1049 (Last Stone Weight II), 474 (Ones and Zeroes), 698 (Partition to K Equal Sum Subsets). Left out: 2035 (Partition Array Into Two Arrays to Minimize Sum Difference), which has an uncommitted file in the repo.*
+*Source note: 416 is in the repo as `PartitionEqualSubsetSum`. Rows checked against the repo and the last 20 LeetCode ACs only.*
+
+---
+
+## 377. Combination Sum IV
+*Unbounded counting DP · ordered sequences: the amount in the outer loop and the items in the inner loop, so each order counts separately. The variations flip that loop order, fix the length, or allow each item once*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 518 | [Coin Change II](https://leetcode.com/problems/coin-change-ii/) | Medium | ☐ | The direct contrast: swapping the two loops counts combinations instead of sequences. A Top-150 staple, the likeliest row here to be solved without a commit |
+| 1155 | [Number of Dice Rolls With Target Sum](https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/) | Medium | ☐ | Ordered counting like 377, but with exactly n steps, so the DP gains a step dimension |
+| 2787 | [Ways to Express an Integer as Sum of Powers](https://leetcode.com/problems/ways-to-express-an-integer-as-sum-of-powers/) | Medium | ☐ | Each power can be used once, so it is 0/1 counting instead of unbounded. The contrast with 377's reuse. Contest-era |
+
+*Filtered as already solved: none.*
+*Source note: 377 is in the repo as `CombinationSumIV`. Rows checked against the repo and the last 20 LeetCode ACs only.*
+
+---
+
+## 279. Perfect Squares
+*Min-count DP over n: dp[i] = 1 + min over the allowed steps of dp[i − step]. The variations change the step set, and some need memoised recursion or a greedy argument instead of a full table*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 397 | [Integer Replacement](https://leetcode.com/problems/integer-replacement/) | Medium | ☐ | Fewest steps to reach 1, over a much sparser state space than 279's table, so memoised recursion replaces the array |
+| 1414 | [Find the Minimum Number of Fibonacci Numbers Whose Sum Is K](https://leetcode.com/problems/find-the-minimum-number-of-fibonacci-numbers-whose-sum-is-k/) | Medium | ☐ | 279 with Fibonacci numbers instead of squares. The lesson is why one step set allows a shortcut and the other doesn't |
+| 2310 | [Sum of Numbers With Units Digit K](https://leetcode.com/problems/sum-of-numbers-with-units-digit-k/) | Medium | ☐ | The fewest numbers ending in digit k that sum to num. The step set is huge, so its structure matters more than a table. Contest-era |
+| 1553 | [Minimum Number of Days to Eat N Oranges](https://leetcode.com/problems/minimum-number-of-days-to-eat-n-oranges/) | Hard | ☐ | n up to 2·10^9 rules out a table over every i; memoised recursion has to visit only a few states |
+
+*Filtered as already solved: 650 (2 Keys Keyboard), 2571 (Minimum Operations to Reduce an Integer to 0), 2998 (Minimum Number of Operations to Make X and Y Equal), 991 (Broken Calculator).*
+*Source note: 279 is in the repo as `PerfectSquares`. Rows checked against the repo and the last 20 LeetCode ACs only.*
+
+---
+
+## 343. Integer Break
+*Partition DP: dp[i] = best over the last piece j of combining dp[i − j] with j. The variations cap the number of pieces, change what a piece scores, or push n past any table*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 813 | [Largest Sum of Averages](https://leetcode.com/problems/largest-sum-of-averages/) | Medium | ☐ | Split an array into at most k contiguous pieces: 343's last-piece recurrence plus a piece-count dimension |
+| 1278 | [Palindrome Partitioning III](https://leetcode.com/problems/palindrome-partitioning-iii/) | Hard | ☐ | Split into exactly k pieces, each costed by the changes needed to make it a palindrome. The same last-piece DP with k |
+| 1808 | [Maximize Number of Nice Divisors](https://leetcode.com/problems/maximize-number-of-nice-divisors/) | Hard | ☐ | 343 in disguise at n up to 10^9: no table fits, so the answer needs the math behind 343 plus fast exponentiation mod 10^9+7 |
+
+*Filtered as already solved: 1043 (Partition Array for Maximum Sum), 1335 (Minimum Difficulty of a Job Schedule), 410 (Split Array Largest Sum), 2369 (Check if There is a Valid Partition For The Array).*
+*Source note: 343 is in the repo as `IntegerBreak`. Rows checked against the repo and the last 20 LeetCode ACs only.*
+
+---
+
+## 1406. Stone Game III
+*Game DP · score difference: dp[i] = the best (my total − opponent's total) from i onward, so the opponent's best play is just a negated subproblem. The variations change the move set, the scoring, or the shape of what's left*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 486 | [Predict the Winner](https://leetcode.com/problems/predict-the-winner/) | Medium | ☐ | Take from either end, so the state becomes an interval [i, j]; the same difference trick |
+| 1563 | [Stone Game V](https://leetcode.com/problems/stone-game-v/) | Hard | ☐ | Interval DP where each split keeps one half. A one-player optimisation rather than minimax, with prefix sums for the halves |
+| 1872 | [Stone Game VIII](https://leetcode.com/problems/stone-game-viii/) | Hard | ☐ | Each move merges a prefix, so prefix sums collapse the state to an index, and the difference DP becomes a running maximum |
+
+*Filtered as already solved: 1140 (Stone Game II), 1690 (Stone Game VII).*
+*Source note: 1406 is in the repo as `StoneGameIII`. Rows checked against the repo and the last 20 LeetCode ACs only.*
 
 ---
 
