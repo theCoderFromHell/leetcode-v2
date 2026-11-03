@@ -2,9 +2,25 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 88 · Solved 69 · Total 157** — updated 2026-11-01
+**Pending 91 · Solved 71 · Total 162** — updated 2026-11-03
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## 286. Walls and Gates
+*BFS · multi-source BFS: every gate goes into the queue at distance 0 and the waves expand together, so the first time any wave reaches a room is its distance to the nearest gate. One O(m·n) pass instead of one BFS per gate. The variations change where the sources come from, or what is done with the distances afterwards*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 1162 | [As Far from Land as Possible](https://leetcode.com/problems/as-far-from-land-as-possible/) | Medium | ☐ | 286's wave seeded from every land cell, but the answer is the last layer the wave reaches, not a filled-in grid. All-land and all-water grids both return −1. The gentlest step from 286 |
+| 934 | [Shortest Bridge](https://leetcode.com/problems/shortest-bridge/) | Medium | ☐ | The sources aren't given: a flood fill first finds one whole island, then every cell of it seeds the BFS, and the layer at which the wave touches the other island is the answer. Flood fill and multi-source BFS in one problem |
+| 2812 | [Find the Safest Path in a Grid](https://leetcode.com/problems/find-the-safest-path-in-a-grid/) | Medium | ☐ | 286's distance grid is only step one: multi-source BFS from every thief gives each cell's safeness, then find the path from corner to corner whose minimum safeness is largest. Contest-era |
+| 2258 | [Escape the Spreading Fire](https://leetcode.com/problems/escape-the-spreading-fire/) | Hard | ☐ | Multi-source BFS gives the minute the fire reaches each cell, then a second search for the person decides how long they can wait. Two waves, compared cell by cell, with a special rule at the safehouse. Contest-era |
+| 317 | [Shortest Distance from All Buildings](https://leetcode.com/problems/shortest-distance-from-all-buildings/) | Hard | ☐ | The contrast case: it needs the SUM of distances to every building, not the distance to the nearest one, so a single combined wave can't answer it. Teaches when multi-source BFS stops applying. Premium |
+
+*Filtered as already solved: 542 (01 Matrix), 1765 (Map of Highest Peak). Left out although not in the repo: 994 (Rotting Oranges), a Top-150 staple that is the likeliest to have been solved without a commit.*
+*Source note: 286 is in the repo as `WallsAndGates`. Rows checked against the repo and the last 20 LeetCode ACs only. 2812 and 2258 are contest-era, where an uncommitted solve is least likely; 1162 and 934 are older and the likeliest to have been solved without a commit.*
 
 ---
 
@@ -13,9 +29,9 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 3619 | [Count Islands With Total Value Divisible by K](https://leetcode.com/problems/count-islands-with-total-value-divisible-by-k/) | Medium | ☐ | 200's component count with one aggregate carried through the fill: each island's value sum, tested mod k. Sums reach 10^5 · 10^6, so the total needs a long. Contest-era; the gentlest step up from 200 |
+| 3619 | [Count Islands With Total Value Divisible by K](https://leetcode.com/problems/count-islands-with-total-value-divisible-by-k/) | Medium | ☑ 2026-11-01 | 200's component count with one aggregate carried through the fill: each island's value sum, tested mod k. Sums reach 10^5 · 10^6, so the total needs a long. Contest-era; the gentlest step up from 200 |
 | 1034 | [Coloring A Border](https://leetcode.com/problems/coloring-a-border/) | Medium | ☐ | One flood fill from a given cell rather than one per component, and every cell is classified as border or interior while the fill runs. So "visited" and "recoloured" have to be tracked separately |
-| 2852 | [Sum of Remoteness of All Cells](https://leetcode.com/problems/sum-of-remoteness-of-all-cells/) | Medium | ☐ | Label each component with its size and value sum, then combine the components with a formula instead of searching per cell. Moves 200 from counting components to per-component aggregates. Premium, contest-era |
+| 2852 | [Sum of Remoteness of All Cells](https://leetcode.com/problems/sum-of-remoteness-of-all-cells/) | Medium | ☑ 2026-11-03 | Label each component with its size and value sum, then combine the components with a formula instead of searching per cell. Moves 200 from counting components to per-component aggregates. Premium, contest-era |
 | 827 | [Making A Large Island](https://leetcode.com/problems/making-a-large-island/) | Hard | ☐ | Two passes: a flood fill that labels each island with an id and its size, then a score for every water cell from the islands around it. The ids are what tell two neighbours on the same island apart from two different islands |
 | 305 | [Number of Islands II](https://leetcode.com/problems/number-of-islands-ii/) | Hard | ☐ | 200 made online: land appears one cell at a time and the count is needed after every addition, so re-flooding each time is O(k·m·n). Union-find over cell ids with a running component count replaces the DFS. Premium |
 
