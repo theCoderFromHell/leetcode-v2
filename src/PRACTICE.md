@@ -2,7 +2,7 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 91 · Solved 71 · Total 162** — updated 2026-11-03
+**Pending 90 · Solved 71 · Total 161** — updated 2026-11-03
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
@@ -13,14 +13,13 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 1162 | [As Far from Land as Possible](https://leetcode.com/problems/as-far-from-land-as-possible/) | Medium | ☐ | 286's wave seeded from every land cell, but the answer is the last layer the wave reaches, not a filled-in grid. All-land and all-water grids both return −1. The gentlest step from 286 |
 | 934 | [Shortest Bridge](https://leetcode.com/problems/shortest-bridge/) | Medium | ☐ | The sources aren't given: a flood fill first finds one whole island, then every cell of it seeds the BFS, and the layer at which the wave touches the other island is the answer. Flood fill and multi-source BFS in one problem |
 | 2812 | [Find the Safest Path in a Grid](https://leetcode.com/problems/find-the-safest-path-in-a-grid/) | Medium | ☐ | 286's distance grid is only step one: multi-source BFS from every thief gives each cell's safeness, then find the path from corner to corner whose minimum safeness is largest. Contest-era |
 | 2258 | [Escape the Spreading Fire](https://leetcode.com/problems/escape-the-spreading-fire/) | Hard | ☐ | Multi-source BFS gives the minute the fire reaches each cell, then a second search for the person decides how long they can wait. Two waves, compared cell by cell, with a special rule at the safehouse. Contest-era |
 | 317 | [Shortest Distance from All Buildings](https://leetcode.com/problems/shortest-distance-from-all-buildings/) | Hard | ☐ | The contrast case: it needs the SUM of distances to every building, not the distance to the nearest one, so a single combined wave can't answer it. Teaches when multi-source BFS stops applying. Premium |
 
-*Filtered as already solved: 542 (01 Matrix), 1765 (Map of Highest Peak). Left out although not in the repo: 994 (Rotting Oranges), a Top-150 staple that is the likeliest to have been solved without a commit.*
-*Source note: 286 is in the repo as `WallsAndGates`. Rows checked against the repo and the last 20 LeetCode ACs only. 2812 and 2258 are contest-era, where an uncommitted solve is least likely; 1162 and 934 are older and the likeliest to have been solved without a commit.*
+*Filtered as already solved: 1162 (As Far from Land as Possible — solved on LeetCode, not committed; backfilled as `AsFarFromLandAsPossible` on 2026-11-03, a two-pass DP rather than BFS), 542 (01 Matrix), 1765 (Map of Highest Peak). Left out although not in the repo: 994 (Rotting Oranges), a Top-150 staple that is the likeliest to have been solved without a commit.*
+*Source note: 286 is in the repo as `WallsAndGates`. Rows checked against the repo and the last 20 LeetCode ACs only. 2812 and 2258 are contest-era, where an uncommitted solve is least likely; 934 is older and the likeliest to have been solved without a commit.*
 
 ---
 
