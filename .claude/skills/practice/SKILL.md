@@ -332,7 +332,7 @@ Similar-problem suggestions from `/practice`. Status refreshes on each run.
 
 ---
 
-## 1836. Remove Duplicates From an Unsorted Linked List
+## [1836. Remove Duplicates From an Unsorted Linked List](https://leetcode.com/problems/remove-duplicates-from-an-unsorted-linked-list/)
 *Linked List · Hash Table · frequency pass + dummy-node removal*
 
 | # | Problem | Diff | Status | Why similar |
@@ -344,6 +344,9 @@ Similar-problem suggestions from `/practice`. Status refreshes on each run.
 - Status is `☐` pending, `☑ YYYY-MM-DD` solved, `☐ ?` unverified (chrome unavailable).
 - Header counts are regenerated on **every** write.
 - Newest sections go at the top, under the header.
+- Each heading links to the source problem: `## [<number>. <Title>](https://leetcode.com/problems/<slug>/)`,
+  with the slug confirmed by the same `get_problem` call as Step 3b. When searching for a section,
+  match the linked form (`^## \[1836\. `), not a bare `## 1836.`.
 - The italic line under each heading is the **concept**, not a tag dump.
 
 ---
