@@ -8,7 +8,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 198. House Robber
+## [198. House Robber](https://leetcode.com/problems/house-robber/)
 *1-D DP · take/skip: dp[i] = max(dp[i−1], dp[i−2] + nums[i]), because taking an element rules out its neighbour. The variations change what counts as a neighbour, or ask for a count instead of a maximum*
 
 | # | Problem | Diff | Status | Why similar |
@@ -22,7 +22,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 213. House Robber II
+## [213. House Robber II](https://leetcode.com/problems/house-robber-ii/)
 *1-D DP · circular take/skip: a circle has no start, so break it by running the linear DP twice, once without the first element and once without the last. The variations move the same constraint onto a circle with a pick count, a tree, or an array under updates*
 
 | # | Problem | Diff | Status | Why similar |
@@ -37,7 +37,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 5. Longest Palindromic Substring
+## [5. Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/)
 *String DP · palindromes by center expansion, or an isPal[i][j] interval table filled by length. The variations move from substrings to subsequences, where the interval DP is the only route, or demand linear time*
 
 | # | Problem | Diff | Status | Why similar |
@@ -51,7 +51,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 647. Palindromic Substrings
+## [647. Palindromic Substrings](https://leetcode.com/problems/palindromic-substrings/)
 *String DP · an isPal[i][j] table (or center expansion) that enumerates every palindromic substring in O(n²). The variations reuse that table as the first layer of a partition DP*
 
 | # | Problem | Diff | Status | Why similar |
@@ -65,7 +65,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 91. Decode Ways
+## [91. Decode Ways](https://leetcode.com/problems/decode-ways/)
 *1-D DP · counting ways to split a string: dp[i] = dp[i−1] if the one-char piece is valid, plus dp[i−2] if the two-char piece is. The variations change which pieces are valid or how long a piece can be*
 
 | # | Problem | Diff | Status | Why similar |
@@ -80,7 +80,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 322. Coin Change
+## [322. Coin Change](https://leetcode.com/problems/coin-change/)
 *Unbounded knapsack · min items: dp[a] = 1 + min over coins of dp[a − c], each coin reusable. The variations change the objective, bound the items, or run the problem backwards*
 
 | # | Problem | Diff | Status | Why similar |
@@ -94,7 +94,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 152. Maximum Product Subarray
+## [152. Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/)
 *Kadane with two running states: carry both the max and the min ending here, because a sign flip swaps them. The variations add a reduction in front, a second constraint, or a grid instead of an array*
 
 | # | Problem | Diff | Status | Why similar |
@@ -109,7 +109,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 139. Word Break
+## [139. Word Break](https://leetcode.com/problems/word-break/)
 *1-D DP over prefixes: dp[i] is true if some dictionary word ends at i and dp[start] was true. The variations change the objective (fewest pieces, every split) or replace the dictionary with a rule*
 
 | # | Problem | Diff | Status | Why similar |
@@ -124,7 +124,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 300. Longest Increasing Subsequence
+## [300. Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
 *LIS · O(n²) dp[i] over earlier j, or patience sorting with binary search in O(n log n). The variations change the ordering rule, combine two directions, or ask for the answer at every index*
 
 | # | Problem | Diff | Status | Why similar |
@@ -140,7 +140,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 416. Partition Equal Subset Sum
+## [416. Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum/)
 *0/1 knapsack · boolean subset sum: reachable[s] over the items, with s iterated downward so each item is used once. The variations count instead of decide, add a second budget, or track a difference instead of a sum*
 
 | # | Problem | Diff | Status | Why similar |
@@ -155,7 +155,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 377. Combination Sum IV
+## [377. Combination Sum IV](https://leetcode.com/problems/combination-sum-iv/)
 *Unbounded counting DP · ordered sequences: the amount in the outer loop and the items in the inner loop, so each order counts separately. The variations flip that loop order, fix the length, or allow each item once*
 
 | # | Problem | Diff | Status | Why similar |
@@ -169,7 +169,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 279. Perfect Squares
+## [279. Perfect Squares](https://leetcode.com/problems/perfect-squares/)
 *Min-count DP over n: dp[i] = 1 + min over the allowed steps of dp[i − step]. The variations change the step set, and some need memoised recursion or a greedy argument instead of a full table*
 
 | # | Problem | Diff | Status | Why similar |
@@ -184,7 +184,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 343. Integer Break
+## [343. Integer Break](https://leetcode.com/problems/integer-break/)
 *Partition DP: dp[i] = best over the last piece j of combining dp[i − j] with j. The variations cap the number of pieces, change what a piece scores, or push n past any table*
 
 | # | Problem | Diff | Status | Why similar |
@@ -198,7 +198,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 1406. Stone Game III
+## [1406. Stone Game III](https://leetcode.com/problems/stone-game-iii/)
 *Game DP · score difference: dp[i] = the best (my total − opponent's total) from i onward, so the opponent's best play is just a negated subproblem. The variations change the move set, the scoring, or the shape of what's left*
 
 | # | Problem | Diff | Status | Why similar |
@@ -212,7 +212,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 286. Walls and Gates
+## [286. Walls and Gates](https://leetcode.com/problems/walls-and-gates/)
 *BFS · multi-source BFS: every gate goes into the queue at distance 0 and the waves expand together, so the first time any wave reaches a room is its distance to the nearest gate. One O(m·n) pass instead of one BFS per gate. The variations change where the sources come from, or what is done with the distances afterwards*
 
 | # | Problem | Diff | Status | Why similar |
@@ -227,7 +227,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 200. Number of Islands
+## [200. Number of Islands](https://leetcode.com/problems/number-of-islands/)
 *DFS / BFS · Union-Find · grid flood fill: every unvisited land cell starts one connected component, and marking cells as the fill reaches them means each is entered once, O(m·n). The variations change what is carried through the fill, or when the grid changes*
 
 | # | Problem | Diff | Status | Why similar |
@@ -243,7 +243,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 767. Reorganize String
+## [767. Reorganize String](https://leetcode.com/problems/reorganize-string/)
 *Greedy · Counting · the dominant-frequency bound: equal items can be kept apart iff the most frequent one is at most ⌈n/2⌉ of the total — decide feasibility by counting, then build it most-frequent-first (heap, or even slots before odd)*
 
 | # | Problem | Diff | Status | Why similar |
@@ -258,7 +258,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 355. Design Twitter
+## [355. Design Twitter](https://leetcode.com/problems/design-twitter/)
 *Design · Hash Table · Heap · per-key collections kept in sync across several maps, and a top-k read across them: per-user tweet lists ordered by a global timestamp, a follow map of sets, and getNewsFeed's top 10 from a heap*
 
 | # | Problem | Diff | Status | Why similar |
@@ -274,7 +274,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 901. Online Stock Span
+## [901. Online Stock Span](https://leetcode.com/problems/online-stock-span/)
 *Design · Data Stream · Monotonic Stack · a decreasing stack of (price, span) pairs: each new price pops every entry ≤ it and ABSORBS their spans, so a popped day is never looked at again — amortised O(1) "distance to the previous greater" per call*
 
 | # | Problem | Diff | Status | Why similar |
@@ -290,7 +290,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 1325. Delete Leaves With a Given Value
+## [1325. Delete Leaves With a Given Value](https://leetcode.com/problems/delete-leaves-with-a-given-value/)
 *Tree · DFS · postorder deletion: settle the children first, then decide the node, and return null (or 0) to cut it off. Deletions cascade upward, because a parent can only be judged once its children's fate is known. On a general tree, the same cut happens bottom-up in a DFS, or by peeling leaves with a degree queue*
 
 | # | Problem | Diff | Status | Why similar |
@@ -305,7 +305,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 230. Kth Smallest Element in a BST
+## [230. Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/)
 *Tree · BST · Order statistics · an inorder walk visits a BST in sorted order, so the kth visit is the kth smallest and you can stop early. 230's follow-up asks about a set that keeps changing: then you keep counts (subtree sizes, a Fenwick tree over values, or a pair of heaps/ordered sets split at k) so each rank query costs O(log n) instead of a fresh walk*
 
 | # | Problem | Diff | Status | Why similar |
@@ -320,7 +320,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 621. Task Scheduler
+## [621. Task Scheduler](https://leetcode.com/problems/task-scheduler/)
 *Greedy · Heap · Counting · the most frequent task sets the frame — (maxFreq − 1) blocks of n + 1 slots, plus one slot per task tied at maxFreq — and everything else fills the idle gaps, so the answer is max(tasks.length, frame). As a simulation: a max-heap of remaining counts plus a cooldown queue that hands each task back n steps later*
 
 | # | Problem | Diff | Status | Why similar |
@@ -336,7 +336,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 739. Daily Temperatures
+## [739. Daily Temperatures](https://leetcode.com/problems/daily-temperatures/)
 *Array · Stack · Monotonic Stack · indices wait on a decreasing stack until a larger value arrives; that arrival resolves every waiting index it beats (pop → answer = i − j), so each index is pushed and popped once — O(n) "next greater" for every element*
 
 | # | Problem | Diff | Status | Why similar |
@@ -352,7 +352,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 735. Asteroid Collision
+## [735. Asteroid Collision](https://leetcode.com/problems/asteroid-collision/)
 *Array · Stack · Simulation · the survivors so far sit on a stack; each newcomer fights only the top — pop while it wins, stop when it loses, both vanish on a tie — and only a right-mover on the stack meeting an incoming left-mover can collide*
 
 | # | Problem | Diff | Status | Why similar |
@@ -368,7 +368,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 98. Validate Binary Search Tree
+## [98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
 *Tree · BST · value-range propagation — pass an open (low, high) window down (or return min/max/isBST up), so each node is checked against ALL its ancestors, not just its parent*
 *Filtered as already solved: 333 (Largest BST Subtree — the Medium form of 1373), 99 (Recover BST), 1008 (BST from Preorder), 449 (Serialize and Deserialize BST), 285 / 510 (Inorder Successor I/II), 450 (Delete Node), 669 (Trim a BST), 538 / 1038 (BST to Greater Tree), 1214 (Two Sum BSTs), 1382 (Balance a BST), 95 (Unique BSTs II). Left out as Top-150 staples likely solved but not committed: 230 (Kth Smallest in a BST), 173 (BST Iterator). 98 itself is not in the repo either. Checked against the repo and the last 20 LeetCode ACs.*
 
@@ -381,7 +381,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 199. Binary Tree Right Side View
+## [199. Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view/)
 *Tree · BFS / DFS · per-depth bookkeeping — group nodes by depth and keep one fact per level: the last node of each BFS level, or (DFS right child first) the first node to reach a new depth (depth == result.size())*
 
 | # | Problem | Diff | Status | Why similar |
@@ -394,7 +394,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 215. Kth Largest Element in an Array
+## [215. Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/)
 *Array · Quickselect · Heap · select the k-th order statistic without a full sort — quickselect partition (O(n) average), a size-k min-heap, counting over a bounded value range, or binary search on the value with a count*
 
 | # | Problem | Diff | Status | Why similar |
@@ -409,7 +409,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 235. Lowest Common Ancestor of a Binary Search Tree
+## [235. Lowest Common Ancestor of a Binary Search Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/)
 *Tree · BST · the LCA is the split point — the first node on the root path where p and q stop going the same way (BST order tells you which way without searching)*
 
 | # | Problem | Diff | Status | Why similar |
@@ -424,7 +424,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 973. K Closest Points to Origin
+## [973. K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin/)
 *Array · Heap · Quickselect · Sorting · top-k by a derived key — compare squared distances (no sqrt), then either a size-k max-heap whose root is the current k-th (a closer point evicts it), or a quickselect partition around the k-th distance for O(n) average*
 
 | # | Problem | Diff | Status | Why similar |
@@ -439,7 +439,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 150. Evaluate Reverse Polish Notation
+## [150. Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/)
 *Array · Math · Stack · operands wait on a stack until an operator consumes them — pop right THEN left, apply, push the result; truncate toward zero*
 
 | # | Problem | Diff | Status | Why similar |
@@ -453,7 +453,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 19. Remove Nth Node From End of List
+## [19. Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)
 *Linked List · Two Pointers · fixed-gap pointers — a lead pointer starts n steps ahead, so when it reaches the end the trailer sits exactly before the target; a dummy node makes "delete the head" an ordinary case*
 
 | # | Problem | Diff | Status | Why similar |
@@ -467,7 +467,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 143. Reorder List
+## [143. Reorder List](https://leetcode.com/problems/reorder-list/)
 *Linked List · Two Pointers · in-place restructure in three passes — slow/fast pointers to find the middle, reverse the second half, then weave the two halves together by rewiring next pointers*
 
 | # | Problem | Diff | Status | Why similar |
@@ -480,7 +480,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 658. Find K Closest Elements
+## [658. Find K Closest Elements](https://leetcode.com/problems/find-k-closest-elements/)
 *Array · Binary Search · Two Pointers · Sorting · in sorted order the k closest to x are always a contiguous window — shrink from whichever end is farther (a tie drops the larger), or binary-search the window's LEFT edge in [0, n − k] by comparing x − arr[mid] with arr[mid + k] − x*
 
 | # | Problem | Diff | Status | Why similar |
@@ -497,7 +497,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 209. Minimum Size Subarray Sum
+## [209. Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/)
 *Array · Sliding Window · variable window minimising length — grow right until the window qualifies, then shrink left while it still qualifies; works only because the aggregate is monotonic (positive numbers: shrinking can only lower the sum)*
 
 | # | Problem | Diff | Status | Why similar |
@@ -511,7 +511,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 567. Permutation in String
+## [567. Permutation in String](https://leetcode.com/problems/permutation-in-string/)
 *String · Sliding Window · Hash Table · fixed-size window carrying a 26-count signature — slide by adding one char and removing one, and track how many letters currently match instead of comparing whole arrays each step*
 
 | # | Problem | Diff | Status | Why similar |
@@ -525,7 +525,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 3. Longest Substring Without Repeating Characters
+## [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
 *Hash Table · String · Sliding Window · grow the window right; the moment the invariant (all distinct) breaks, move left past the duplicate — a last-seen index lets it JUMP instead of step — and the answer is the widest valid window*
 
 | # | Problem | Diff | Status | Why similar |
@@ -541,7 +541,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 155. Min Stack
+## [155. Min Stack](https://leetcode.com/problems/min-stack/)
 *Stack · Design · store the aggregate of everything BENEATH each element alongside it — push (val, min-so-far), so the answer is always at the top and a pop restores the previous answer for free*
 
 | # | Problem | Diff | Status | Why similar |
@@ -555,7 +555,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 881. Boats to Save People
+## [881. Boats to Save People](https://leetcode.com/problems/boats-to-save-people/)
 *Array · Two Pointers · Greedy · Sorting · sort, then let the heaviest remaining element decide — pair it with the lightest if they fit, otherwise it goes alone; if the lightest cannot share with the heaviest, nobody can*
 
 | # | Problem | Diff | Status | Why similar |
@@ -569,7 +569,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 42. Trapping Rain Water
+## [42. Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/)
 *Array · Two Pointers · Monotonic Stack · water at i = min(maxLeft, maxRight) − h[i]: split it into a left pass and a right pass and combine per index. Two pointers make it O(1) space, because the lower side's bound is already final*
 
 | # | Problem | Diff | Status | Why similar |
@@ -584,7 +584,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 11. Container With Most Water
+## [11. Container With Most Water](https://leetcode.com/problems/container-with-most-water/)
 *Array · Two Pointers · Greedy · converge from both ends and always move the LIMITING side — keeping it can never beat a narrower width, so it is eliminated*
 
 | # | Problem | Diff | Status | Why similar |
@@ -598,7 +598,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 189. Rotate Array
+## [189. Rotate Array](https://leetcode.com/problems/rotate-array/)
 *Array · Math · Two Pointers · decompose a rotation into REVERSALS to get it in place — reverse all, reverse the first k, reverse the rest*
 
 | # | Problem | Diff | Status | Why similar |
@@ -612,7 +612,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 167. Two Sum II - Input Array Is Sorted
+## [167. Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
 *Array · Two Pointers · Binary Search · converge from both ends and let the sortedness decide which pointer moves — O(n) with no extra space*
 
 | # | Problem | Diff | Status | Why similar |
@@ -628,7 +628,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 41. First Missing Positive
+## [41. First Missing Positive](https://leetcode.com/problems/first-missing-positive/)
 *Array · Hash Table · index-as-hash — when the value range matches the index range, the array IS the hash table; then scan for the first gap*
 
 | # | Problem | Diff | Status | Why similar |
@@ -643,7 +643,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 560. Subarray Sum Equals K
+## [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/)
 *Array · Hash Table · Prefix Sum · carry a running prefix state and look up how many earlier prefixes complete the target — counting in one pass instead of enumerating pairs*
 
 | # | Problem | Diff | Status | Why similar |
@@ -659,7 +659,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 229. Majority Element II
+## [229. Majority Element II](https://leetcode.com/problems/majority-element-ii/)
 *Array · Hash Table · Sorting · Counting · Boyer-Moore Voting · cancel k-at-a-time in k-1 candidate slots, then VERIFY in a second pass*
 
 | # | Problem | Diff | Status | Why similar |
@@ -672,7 +672,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 122. Best Time to Buy and Sell Stock II
+## [122. Best Time to Buy and Sell Stock II](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/)
 *Array · Greedy · Dynamic Programming · prove the objective decomposes into independent adjacent deltas, then take every positive one*
 
 | # | Problem | Diff | Status | Why similar |
@@ -686,7 +686,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 128. Longest Consecutive Sequence
+## [128. Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/)
 *Array · Hash Table · Union Find · hash set as an O(1) membership oracle, expanding a run only from its left boundary*
 
 | # | Problem | Diff | Status | Why similar |
@@ -701,7 +701,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 36. Valid Sudoku
+## [36. Valid Sudoku](https://leetcode.com/problems/valid-sudoku/)
 *Array · Hash Table · Matrix · one sweep maintaining several constraint sets, grouping key derived from the coordinates*
 
 | # | Problem | Diff | Status | Why similar |
@@ -714,7 +714,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 238. Product of Array Except Self
+## [238. Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/)
 *Array · Prefix Sum · accumulate from the left, accumulate from the right, combine at each index*
 
 | # | Problem | Diff | Status | Why similar |
@@ -728,7 +728,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 304. Range Sum Query 2D - Immutable
+## [304. Range Sum Query 2D - Immutable](https://leetcode.com/problems/range-sum-query-2d-immutable/)
 *Matrix · Prefix Sum · Design · precompute cumulative sums, answer rectangles by inclusion-exclusion*
 
 | # | Problem | Diff | Status | Why similar |
@@ -743,7 +743,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 347. Top K Frequent Elements
+## [347. Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/)
 *Array · Hash Table · Heap · count first, then select the top k by that count*
 
 | # | Problem | Diff | Status | Why similar |
@@ -757,7 +757,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 75. Sort Colors
+## [75. Sort Colors](https://leetcode.com/problems/sort-colors/)
 *Array · Two Pointers · Sorting · in-place three-way partition with pointer invariants*
 
 | # | Problem | Diff | Status | Why similar |
@@ -772,7 +772,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 49. Group Anagrams
+## [49. Group Anagrams](https://leetcode.com/problems/group-anagrams/)
 *Array · Hash Table · String · derive a canonical key, then bucket by it*
 
 | # | Problem | Diff | Status | Why similar |
@@ -786,7 +786,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## 1836. Remove Duplicates From an Unsorted Linked List
+## [1836. Remove Duplicates From an Unsorted Linked List](https://leetcode.com/problems/remove-duplicates-from-an-unsorted-linked-list/)
 *Linked List · Hash Table · frequency pass, then dummy-node removal*
 
 | # | Problem | Diff | Status | Why similar |
