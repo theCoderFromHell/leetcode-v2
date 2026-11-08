@@ -2,9 +2,24 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 139 · Solved 72 · Total 211** — updated 2026-11-03
+**Pending 143 · Solved 72 · Total 215** — updated 2026-11-05
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## [2320. Count Number of Ways to Place Houses](https://leetcode.com/problems/count-number-of-ways-to-place-houses/)
+*Counting DP · a small state machine over "what was the last choice": each position's count depends only on the previous position's state, so the answer is a linear recurrence mod 10^9+7. The variations widen the state (more choices, longer memory) or bound the count by a number*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 1220 | [Count Vowels Permutation](https://leetcode.com/problems/count-vowels-permutation/) | Hard | ☐ | The same last-choice state machine with five states instead of two: each vowel allows a fixed set of next vowels. The gentlest widening |
+| 1411 | [Number of Ways to Paint N × 3 Grid](https://leetcode.com/problems/number-of-ways-to-paint-n-3-grid/) | Hard | ☐ | Counted row by row, with a row's colour pattern as the state; which patterns may follow which replaces 2320's occupied/empty rule |
+| 2318 | [Number of Distinct Roll Sequences](https://leetcode.com/problems/number-of-distinct-roll-sequences/) | Hard | ☐ | The state has to remember the last two rolls, not one, because the rule looks two steps back. Contest-era |
+| 600 | [Non-negative Integers without Consecutive Ones](https://leetcode.com/problems/non-negative-integers-without-consecutive-ones/) | Hard | ☐ | The same no-two-adjacent count as one side of 2320's street, but bounded by n, so it turns into a digit DP over the bits |
+
+*Filtered as already solved: 935 (Knight Dialer), 790 (Domino and Tromino Tiling). Left out: 2266 (Count Number of Texts, already tracked under 91), 276 (Paint Fence, solved).*
+*Source note: 2320 is itself still pending in the 198 set: it isn't in the repo or the last 20 LeetCode ACs. Rows checked against the repo and the last 20 ACs only.*
 
 ---
 
