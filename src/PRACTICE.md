@@ -20,7 +20,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 | 2577 | [Minimum Time to Visit a Cell In a Grid](https://leetcode.com/problems/minimum-time-to-visit-a-cell-in-a-grid/) | Hard | ☐ | The contrast case: every cell has an earliest time it can be entered, so arriving somewhere can mean waiting first, and the arrival time is no longer the layer number. A plain FIFO queue stops being the clock. Teaches when "one layer = one tick" breaks. Contest-era |
 
 *Filtered as already solved: 2385 (Amount of Time for Binary Tree to Be Infected), 2101 (Detonate the Maximum Bombs), 1129 (Shortest Path with Alternating Colors), 1926 (Nearest Exit from Entrance in Maze), 1376 (Time Needed to Inform All Employees). Not repeated from 286's section, which covers the same queue: 2258 (Escape the Spreading Fire) and 2812 are pending there; 542, 1162 and 1765 are solved.*
-*Source note: 994 is not in the repo (solved on LeetCode, not committed). Rows checked against the repo and the last 20 LeetCode ACs only. 2146, 2039, 2493 and 2577 are contest-era, where an uncommitted solve is least likely; 749 is older.*
+*Source note: 994 was solved on LeetCode without a commit; backfilled as `RottingOranges` on 2026-11-15. Rows checked against the repo and the last 20 LeetCode ACs only. 2146, 2039, 2493 and 2577 are contest-era, where an uncommitted solve is least likely; 749 is older.*
 
 ---
 
@@ -238,7 +238,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 | 2258 | [Escape the Spreading Fire](https://leetcode.com/problems/escape-the-spreading-fire/) | Hard | ☐ | Multi-source BFS gives the minute the fire reaches each cell, then a second search for the person decides how long they can wait. Two waves, compared cell by cell, with a special rule at the safehouse. Contest-era |
 | 317 | [Shortest Distance from All Buildings](https://leetcode.com/problems/shortest-distance-from-all-buildings/) | Hard | ☐ | The contrast case: it needs the SUM of distances to every building, not the distance to the nearest one, so a single combined wave can't answer it. Teaches when multi-source BFS stops applying. Premium |
 
-*Filtered as already solved: 1162 (As Far from Land as Possible — solved on LeetCode, not committed; backfilled as `AsFarFromLandAsPossible` on 2026-11-03, a two-pass DP rather than BFS), 542 (01 Matrix), 1765 (Map of Highest Peak). Left out although not in the repo: 994 (Rotting Oranges), a Top-150 staple that is the likeliest to have been solved without a commit.*
+*Filtered as already solved: 1162 (As Far from Land as Possible — solved on LeetCode, not committed; backfilled as `AsFarFromLandAsPossible` on 2026-11-03, a two-pass DP rather than BFS), 542 (01 Matrix), 1765 (Map of Highest Peak). Left out: 994 (Rotting Oranges) — solved on LeetCode, not committed; backfilled as `RottingOranges` on 2026-11-15, and it now has its own section.*
 *Source note: 286 is in the repo as `WallsAndGates`. Rows checked against the repo and the last 20 LeetCode ACs only. 2812 and 2258 are contest-era, where an uncommitted solve is least likely; 934 is older and the likeliest to have been solved without a commit.*
 
 ---
