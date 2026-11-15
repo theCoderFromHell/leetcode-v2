@@ -2,7 +2,7 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 142 · Solved 74 · Total 216** — updated 2026-11-15
+**Pending 141 · Solved 75 · Total 216** — updated 2026-11-15
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
@@ -13,7 +13,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 2146 | [K Highest Ranked Items Within a Price Range](https://leetcode.com/problems/k-highest-ranked-items-within-a-price-range/) | Medium | ☐ | 994's layer-by-layer loop from a single start, but the order inside a layer matters: items at the same distance are ranked by price, then row, then column, and the search can stop as soon as k items are in hand. Contest-era; the gentlest step from 994 |
+| 2146 | [K Highest Ranked Items Within a Price Range](https://leetcode.com/problems/k-highest-ranked-items-within-a-price-range/) | Medium | ☑ 2026-11-15 | 994's layer-by-layer loop from a single start, but the order inside a layer matters: items at the same distance are ranked by price, then row, then column, and the search can stop as soon as k items are in hand. Contest-era; the gentlest step from 994 |
 | 2039 | [The Time When the Network Becomes Idle](https://leetcode.com/problems/the-time-when-the-network-becomes-idle/) | Medium | ☐ | The same BFS clock on a graph instead of a grid: a server's layer is its one-way trip time to the master. The answer isn't the last layer, though: each server's round trip and resend patience decide when its last reply lands, and the answer is the latest of those. Contest-era |
 | 2493 | [Divide Nodes Into the Maximum Number of Groups](https://leetcode.com/problems/divide-nodes-into-the-maximum-number-of-groups/) | Hard | ☐ | The BFS layer becomes a group number instead of a minute, and the best starting node isn't given, so each component has to be searched more than once. Some graphs can't be grouped at all, the role 994's leftover fresh orange plays for -1. Contest-era |
 | 749 | [Contain Virus](https://leetcode.com/problems/contain-virus/) | Hard | ☐ | 994's spread run one night at a time, with a decision between nights: find every infected region and the cells it threatens, wall off the worst one, then spread the rest by one layer. A flood fill and a one-step spread, repeated until nothing grows |
