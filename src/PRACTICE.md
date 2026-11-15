@@ -2,7 +2,7 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 142 · Solved 73 · Total 215** — updated 2026-11-15
+**Pending 141 · Solved 74 · Total 215** — updated 2026-11-15
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
@@ -28,7 +28,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 2320 | [Count Number of Ways to Place Houses](https://leetcode.com/problems/count-number-of-ways-to-place-houses/) | Medium | ☐ | The same take/skip recurrence, counting valid placements instead of maximising, mod 10^9+7. The two sides of the street add a small twist. Contest-era; the gentlest step from 198 |
+| 2320 | [Count Number of Ways to Place Houses](https://leetcode.com/problems/count-number-of-ways-to-place-houses/) | Medium | ☑ 2026-11-15 | The same take/skip recurrence, counting valid placements instead of maximising, mod 10^9+7. The two sides of the street add a small twist. Contest-era; the gentlest step from 198 |
 | 3186 | [Maximum Total Damage With Spell Casting](https://leetcode.com/problems/maximum-total-damage-with-spell-casting/) | Medium | ☐ | Delete and Earn (740, solved) with a wider exclusion: casting x forbids x−2..x+2, so the "last allowed" index is no longer i−2 and has to be found. Contest-era |
 | 2830 | [Maximize the Profit as the Salesman](https://leetcode.com/problems/maximize-the-profit-as-the-salesman/) | Medium | ☐ | Take/skip where taking an offer jumps past its last house. The bridge from 198 to weighted interval scheduling (1235, already tracked under 122). Contest-era |
 
