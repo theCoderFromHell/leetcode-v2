@@ -19,7 +19,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 | 3235 | [Check if the Rectangle Corner Is Reachable](https://leetcode.com/problems/check-if-the-rectangle-corner-is-reachable/) | Hard | ☐ | The border question in continuous space: touching circles merge into regions, and what matters is which sides of the rectangle each region touches. Geometry on top. Contest-era |
 
 *Filtered as already solved: 802 (Find Eventual Safe States), 841 (Keys and Rooms), 778 (Swim in Rising Water). Not repeated: 407 (Trapping Rain Water II), a heap-driven fill from the border inward, is already pending under 42. The closest grid analogues are solved and listed under 200: 1020 (Number of Enclaves), 1254 (Number of Closed Islands), 417 (Pacific Atlantic Water Flow).*
-*Source note: 130 is not in the repo (solved on LeetCode, not committed). Rows checked against the repo and the last 20 LeetCode ACs only. 3310, 1970 and 3235 are contest-era, where an uncommitted solve is least likely; 803 is older.*
+*Source note: 130 was solved on LeetCode without a commit; backfilled as `SurroundedRegions` on 2026-11-16. Rows checked against the repo and the last 20 LeetCode ACs only. 3310, 1970 and 3235 are contest-era, where an uncommitted solve is least likely; 803 is older.*
 
 ---
 
