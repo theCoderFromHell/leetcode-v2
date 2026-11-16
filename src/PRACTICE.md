@@ -2,24 +2,40 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 143 · Solved 72 · Total 215** — updated 2026-11-05
+**Pending 145 · Solved 75 · Total 220** — updated 2026-11-16
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
 
-## [2320. Count Number of Ways to Place Houses](https://leetcode.com/problems/count-number-of-ways-to-place-houses/)
-*Counting DP · a small state machine over "what was the last choice": each position's count depends only on the previous position's state, so the answer is a linear recurrence mod 10^9+7. The variations widen the state (more choices, longer memory) or bound the count by a number*
+## [130. Surrounded Regions](https://leetcode.com/problems/surrounded-regions/)
+*DFS / BFS · Union-Find · flood from the border: a region survives exactly when it touches the edge, so instead of testing each region, one fill seeded from every boundary 'O' marks the survivors and a final sweep captures everything left unmarked. In union-find terms the whole border is one virtual node. The variations change what counts as the border, or keep asking the question while the grid changes*
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 1220 | [Count Vowels Permutation](https://leetcode.com/problems/count-vowels-permutation/) | Hard | ☐ | The same last-choice state machine with five states instead of two: each vowel allows a fixed set of next vowels. The gentlest widening |
-| 1411 | [Number of Ways to Paint N × 3 Grid](https://leetcode.com/problems/number-of-ways-to-paint-n-3-grid/) | Hard | ☐ | Counted row by row, with a row's colour pattern as the state; which patterns may follow which replaces 2320's occupied/empty rule |
-| 2318 | [Number of Distinct Roll Sequences](https://leetcode.com/problems/number-of-distinct-roll-sequences/) | Hard | ☐ | The state has to remember the last two rolls, not one, because the rule looks two steps back. Contest-era |
-| 600 | [Non-negative Integers without Consecutive Ones](https://leetcode.com/problems/non-negative-integers-without-consecutive-ones/) | Hard | ☐ | The same no-two-adjacent count as one side of 2320's street, but bounded by n, so it turns into a digit DP over the bits |
+| 3310 | [Remove Methods From Project](https://leetcode.com/problems/remove-methods-from-project/) | Medium | ☐ | 130's mark-then-sweep on a directed graph instead of a grid: one search from method k marks the suspicious set, then the rest of the graph decides whether that set can be removed at all. Contest-era; the gentlest step from 130 |
+| 1970 | [Last Day Where You Can Still Cross](https://leetcode.com/problems/last-day-where-you-can-still-cross/) | Hard | ☐ | 130's border fill with the top row as the border: can a fill seeded from every top-row land cell reach the bottom row? Cells flood one per day, so the question has to be answered across days, not once. Contest-era |
+| 803 | [Bricks Falling When Hit](https://leetcode.com/problems/bricks-falling-when-hit/) | Hard | ☐ | 130's survival rule almost word for word: a brick stays up only if it connects to the top edge. But bricks are removed one hit at a time, and every hit needs the count that falls, so one fill per hit is too slow |
+| 3235 | [Check if the Rectangle Corner Is Reachable](https://leetcode.com/problems/check-if-the-rectangle-corner-is-reachable/) | Hard | ☐ | The border question in continuous space: touching circles merge into regions, and what matters is which sides of the rectangle each region touches. Geometry on top. Contest-era |
 
-*Filtered as already solved: 935 (Knight Dialer), 790 (Domino and Tromino Tiling). Left out: 2266 (Count Number of Texts, already tracked under 91), 276 (Paint Fence, solved).*
-*Source note: 2320 is itself still pending in the 198 set: it isn't in the repo or the last 20 LeetCode ACs. Rows checked against the repo and the last 20 ACs only.*
+*Filtered as already solved: 802 (Find Eventual Safe States), 841 (Keys and Rooms), 778 (Swim in Rising Water). Not repeated: 407 (Trapping Rain Water II), a heap-driven fill from the border inward, is already pending under 42. The closest grid analogues are solved and listed under 200: 1020 (Number of Enclaves), 1254 (Number of Closed Islands), 417 (Pacific Atlantic Water Flow).*
+*Source note: 130 was solved on LeetCode without a commit; backfilled as `SurroundedRegions` on 2026-11-16. Rows checked against the repo and the last 20 LeetCode ACs only. 3310, 1970 and 3235 are contest-era, where an uncommitted solve is least likely; 803 is older.*
+
+---
+
+## [994. Rotting Oranges](https://leetcode.com/problems/rotting-oranges/)
+*BFS · level-synchronous multi-source BFS as a clock: every rotten orange is in the queue at minute 0, one layer is one minute, the answer is the last layer that infected something, and a count of fresh oranges left over decides -1. The variations change what the clock measures, what happens between ticks, or whether one step is still one tick*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 2146 | [K Highest Ranked Items Within a Price Range](https://leetcode.com/problems/k-highest-ranked-items-within-a-price-range/) | Medium | ☑ 2026-11-15 | 994's layer-by-layer loop from a single start, but the order inside a layer matters: items at the same distance are ranked by price, then row, then column, and the search can stop as soon as k items are in hand. Contest-era; the gentlest step from 994 |
+| 2039 | [The Time When the Network Becomes Idle](https://leetcode.com/problems/the-time-when-the-network-becomes-idle/) | Medium | ☐ | The same BFS clock on a graph instead of a grid: a server's layer is its one-way trip time to the master. The answer isn't the last layer, though: each server's round trip and resend patience decide when its last reply lands, and the answer is the latest of those. Contest-era |
+| 2493 | [Divide Nodes Into the Maximum Number of Groups](https://leetcode.com/problems/divide-nodes-into-the-maximum-number-of-groups/) | Hard | ☐ | The BFS layer becomes a group number instead of a minute, and the best starting node isn't given, so each component has to be searched more than once. Some graphs can't be grouped at all, the role 994's leftover fresh orange plays for -1. Contest-era |
+| 749 | [Contain Virus](https://leetcode.com/problems/contain-virus/) | Hard | ☐ | 994's spread run one night at a time, with a decision between nights: find every infected region and the cells it threatens, wall off the worst one, then spread the rest by one layer. A flood fill and a one-step spread, repeated until nothing grows |
+| 2577 | [Minimum Time to Visit a Cell In a Grid](https://leetcode.com/problems/minimum-time-to-visit-a-cell-in-a-grid/) | Hard | ☐ | The contrast case: every cell has an earliest time it can be entered, so arriving somewhere can mean waiting first, and the arrival time is no longer the layer number. A plain FIFO queue stops being the clock. Teaches when "one layer = one tick" breaks. Contest-era |
+
+*Filtered as already solved: 2385 (Amount of Time for Binary Tree to Be Infected), 2101 (Detonate the Maximum Bombs), 1129 (Shortest Path with Alternating Colors), 1926 (Nearest Exit from Entrance in Maze), 1376 (Time Needed to Inform All Employees). Not repeated from 286's section, which covers the same queue: 2258 (Escape the Spreading Fire) and 2812 are pending there; 542, 1162 and 1765 are solved.*
+*Source note: 994 was solved on LeetCode without a commit; backfilled as `RottingOranges` on 2026-11-15. Rows checked against the repo and the last 20 LeetCode ACs only. 2146, 2039, 2493 and 2577 are contest-era, where an uncommitted solve is least likely; 749 is older.*
 
 ---
 
@@ -28,7 +44,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 2320 | [Count Number of Ways to Place Houses](https://leetcode.com/problems/count-number-of-ways-to-place-houses/) | Medium | ☐ | The same take/skip recurrence, counting valid placements instead of maximising, mod 10^9+7. The two sides of the street add a small twist. Contest-era; the gentlest step from 198 |
+| 2320 | [Count Number of Ways to Place Houses](https://leetcode.com/problems/count-number-of-ways-to-place-houses/) | Medium | ☑ 2026-11-15 | The same take/skip recurrence, counting valid placements instead of maximising, mod 10^9+7. The two sides of the street add a small twist. Contest-era; the gentlest step from 198 |
 | 3186 | [Maximum Total Damage With Spell Casting](https://leetcode.com/problems/maximum-total-damage-with-spell-casting/) | Medium | ☐ | Delete and Earn (740, solved) with a wider exclusion: casting x forbids x−2..x+2, so the "last allowed" index is no longer i−2 and has to be found. Contest-era |
 | 2830 | [Maximize the Profit as the Salesman](https://leetcode.com/problems/maximize-the-profit-as-the-salesman/) | Medium | ☐ | Take/skip where taking an offer jumps past its last house. The bridge from 198 to weighted interval scheduling (1235, already tracked under 122). Contest-era |
 
@@ -232,12 +248,12 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 934 | [Shortest Bridge](https://leetcode.com/problems/shortest-bridge/) | Medium | ☐ | The sources aren't given: a flood fill first finds one whole island, then every cell of it seeds the BFS, and the layer at which the wave touches the other island is the answer. Flood fill and multi-source BFS in one problem |
+| 934 | [Shortest Bridge](https://leetcode.com/problems/shortest-bridge/) | Medium | ☑ 2026-11-15 | The sources aren't given: a flood fill first finds one whole island, then every cell of it seeds the BFS, and the layer at which the wave touches the other island is the answer. Flood fill and multi-source BFS in one problem |
 | 2812 | [Find the Safest Path in a Grid](https://leetcode.com/problems/find-the-safest-path-in-a-grid/) | Medium | ☐ | 286's distance grid is only step one: multi-source BFS from every thief gives each cell's safeness, then find the path from corner to corner whose minimum safeness is largest. Contest-era |
 | 2258 | [Escape the Spreading Fire](https://leetcode.com/problems/escape-the-spreading-fire/) | Hard | ☐ | Multi-source BFS gives the minute the fire reaches each cell, then a second search for the person decides how long they can wait. Two waves, compared cell by cell, with a special rule at the safehouse. Contest-era |
 | 317 | [Shortest Distance from All Buildings](https://leetcode.com/problems/shortest-distance-from-all-buildings/) | Hard | ☐ | The contrast case: it needs the SUM of distances to every building, not the distance to the nearest one, so a single combined wave can't answer it. Teaches when multi-source BFS stops applying. Premium |
 
-*Filtered as already solved: 1162 (As Far from Land as Possible — solved on LeetCode, not committed; backfilled as `AsFarFromLandAsPossible` on 2026-11-03, a two-pass DP rather than BFS), 542 (01 Matrix), 1765 (Map of Highest Peak). Left out although not in the repo: 994 (Rotting Oranges), a Top-150 staple that is the likeliest to have been solved without a commit.*
+*Filtered as already solved: 1162 (As Far from Land as Possible — solved on LeetCode, not committed; backfilled as `AsFarFromLandAsPossible` on 2026-11-03, a two-pass DP rather than BFS), 542 (01 Matrix), 1765 (Map of Highest Peak). Left out: 994 (Rotting Oranges) — solved on LeetCode, not committed; backfilled as `RottingOranges` on 2026-11-15, and it now has its own section.*
 *Source note: 286 is in the repo as `WallsAndGates`. Rows checked against the repo and the last 20 LeetCode ACs only. 2812 and 2258 are contest-era, where an uncommitted solve is least likely; 934 is older and the likeliest to have been solved without a commit.*
 
 ---
@@ -253,7 +269,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 | 827 | [Making A Large Island](https://leetcode.com/problems/making-a-large-island/) | Hard | ☐ | Two passes: a flood fill that labels each island with an id and its size, then a score for every water cell from the islands around it. The ids are what tell two neighbours on the same island apart from two different islands |
 | 305 | [Number of Islands II](https://leetcode.com/problems/number-of-islands-ii/) | Hard | ☐ | 200 made online: land appears one cell at a time and the count is needed after every addition, so re-flooding each time is O(k·m·n). Union-find over cell ids with a running component count replaces the DFS. Premium |
 
-*Filtered as already solved: 1020 (Number of Enclaves), 1254 (Number of Closed Islands), 1905 (Count Sub Islands), 417 (Pacific Atlantic Water Flow), 694 (Number of Distinct Islands), 1559 (Detect Cycles in 2D Grid), 2658 (Maximum Number of Fish in a Grid), 1992 (Find All Groups of Farmland), 959 (Regions Cut By Slashes). Left out although not in the repo: 695 (Max Area of Island) and 130 (Surrounded Regions), Top-150 staples that are the likeliest to have been solved without a commit.*
+*Filtered as already solved: 1020 (Number of Enclaves), 1254 (Number of Closed Islands), 1905 (Count Sub Islands), 417 (Pacific Atlantic Water Flow), 694 (Number of Distinct Islands), 1559 (Detect Cycles in 2D Grid), 2658 (Maximum Number of Fish in a Grid), 1992 (Find All Groups of Farmland), 959 (Regions Cut By Slashes). Left out although not in the repo: 695 (Max Area of Island), a Top-150 staple that is the likeliest to have been solved without a commit. 130 (Surrounded Regions) now has its own section.*
 *Source note: 200 is in the repo as `NumberOfIslands`. Rows checked against the repo and the last 20 LeetCode ACs only. 3619 and 2852 are contest-era, where an uncommitted solve is least likely; 827 and 1034 are older and the likeliest to have been solved without a commit.*
 
 ---
