@@ -2,9 +2,24 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 141 · Solved 75 · Total 216** — updated 2026-11-15
+**Pending 145 · Solved 75 · Total 220** — updated 2026-11-16
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## [130. Surrounded Regions](https://leetcode.com/problems/surrounded-regions/)
+*DFS / BFS · Union-Find · flood from the border: a region survives exactly when it touches the edge, so instead of testing each region, one fill seeded from every boundary 'O' marks the survivors and a final sweep captures everything left unmarked. In union-find terms the whole border is one virtual node. The variations change what counts as the border, or keep asking the question while the grid changes*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 3310 | [Remove Methods From Project](https://leetcode.com/problems/remove-methods-from-project/) | Medium | ☐ | 130's mark-then-sweep on a directed graph instead of a grid: one search from method k marks the suspicious set, then the rest of the graph decides whether that set can be removed at all. Contest-era; the gentlest step from 130 |
+| 1970 | [Last Day Where You Can Still Cross](https://leetcode.com/problems/last-day-where-you-can-still-cross/) | Hard | ☐ | 130's border fill with the top row as the border: can a fill seeded from every top-row land cell reach the bottom row? Cells flood one per day, so the question has to be answered across days, not once. Contest-era |
+| 803 | [Bricks Falling When Hit](https://leetcode.com/problems/bricks-falling-when-hit/) | Hard | ☐ | 130's survival rule almost word for word: a brick stays up only if it connects to the top edge. But bricks are removed one hit at a time, and every hit needs the count that falls, so one fill per hit is too slow |
+| 3235 | [Check if the Rectangle Corner Is Reachable](https://leetcode.com/problems/check-if-the-rectangle-corner-is-reachable/) | Hard | ☐ | The border question in continuous space: touching circles merge into regions, and what matters is which sides of the rectangle each region touches. Geometry on top. Contest-era |
+
+*Filtered as already solved: 802 (Find Eventual Safe States), 841 (Keys and Rooms), 778 (Swim in Rising Water). Not repeated: 407 (Trapping Rain Water II), a heap-driven fill from the border inward, is already pending under 42. The closest grid analogues are solved and listed under 200: 1020 (Number of Enclaves), 1254 (Number of Closed Islands), 417 (Pacific Atlantic Water Flow).*
+*Source note: 130 is not in the repo (solved on LeetCode, not committed). Rows checked against the repo and the last 20 LeetCode ACs only. 3310, 1970 and 3235 are contest-era, where an uncommitted solve is least likely; 803 is older.*
 
 ---
 
@@ -254,7 +269,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 | 827 | [Making A Large Island](https://leetcode.com/problems/making-a-large-island/) | Hard | ☐ | Two passes: a flood fill that labels each island with an id and its size, then a score for every water cell from the islands around it. The ids are what tell two neighbours on the same island apart from two different islands |
 | 305 | [Number of Islands II](https://leetcode.com/problems/number-of-islands-ii/) | Hard | ☐ | 200 made online: land appears one cell at a time and the count is needed after every addition, so re-flooding each time is O(k·m·n). Union-find over cell ids with a running component count replaces the DFS. Premium |
 
-*Filtered as already solved: 1020 (Number of Enclaves), 1254 (Number of Closed Islands), 1905 (Count Sub Islands), 417 (Pacific Atlantic Water Flow), 694 (Number of Distinct Islands), 1559 (Detect Cycles in 2D Grid), 2658 (Maximum Number of Fish in a Grid), 1992 (Find All Groups of Farmland), 959 (Regions Cut By Slashes). Left out although not in the repo: 695 (Max Area of Island) and 130 (Surrounded Regions), Top-150 staples that are the likeliest to have been solved without a commit.*
+*Filtered as already solved: 1020 (Number of Enclaves), 1254 (Number of Closed Islands), 1905 (Count Sub Islands), 417 (Pacific Atlantic Water Flow), 694 (Number of Distinct Islands), 1559 (Detect Cycles in 2D Grid), 2658 (Maximum Number of Fish in a Grid), 1992 (Find All Groups of Farmland), 959 (Regions Cut By Slashes). Left out although not in the repo: 695 (Max Area of Island), a Top-150 staple that is the likeliest to have been solved without a commit. 130 (Surrounded Regions) now has its own section.*
 *Source note: 200 is in the repo as `NumberOfIslands`. Rows checked against the repo and the last 20 LeetCode ACs only. 3619 and 2852 are contest-era, where an uncommitted solve is least likely; 827 and 1034 are older and the likeliest to have been solved without a commit.*
 
 ---
