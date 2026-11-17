@@ -2,9 +2,25 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 144 · Solved 76 · Total 220** — updated 2026-11-17
+**Pending 149 · Solved 76 · Total 225** — updated 2026-11-17
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## [207. Course Schedule](https://leetcode.com/problems/course-schedule/)
+*Topological sort · cycle detection in a directed graph: Kahn's in-degree peeling takes a course once every prerequisite is done, and whatever never reaches in-degree 0 sits on or behind a cycle. The DFS version finds the same cycle as an edge back to a node still on the stack. The variations ask for more than yes or no: one path's fate, a unique order, a schedule length, a best path, or two orders at once*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 1059 | [All Paths from Source Lead to Destination](https://leetcode.com/problems/all-paths-from-source-lead-to-destination/) | Medium | ☐ | 207's cycle check from a single source instead of over the whole graph: every path from the source has to end at the destination, so a cycle it can reach fails, and so does any other dead end. The natural fit for the DFS three-colour version. Premium |
+| 444 | [Sequence Reconstruction](https://leetcode.com/problems/sequence-reconstruction/) | Medium | ☐ | 207 asks whether an order exists; this asks whether exactly one does, and whether it is the given sequence. The same in-degree queue, with one more thing to watch while peeling. Premium |
+| 2050 | [Parallel Courses III](https://leetcode.com/problems/parallel-courses-iii/) | Hard | ☐ | Kahn's order used as a DP order: a course can start only when its slowest prerequisite finishes, and the answer is the latest finish overall. The graph is guaranteed acyclic, so the peeling serves the DP rather than the cycle check. Contest-era |
+| 1857 | [Largest Color Value in a Directed Graph](https://leetcode.com/problems/largest-color-value-in-a-directed-graph/) | Hard | ☐ | Both halves at once: a cycle (a self-loop counts) means -1, and otherwise the best path is found in the same pass, with 26 colour counts carried along every edge. Contest-era |
+| 2392 | [Build a Matrix With Conditions](https://leetcode.com/problems/build-a-matrix-with-conditions/) | Hard | ☐ | 210's order, twice: rows and columns are two independent topological sorts of 1..k, and a cycle in either one empties the answer. Contest-era |
+
+*Filtered as already solved: 210 (Course Schedule II), 1462 (Course Schedule IV), 1136 (Parallel Courses), 2115 (Find All Possible Recipes from Given Supplies), 310 (Minimum Height Trees), 2192 (All Ancestors of a Node in a Directed Acyclic Graph), 851 (Loud and Rich), 802 (Find Eventual Safe States). Not repeated: 2603 (Collect Coins in a Tree), leaf peeling on a tree, is pending under 1325. Left out: 269 (Alien Dictionary), a Blind-75 staple and the likeliest uncommitted solve.*
+*Source note: 207 is in the repo as `CourseSchedule`. Rows checked against the repo and the last 20 LeetCode ACs only. 2050, 1857 and 2392 are contest-era, where an uncommitted solve is least likely; 1059 and 444 are older premium problems.*
 
 ---
 
