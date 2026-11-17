@@ -2,7 +2,7 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 145 · Solved 75 · Total 220** — updated 2026-11-16
+**Pending 144 · Solved 76 · Total 220** — updated 2026-11-17
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
@@ -13,7 +13,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 3310 | [Remove Methods From Project](https://leetcode.com/problems/remove-methods-from-project/) | Medium | ☐ | 130's mark-then-sweep on a directed graph instead of a grid: one search from method k marks the suspicious set, then the rest of the graph decides whether that set can be removed at all. Contest-era; the gentlest step from 130 |
+| 3310 | [Remove Methods From Project](https://leetcode.com/problems/remove-methods-from-project/) | Medium | ☑ 2026-11-17 | 130's mark-then-sweep on a directed graph instead of a grid: one search from method k marks the suspicious set, then the rest of the graph decides whether that set can be removed at all. Contest-era; the gentlest step from 130 |
 | 1970 | [Last Day Where You Can Still Cross](https://leetcode.com/problems/last-day-where-you-can-still-cross/) | Hard | ☐ | 130's border fill with the top row as the border: can a fill seeded from every top-row land cell reach the bottom row? Cells flood one per day, so the question has to be answered across days, not once. Contest-era |
 | 803 | [Bricks Falling When Hit](https://leetcode.com/problems/bricks-falling-when-hit/) | Hard | ☐ | 130's survival rule almost word for word: a brick stays up only if it connects to the top edge. But bricks are removed one hit at a time, and every hit needs the count that falls, so one fill per hit is too slow |
 | 3235 | [Check if the Rectangle Corner Is Reachable](https://leetcode.com/problems/check-if-the-rectangle-corner-is-reachable/) | Hard | ☐ | The border question in continuous space: touching circles merge into regions, and what matters is which sides of the rectangle each region touches. Geometry on top. Contest-era |
