@@ -2,7 +2,7 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 148 · Solved 76 · Total 224** — updated 2026-11-18
+**Pending 147 · Solved 77 · Total 224** — updated 2026-11-18
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
@@ -116,7 +116,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 2266 | [Count Number of Texts](https://leetcode.com/problems/count-number-of-texts/) | Medium | ☐ | The same counting recurrence with pieces of up to 3 or 4 repeated key presses, mod 10^9+7. Contest-era; the gentlest step from 91 |
+| 2266 | [Count Number of Texts](https://leetcode.com/problems/count-number-of-texts/) | Medium | ☑ 2026-11-18 | The same counting recurrence with pieces of up to 3 or 4 repeated key presses, mod 10^9+7. Contest-era; the gentlest step from 91 |
 | 639 | [Decode Ways II](https://leetcode.com/problems/decode-ways-ii/) | Hard | ☐ | 91 with a '*' wildcard: each transition is multiplied by how many digit choices make the piece valid. Same recurrence, careful case counting |
 | 1416 | [Restore The Array](https://leetcode.com/problems/restore-the-array/) | Hard | ☐ | A piece can be any length, as long as it is a number in [1, k] with no leading zero, so each dp[i] sums over several earlier positions instead of two |
 | 1977 | [Number of Ways to Separate Numbers](https://leetcode.com/problems/number-of-ways-to-separate-numbers/) | Hard | ☐ | The pieces must be non-decreasing, so the state needs the last piece's length too, and comparing equal-length pieces fast needs an LCP table. The hardest step |
