@@ -2,7 +2,7 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 149 · Solved 76 · Total 225** — updated 2026-11-17
+**Pending 148 · Solved 76 · Total 224** — updated 2026-11-18
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
@@ -74,12 +74,11 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 337 | [House Robber III](https://leetcode.com/problems/house-robber-iii/) | Medium | ☐ | Take/skip on a tree: each node hands a (rob, skip) pair up to its parent. Same two-state recurrence, different shape. A Top-150 staple, the likeliest row here to be solved without a commit |
 | 968 | [Binary Tree Cameras](https://leetcode.com/problems/binary-tree-cameras/) | Hard | ☐ | 337's per-node states, with three states instead of two, returned bottom-up |
 | 1388 | [Pizza With 3n Slices](https://leetcode.com/problems/pizza-with-3n-slices/) | Hard | ☐ | 213 with a pick count: exactly n non-adjacent slices from a circle of 3n. The circle breaks the same way, but the DP gains a "how many picked" dimension |
 | 3165 | [Maximum Sum of Subsequence With Non-adjacent Elements](https://leetcode.com/problems/maximum-sum-of-subsequence-with-non-adjacent-elements/) | Hard | ☐ | House Robber under point updates: a segment tree whose nodes store take/skip states for their two ends and merge in O(1). Contest-era |
 
-*Filtered as already solved: 918 (Maximum Sum Circular Subarray), 256 (Paint House), 276 (Paint Fence).*
+*Filtered as already solved: 337 (House Robber III — solved on LeetCode, not committed; backfilled as `HouseRobberIII` on 2026-11-18), 918 (Maximum Sum Circular Subarray), 256 (Paint House), 276 (Paint Fence).*
 *Source note: 213 is solved on LeetCode but not in the repo. Rows checked against the repo and the last 20 LeetCode ACs only.*
 
 ---
