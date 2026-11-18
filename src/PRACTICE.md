@@ -2,9 +2,25 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 145 · Solved 75 · Total 220** — updated 2026-11-16
+**Pending 148 · Solved 76 · Total 224** — updated 2026-11-18
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## [207. Course Schedule](https://leetcode.com/problems/course-schedule/)
+*Topological sort · cycle detection in a directed graph: Kahn's in-degree peeling takes a course once every prerequisite is done, and whatever never reaches in-degree 0 sits on or behind a cycle. The DFS version finds the same cycle as an edge back to a node still on the stack. The variations ask for more than yes or no: one path's fate, a unique order, a schedule length, a best path, or two orders at once*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 1059 | [All Paths from Source Lead to Destination](https://leetcode.com/problems/all-paths-from-source-lead-to-destination/) | Medium | ☐ | 207's cycle check from a single source instead of over the whole graph: every path from the source has to end at the destination, so a cycle it can reach fails, and so does any other dead end. The natural fit for the DFS three-colour version. Premium |
+| 444 | [Sequence Reconstruction](https://leetcode.com/problems/sequence-reconstruction/) | Medium | ☐ | 207 asks whether an order exists; this asks whether exactly one does, and whether it is the given sequence. The same in-degree queue, with one more thing to watch while peeling. Premium |
+| 2050 | [Parallel Courses III](https://leetcode.com/problems/parallel-courses-iii/) | Hard | ☐ | Kahn's order used as a DP order: a course can start only when its slowest prerequisite finishes, and the answer is the latest finish overall. The graph is guaranteed acyclic, so the peeling serves the DP rather than the cycle check. Contest-era |
+| 1857 | [Largest Color Value in a Directed Graph](https://leetcode.com/problems/largest-color-value-in-a-directed-graph/) | Hard | ☐ | Both halves at once: a cycle (a self-loop counts) means -1, and otherwise the best path is found in the same pass, with 26 colour counts carried along every edge. Contest-era |
+| 2392 | [Build a Matrix With Conditions](https://leetcode.com/problems/build-a-matrix-with-conditions/) | Hard | ☐ | 210's order, twice: rows and columns are two independent topological sorts of 1..k, and a cycle in either one empties the answer. Contest-era |
+
+*Filtered as already solved: 210 (Course Schedule II), 1462 (Course Schedule IV), 1136 (Parallel Courses), 2115 (Find All Possible Recipes from Given Supplies), 310 (Minimum Height Trees), 2192 (All Ancestors of a Node in a Directed Acyclic Graph), 851 (Loud and Rich), 802 (Find Eventual Safe States). Not repeated: 2603 (Collect Coins in a Tree), leaf peeling on a tree, is pending under 1325. Left out: 269 (Alien Dictionary), a Blind-75 staple and the likeliest uncommitted solve.*
+*Source note: 207 is in the repo as `CourseSchedule`. Rows checked against the repo and the last 20 LeetCode ACs only. 2050, 1857 and 2392 are contest-era, where an uncommitted solve is least likely; 1059 and 444 are older premium problems.*
 
 ---
 
@@ -13,7 +29,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 3310 | [Remove Methods From Project](https://leetcode.com/problems/remove-methods-from-project/) | Medium | ☐ | 130's mark-then-sweep on a directed graph instead of a grid: one search from method k marks the suspicious set, then the rest of the graph decides whether that set can be removed at all. Contest-era; the gentlest step from 130 |
+| 3310 | [Remove Methods From Project](https://leetcode.com/problems/remove-methods-from-project/) | Medium | ☑ 2026-11-17 | 130's mark-then-sweep on a directed graph instead of a grid: one search from method k marks the suspicious set, then the rest of the graph decides whether that set can be removed at all. Contest-era; the gentlest step from 130 |
 | 1970 | [Last Day Where You Can Still Cross](https://leetcode.com/problems/last-day-where-you-can-still-cross/) | Hard | ☐ | 130's border fill with the top row as the border: can a fill seeded from every top-row land cell reach the bottom row? Cells flood one per day, so the question has to be answered across days, not once. Contest-era |
 | 803 | [Bricks Falling When Hit](https://leetcode.com/problems/bricks-falling-when-hit/) | Hard | ☐ | 130's survival rule almost word for word: a brick stays up only if it connects to the top edge. But bricks are removed one hit at a time, and every hit needs the count that falls, so one fill per hit is too slow |
 | 3235 | [Check if the Rectangle Corner Is Reachable](https://leetcode.com/problems/check-if-the-rectangle-corner-is-reachable/) | Hard | ☐ | The border question in continuous space: touching circles merge into regions, and what matters is which sides of the rectangle each region touches. Geometry on top. Contest-era |
@@ -58,12 +74,11 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 337 | [House Robber III](https://leetcode.com/problems/house-robber-iii/) | Medium | ☐ | Take/skip on a tree: each node hands a (rob, skip) pair up to its parent. Same two-state recurrence, different shape. A Top-150 staple, the likeliest row here to be solved without a commit |
 | 968 | [Binary Tree Cameras](https://leetcode.com/problems/binary-tree-cameras/) | Hard | ☐ | 337's per-node states, with three states instead of two, returned bottom-up |
 | 1388 | [Pizza With 3n Slices](https://leetcode.com/problems/pizza-with-3n-slices/) | Hard | ☐ | 213 with a pick count: exactly n non-adjacent slices from a circle of 3n. The circle breaks the same way, but the DP gains a "how many picked" dimension |
 | 3165 | [Maximum Sum of Subsequence With Non-adjacent Elements](https://leetcode.com/problems/maximum-sum-of-subsequence-with-non-adjacent-elements/) | Hard | ☐ | House Robber under point updates: a segment tree whose nodes store take/skip states for their two ends and merge in O(1). Contest-era |
 
-*Filtered as already solved: 918 (Maximum Sum Circular Subarray), 256 (Paint House), 276 (Paint Fence).*
+*Filtered as already solved: 337 (House Robber III — solved on LeetCode, not committed; backfilled as `HouseRobberIII` on 2026-11-18), 918 (Maximum Sum Circular Subarray), 256 (Paint House), 276 (Paint Fence).*
 *Source note: 213 is solved on LeetCode but not in the repo. Rows checked against the repo and the last 20 LeetCode ACs only.*
 
 ---
