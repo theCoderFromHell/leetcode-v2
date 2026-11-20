@@ -2,7 +2,7 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 147 · Solved 77 · Total 224** — updated 2026-11-18
+**Pending 146 · Solved 78 · Total 224** — updated 2026-11-20
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
@@ -13,7 +13,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 1059 | [All Paths from Source Lead to Destination](https://leetcode.com/problems/all-paths-from-source-lead-to-destination/) | Medium | ☐ | 207's cycle check from a single source instead of over the whole graph: every path from the source has to end at the destination, so a cycle it can reach fails, and so does any other dead end. The natural fit for the DFS three-colour version. Premium |
+| 1059 | [All Paths from Source Lead to Destination](https://leetcode.com/problems/all-paths-from-source-lead-to-destination/) | Medium | ☑ 2026-11-20 | 207's cycle check from a single source instead of over the whole graph: every path from the source has to end at the destination, so a cycle it can reach fails, and so does any other dead end. The natural fit for the DFS three-colour version. Premium |
 | 444 | [Sequence Reconstruction](https://leetcode.com/problems/sequence-reconstruction/) | Medium | ☐ | 207 asks whether an order exists; this asks whether exactly one does, and whether it is the given sequence. The same in-degree queue, with one more thing to watch while peeling. Premium |
 | 2050 | [Parallel Courses III](https://leetcode.com/problems/parallel-courses-iii/) | Hard | ☐ | Kahn's order used as a DP order: a course can start only when its slowest prerequisite finishes, and the answer is the latest finish overall. The graph is guaranteed acyclic, so the peeling serves the DP rather than the cycle check. Contest-era |
 | 1857 | [Largest Color Value in a Directed Graph](https://leetcode.com/problems/largest-color-value-in-a-directed-graph/) | Hard | ☐ | Both halves at once: a cycle (a self-loop counts) means -1, and otherwise the best path is found in the same pass, with 26 colour counts carried along every edge. Contest-era |
