@@ -2,7 +2,7 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 149 · Solved 76 · Total 225** — updated 2026-11-17
+**Pending 146 · Solved 78 · Total 224** — updated 2026-11-20
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
@@ -13,7 +13,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 1059 | [All Paths from Source Lead to Destination](https://leetcode.com/problems/all-paths-from-source-lead-to-destination/) | Medium | ☐ | 207's cycle check from a single source instead of over the whole graph: every path from the source has to end at the destination, so a cycle it can reach fails, and so does any other dead end. The natural fit for the DFS three-colour version. Premium |
+| 1059 | [All Paths from Source Lead to Destination](https://leetcode.com/problems/all-paths-from-source-lead-to-destination/) | Medium | ☑ 2026-11-20 | 207's cycle check from a single source instead of over the whole graph: every path from the source has to end at the destination, so a cycle it can reach fails, and so does any other dead end. The natural fit for the DFS three-colour version. Premium |
 | 444 | [Sequence Reconstruction](https://leetcode.com/problems/sequence-reconstruction/) | Medium | ☐ | 207 asks whether an order exists; this asks whether exactly one does, and whether it is the given sequence. The same in-degree queue, with one more thing to watch while peeling. Premium |
 | 2050 | [Parallel Courses III](https://leetcode.com/problems/parallel-courses-iii/) | Hard | ☐ | Kahn's order used as a DP order: a course can start only when its slowest prerequisite finishes, and the answer is the latest finish overall. The graph is guaranteed acyclic, so the peeling serves the DP rather than the cycle check. Contest-era |
 | 1857 | [Largest Color Value in a Directed Graph](https://leetcode.com/problems/largest-color-value-in-a-directed-graph/) | Hard | ☐ | Both halves at once: a cycle (a self-loop counts) means -1, and otherwise the best path is found in the same pass, with 26 colour counts carried along every edge. Contest-era |
@@ -74,12 +74,11 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 337 | [House Robber III](https://leetcode.com/problems/house-robber-iii/) | Medium | ☐ | Take/skip on a tree: each node hands a (rob, skip) pair up to its parent. Same two-state recurrence, different shape. A Top-150 staple, the likeliest row here to be solved without a commit |
 | 968 | [Binary Tree Cameras](https://leetcode.com/problems/binary-tree-cameras/) | Hard | ☐ | 337's per-node states, with three states instead of two, returned bottom-up |
 | 1388 | [Pizza With 3n Slices](https://leetcode.com/problems/pizza-with-3n-slices/) | Hard | ☐ | 213 with a pick count: exactly n non-adjacent slices from a circle of 3n. The circle breaks the same way, but the DP gains a "how many picked" dimension |
 | 3165 | [Maximum Sum of Subsequence With Non-adjacent Elements](https://leetcode.com/problems/maximum-sum-of-subsequence-with-non-adjacent-elements/) | Hard | ☐ | House Robber under point updates: a segment tree whose nodes store take/skip states for their two ends and merge in O(1). Contest-era |
 
-*Filtered as already solved: 918 (Maximum Sum Circular Subarray), 256 (Paint House), 276 (Paint Fence).*
+*Filtered as already solved: 337 (House Robber III — solved on LeetCode, not committed; backfilled as `HouseRobberIII` on 2026-11-18), 918 (Maximum Sum Circular Subarray), 256 (Paint House), 276 (Paint Fence).*
 *Source note: 213 is solved on LeetCode but not in the repo. Rows checked against the repo and the last 20 LeetCode ACs only.*
 
 ---
@@ -117,7 +116,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 2266 | [Count Number of Texts](https://leetcode.com/problems/count-number-of-texts/) | Medium | ☐ | The same counting recurrence with pieces of up to 3 or 4 repeated key presses, mod 10^9+7. Contest-era; the gentlest step from 91 |
+| 2266 | [Count Number of Texts](https://leetcode.com/problems/count-number-of-texts/) | Medium | ☑ 2026-11-18 | The same counting recurrence with pieces of up to 3 or 4 repeated key presses, mod 10^9+7. Contest-era; the gentlest step from 91 |
 | 639 | [Decode Ways II](https://leetcode.com/problems/decode-ways-ii/) | Hard | ☐ | 91 with a '*' wildcard: each transition is multiplied by how many digit choices make the piece valid. Same recurrence, careful case counting |
 | 1416 | [Restore The Array](https://leetcode.com/problems/restore-the-array/) | Hard | ☐ | A piece can be any length, as long as it is a number in [1, k] with no leading zero, so each dp[i] sums over several earlier positions instead of two |
 | 1977 | [Number of Ways to Separate Numbers](https://leetcode.com/problems/number-of-ways-to-separate-numbers/) | Hard | ☐ | The pieces must be non-decreasing, so the state needs the last piece's length too, and comparing equal-length pieces fast needs an LCP table. The hardest step |
