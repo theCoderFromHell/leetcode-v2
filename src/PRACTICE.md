@@ -2,7 +2,7 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 144 · Solved 81 · Total 225** — updated 2026-11-23
+**Pending 141 · Solved 84 · Total 225** — updated 2026-11-23
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
@@ -61,7 +61,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
 | 2320 | [Count Number of Ways to Place Houses](https://leetcode.com/problems/count-number-of-ways-to-place-houses/) | Medium | ☑ 2026-11-15 | The same take/skip recurrence, counting valid placements instead of maximising, mod 10^9+7. The two sides of the street add a small twist. Contest-era; the gentlest step from 198 |
-| 3186 | [Maximum Total Damage With Spell Casting](https://leetcode.com/problems/maximum-total-damage-with-spell-casting/) | Medium | ☐ | Delete and Earn (740, solved) with a wider exclusion: casting x forbids x−2..x+2, so the "last allowed" index is no longer i−2 and has to be found. Contest-era |
+| 3186 | [Maximum Total Damage With Spell Casting](https://leetcode.com/problems/maximum-total-damage-with-spell-casting/) | Medium | ☑ 2026-11-20 | Delete and Earn (740, solved) with a wider exclusion: casting x forbids x−2..x+2, so the "last allowed" index is no longer i−2 and has to be found. Contest-era |
 | 2830 | [Maximize the Profit as the Salesman](https://leetcode.com/problems/maximize-the-profit-as-the-salesman/) | Medium | ☐ | Take/skip where taking an offer jumps past its last house. The bridge from 198 to weighted interval scheduling (1235, already tracked under 122). Contest-era |
 
 *Filtered as already solved: 740 (Delete and Earn), 2140 (Solving Questions With Brainpower), 2560 (House Robber IV), 2786 (Visit Array Positions to Maximize Score). Left out as already tracked under 122: 2008 (Maximum Earnings From Taxi), 1235 (Maximum Profit in Job Scheduling).*
@@ -145,7 +145,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 2708 | [Maximum Strength of a Group](https://leetcode.com/problems/maximum-strength-of-a-group/) | Medium | ☐ | A subsequence instead of a subarray, but the same max/min carry across negatives. Contest-era |
+| 2708 | [Maximum Strength of a Group](https://leetcode.com/problems/maximum-strength-of-a-group/) | Medium | ☑ 2026-11-22 | A subsequence instead of a subarray, but the same max/min carry across negatives. Contest-era |
 | 1594 | [Maximum Non Negative Product in a Matrix](https://leetcode.com/problems/maximum-non-negative-product-in-a-matrix/) | Medium | ☐ | 152's max/min pair carried through a grid path DP instead of along an array |
 | 2321 | [Maximum Score Of Spliced Array](https://leetcode.com/problems/maximum-score-of-spliced-array/) | Hard | ☐ | Swapping a subarray between two arrays reduces to a maximum subarray over a derived array. Kadane hidden behind a reduction. Contest-era |
 | 2272 | [Substring With Largest Variance](https://leetcode.com/problems/substring-with-largest-variance/) | Hard | ☐ | Kadane run once per ordered pair of letters, with an extra condition the plain version can't express. Contest-era |
@@ -250,7 +250,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 486 | [Predict the Winner](https://leetcode.com/problems/predict-the-winner/) | Medium | ☐ | Take from either end, so the state becomes an interval [i, j]; the same difference trick |
+| 486 | [Predict the Winner](https://leetcode.com/problems/predict-the-winner/) | Medium | ☑ 2026-11-21 | Take from either end, so the state becomes an interval [i, j]; the same difference trick |
 | 1563 | [Stone Game V](https://leetcode.com/problems/stone-game-v/) | Hard | ☐ | Interval DP where each split keeps one half. A one-player optimisation rather than minimax, with prefix sums for the halves |
 | 1872 | [Stone Game VIII](https://leetcode.com/problems/stone-game-viii/) | Hard | ☐ | Each move merges a prefix, so prefix sums collapse the state to an index, and the difference DP becomes a running maximum |
 
