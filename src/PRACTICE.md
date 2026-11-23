@@ -2,7 +2,7 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 141 · Solved 84 · Total 225** — updated 2026-11-23
+**Pending 140 · Solved 85 · Total 225** — updated 2026-11-23
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
@@ -160,7 +160,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 2767 | [Partition String Into Minimum Beautiful Substrings](https://leetcode.com/problems/partition-string-into-minimum-beautiful-substrings/) | Medium | ☐ | Word Break where the "dictionary" is a rule about binary numbers, minimising the number of pieces. Contest-era |
+| 2767 | [Partition String Into Minimum Beautiful Substrings](https://leetcode.com/problems/partition-string-into-minimum-beautiful-substrings/) | Medium | ☑ 2026-11-23 | Word Break where the "dictionary" is a rule about binary numbers, minimising the number of pieces. Contest-era |
 | 3291 | [Minimum Number of Valid Strings to Form Target I](https://leetcode.com/problems/minimum-number-of-valid-strings-to-form-target-i/) | Medium | ☐ | A piece is any prefix of any word, so a trie over the words drives the transitions; minimise the pieces. Contest-era |
 | 472 | [Concatenated Words](https://leetcode.com/problems/concatenated-words/) | Hard | ☐ | 139 run on every word against the rest of the list, requiring at least two pieces |
 | 2430 | [Maximum Deletions on a String](https://leetcode.com/problems/maximum-deletions-on-a-string/) | Hard | ☐ | DP over suffixes where a move is allowed when the next j characters repeat; an LCP table makes each check O(1). Contest-era |
