@@ -2,7 +2,7 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 145 · Solved 79 · Total 224** — updated 2026-11-23
+**Pending 144 · Solved 80 · Total 224** — updated 2026-11-23
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
@@ -191,7 +191,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 1981 | [Minimize the Difference Between Target and Chosen Elements](https://leetcode.com/problems/minimize-the-difference-between-target-and-chosen-elements/) | Medium | ☐ | A reachable-sum set built row by row (one pick per row instead of take/skip), then the sum closest to target |
+| 1981 | [Minimize the Difference Between Target and Chosen Elements](https://leetcode.com/problems/minimize-the-difference-between-target-and-chosen-elements/) | Medium | ☑ 2026-11-23 | A reachable-sum set built row by row (one pick per row instead of take/skip), then the sum closest to target |
 | 879 | [Profitable Schemes](https://leetcode.com/problems/profitable-schemes/) | Hard | ☐ | 0/1 knapsack with two dimensions, members used and profit capped at the minimum, counting schemes mod 10^9+7 |
 | 2518 | [Number of Great Partitions](https://leetcode.com/problems/number-of-great-partitions/) | Hard | ☐ | Knapsack counting combined with a complement over all 2^n splits. Contest-era |
 | 956 | [Tallest Billboard](https://leetcode.com/problems/tallest-billboard/) | Hard | ☐ | Each rod goes left, right or nowhere, so the state is a height difference, not a sum. The hardest twist on 416's two-group split |
