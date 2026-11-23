@@ -2,7 +2,7 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 146 · Solved 78 · Total 224** — updated 2026-11-20
+**Pending 145 · Solved 79 · Total 224** — updated 2026-11-23
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
@@ -175,7 +175,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 2370 | [Longest Ideal Subsequence](https://leetcode.com/problems/longest-ideal-subsequence/) | Medium | ☐ | The predecessor rule becomes "letters at most k apart", so the DP is indexed by letter instead of position. Contest-era |
+| 2370 | [Longest Ideal Subsequence](https://leetcode.com/problems/longest-ideal-subsequence/) | Medium | ☑ 2026-11-23 | The predecessor rule becomes "letters at most k apart", so the DP is indexed by letter instead of position. Contest-era |
 | 1671 | [Minimum Number of Removals to Make Mountain Array](https://leetcode.com/problems/minimum-number-of-removals-to-make-mountain-array/) | Hard | ☐ | LIS from the left and from the right at every index, combined at the peak |
 | 1964 | [Find the Longest Valid Obstacle Course at Each Position](https://leetcode.com/problems/find-the-longest-valid-obstacle-course-at-each-position/) | Hard | ☐ | Patience sorting with a non-strict order, reporting the length ending at every index. Tests whether the binary-search version is really understood |
 | 2111 | [Minimum Operations to Make the Array K-Increasing](https://leetcode.com/problems/minimum-operations-to-make-the-array-k-increasing/) | Hard | ☐ | k interleaved subsequences, each needing a longest non-decreasing subsequence. Contest-era |
