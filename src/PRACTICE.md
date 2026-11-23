@@ -2,7 +2,7 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 140 · Solved 85 · Total 225** — updated 2026-11-23
+**Pending 139 · Solved 86 · Total 225** — updated 2026-11-23
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
@@ -221,7 +221,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 397 | [Integer Replacement](https://leetcode.com/problems/integer-replacement/) | Medium | ☐ | Fewest steps to reach 1, over a much sparser state space than 279's table, so memoised recursion replaces the array |
+| 397 | [Integer Replacement](https://leetcode.com/problems/integer-replacement/) | Medium | ☑ 2026-11-23 | Fewest steps to reach 1, over a much sparser state space than 279's table, so memoised recursion replaces the array |
 | 1414 | [Find the Minimum Number of Fibonacci Numbers Whose Sum Is K](https://leetcode.com/problems/find-the-minimum-number-of-fibonacci-numbers-whose-sum-is-k/) | Medium | ☐ | 279 with Fibonacci numbers instead of squares. The lesson is why one step set allows a shortcut and the other doesn't |
 | 2310 | [Sum of Numbers With Units Digit K](https://leetcode.com/problems/sum-of-numbers-with-units-digit-k/) | Medium | ☐ | The fewest numbers ending in digit k that sum to num. The step set is huge, so its structure matters more than a table. Contest-era |
 | 1553 | [Minimum Number of Days to Eat N Oranges](https://leetcode.com/problems/minimum-number-of-days-to-eat-n-oranges/) | Hard | ☐ | n up to 2·10^9 rules out a table over every i; memoised recursion has to visit only a few states |
