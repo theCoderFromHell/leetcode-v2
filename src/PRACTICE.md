@@ -2,7 +2,7 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 144 · Solved 80 · Total 224** — updated 2026-11-23
+**Pending 143 · Solved 81 · Total 224** — updated 2026-11-23
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
@@ -207,7 +207,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
 | 518 | [Coin Change II](https://leetcode.com/problems/coin-change-ii/) | Medium | ☐ | The direct contrast: swapping the two loops counts combinations instead of sequences. A Top-150 staple, the likeliest row here to be solved without a commit |
-| 1155 | [Number of Dice Rolls With Target Sum](https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/) | Medium | ☐ | Ordered counting like 377, but with exactly n steps, so the DP gains a step dimension |
+| 1155 | [Number of Dice Rolls With Target Sum](https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/) | Medium | ☑ 2026-11-23 | Ordered counting like 377, but with exactly n steps, so the DP gains a step dimension |
 | 2787 | [Ways to Express an Integer as Sum of Powers](https://leetcode.com/problems/ways-to-express-an-integer-as-sum-of-powers/) | Medium | ☐ | Each power can be used once, so it is 0/1 counting instead of unbounded. The contrast with 377's reuse. Contest-era |
 
 *Filtered as already solved: none.*
