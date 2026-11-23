@@ -2,7 +2,7 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 143 · Solved 81 · Total 224** — updated 2026-11-23
+**Pending 144 · Solved 81 · Total 225** — updated 2026-11-23
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
@@ -202,15 +202,16 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 ---
 
 ## [377. Combination Sum IV](https://leetcode.com/problems/combination-sum-iv/)
-*Unbounded counting DP · ordered sequences: the amount in the outer loop and the items in the inner loop, so each order counts separately. The variations flip that loop order, fix the length, or allow each item once*
+*Unbounded counting DP · ordered sequences: the amount in the outer loop and the items in the inner loop, so each order counts separately. The variations flip that loop order, fix the length, allow each item once, or cap how often it is used*
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 518 | [Coin Change II](https://leetcode.com/problems/coin-change-ii/) | Medium | ☐ | The direct contrast: swapping the two loops counts combinations instead of sequences. A Top-150 staple, the likeliest row here to be solved without a commit |
 | 1155 | [Number of Dice Rolls With Target Sum](https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/) | Medium | ☑ 2026-11-23 | Ordered counting like 377, but with exactly n steps, so the DP gains a step dimension |
 | 2787 | [Ways to Express an Integer as Sum of Powers](https://leetcode.com/problems/ways-to-express-an-integer-as-sum-of-powers/) | Medium | ☐ | Each power can be used once, so it is 0/1 counting instead of unbounded. The contrast with 377's reuse. Contest-era |
+| 3183 | [The Number of Ways to Make the Sum](https://leetcode.com/problems/the-number-of-ways-to-make-the-sum/) | Medium | ☐ | 518's combination count over a fixed set of coins, but one coin may be used at most twice, so unbounded and capped counting mix in one DP. Premium |
+| 2902 | [Count of Sub-Multisets With Bounded Sum](https://leetcode.com/problems/count-of-sub-multisets-with-bounded-sum/) | Hard | ☐ | Unordered counting like 518, but each value is capped at its number of occurrences, and the answer sums a range of totals. A sliding-window sum keeps each value's pass linear. Contest-era |
 
-*Filtered as already solved: none.*
+*Filtered as already solved: 518 (Coin Change II), solved on LeetCode but never committed, backfilled as `CoinChangeII` on 2026-11-23. 2466 (Count Ways To Build Good Strings). Not repeated: 2585 (Number of Ways to Earn Points), bounded counting with per-type limits, is pending under 322.*
 *Source note: 377 is in the repo as `CombinationSumIV`. Rows checked against the repo and the last 20 LeetCode ACs only.*
 
 ---
