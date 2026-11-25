@@ -2,7 +2,7 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 139 · Solved 86 · Total 225** — updated 2026-11-23
+**Pending 138 · Solved 87 · Total 225** — updated 2026-11-26
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
@@ -131,7 +131,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 3592 | [Inverse Coin Change](https://leetcode.com/problems/inverse-coin-change/) | Medium | ☐ | Coin Change run backwards: given the number of ways for every amount, recover which coins exist. Contest-era |
+| 3592 | [Inverse Coin Change](https://leetcode.com/problems/inverse-coin-change/) | Medium | ☑ 2026-11-26 | Coin Change run backwards: given the number of ways for every amount, recover which coins exist. Contest-era |
 | 1449 | [Form Largest Integer With Digits That Add up to Target](https://leetcode.com/problems/form-largest-integer-with-digits-that-add-up-to-target/) | Hard | ☐ | Unbounded knapsack at exact cost, maximising the digit count instead of minimising coins, then rebuilding the largest string from the table. The rebuild is the new part |
 | 2585 | [Number of Ways to Earn Points](https://leetcode.com/problems/number-of-ways-to-earn-points/) | Hard | ☐ | Bounded knapsack: each question type has a count limit, so the transition also ranges over how many of that type are used. Counting, mod 10^9+7. Contest-era |
 
