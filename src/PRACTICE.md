@@ -2,11 +2,25 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 159 · Solved 87 · Total 246** — updated 2026-11-26
+**Pending 164 · Solved 87 · Total 251** — updated 2026-11-26
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 ---
+
+## [210. Course Schedule II](https://leetcode.com/problems/course-schedule-ii/)
+*Topological sort · produce an order, not just decide one exists: Kahn's queue emits a node once its in-degree hits 0 (or DFS post-order, reversed), and a short output means a cycle. The variations derive the edges themselves, cap how much runs per round, or score and count the orders*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 1591 | [Strange Printer II](https://leetcode.com/problems/strange-printer-ii/) | Hard | ☐ | The prerequisites aren't given: colour A must be printed before B whenever B appears inside A's bounding rectangle. Build those edges from the grid, then it's 210's "does an order exist" over at most 60 colours |
+| 1494 | [Parallel Courses II](https://leetcode.com/problems/parallel-courses-ii/) | Hard | ☐ | 210's order with at most k courses per semester. Greedy Kahn's (take any k available) fails, so it becomes bitmask DP over the taken set (n ≤ 15), with "available" = prerequisites ⊆ mask |
+| 3530 | [Maximum Profit from Valid Topological Order in DAG](https://leetcode.com/problems/maximum-profit-from-valid-topological-order-in-dag/) | Hard | ☐ | Choose the best of all topological orders: DP over the set already placed (n ≤ 22), where the next node must have all its parents in the mask and its position is popcount + 1. Contest-era |
+| 1916 | [Count Ways to Build Rooms in an Ant Colony](https://leetcode.com/problems/count-ways-to-build-rooms-in-an-ant-colony/) | Hard | ☐ | Count the topological orders instead of producing one. On a tree that's n! / ∏ subtree sizes, computed with modular inverses after one DFS for the sizes |
+| 2328 | [Number of Increasing Paths in a Grid](https://leetcode.com/problems/number-of-increasing-paths-in-a-grid/) | Hard | ☐ | An implicit DAG (edges go to strictly larger neighbours) processed in topological order, which here is just sorting cells by value, with path counts pushed along the edges. Contest-era |
+
+*No Medium survived: 1557 (Minimum Number of Vertices to Reach All Nodes), 2924 (Find Champion II), 1462, 2115, 310, 2192 and 329 (Longest Increasing Path in a Matrix) are already solved, and 444 is pending under 207. Already tracked: 2050, 1857, 2392 under 207, and 1203 under 1462. Left out again: 269 (Alien Dictionary), a Blind-75 staple and the likeliest uncommitted solve.*
+*Source note: 210 is in the repo as `CourseScheduleII`. Rows checked against the repo and the last 20 LeetCode ACs only. 3530 and 2328 are contest-era; 1591, 1494 and 1916 are less-common Hards.*
 
 ## [1462. Course Schedule IV](https://leetcode.com/problems/course-schedule-iv/)
 *Graph · Transitive closure · precompute all-pairs reachability once (BFS from every node, topological propagation of ancestor sets, or Floyd–Warshall on booleans), then answer each query in O(1)*
