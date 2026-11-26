@@ -2,9 +2,64 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 142 · Solved 87 · Total 229** — updated 2026-11-26
+**Pending 159 · Solved 87 · Total 246** — updated 2026-11-26
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
+
+---
+
+## [1462. Course Schedule IV](https://leetcode.com/problems/course-schedule-iv/)
+*Graph · Transitive closure · precompute all-pairs reachability once (BFS from every node, topological propagation of ancestor sets, or Floyd–Warshall on booleans), then answer each query in O(1)*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 2976 | [Minimum Cost to Convert String I](https://leetcode.com/problems/minimum-cost-to-convert-string-i/) | Medium | ☐ | The same "closure over a small graph, then many lookups", but over 26 letters with min-cost instead of reachability: Floyd–Warshall once, then sum per position. Parallel edges and impossible pairs are the traps |
+| 399 | [Evaluate Division](https://leetcode.com/problems/evaluate-division/) | Medium | ☐ | Closure with a product semiring: a/b and b/c compose to a/c along a path, and the reverse edge carries the reciprocal. Nodes are strings, so they need an id map first |
+| 2959 | [Number of Possible Sets of Closing Branches](https://leetcode.com/problems/number-of-possible-sets-of-closing-branches/) | Hard | ☐ | Floyd–Warshall run 2^n times (n ≤ 10), once per subset of open nodes. Closure restricted to the vertices a bitmask keeps, then an all-pairs check against maxDistance |
+| 1203 | [Sort Items by Groups Respecting Dependencies](https://leetcode.com/problems/sort-items-by-groups-respecting-dependencies/) | Hard | ☐ | 1462 reads a DAG's order; this has to produce one, at two levels: topological sort the groups, then the items inside each group, with ungrouped items given their own singleton groups |
+
+*Filtered as already solved: 2192 (All Ancestors of a Node in a DAG), 851 (Loud and Rich), 2101 (Detonate the Maximum Bombs), 2115 (Find All Possible Recipes from Given Supplies), 1334 (Find the City With the Smallest Number of Neighbors at a Threshold Distance). Already tracked under 207: 2050, 1857, 2392.*
+*Source note: rows checked against the repo and the last 20 LeetCode ACs only. 399 is a Top-150 staple, so it is the most likely to be an uncommitted solve; 2976 and 2959 are contest-era.*
+
+## [323. Number of Connected Components in an Undirected Graph](https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/)
+*Graph · Union-Find · label every node with its component (DSU root or DFS id), then answer the question per component: a count, a membership test, or an aggregate over the component's edges*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 2492 | [Minimum Score of a Path Between Two Cities](https://leetcode.com/problems/minimum-score-of-a-path-between-two-cities/) | Medium | ☐ | Walks may repeat edges, so the answer is just the smallest edge anywhere in node 1's component. The "path" wording hides a pure component question |
+| 3532 | [Path Existence Queries in a Graph I](https://leetcode.com/problems/path-existence-queries-in-a-graph-i/) | Medium | ☐ | Component labels answer the queries, but the graph is implicit and could have O(n²) edges. Sorted values make every component a contiguous run, so one linear scan labels them |
+| 3108 | [Minimum Cost Walk in Weighted Graph](https://leetcode.com/problems/minimum-cost-walk-in-weighted-graph/) | Hard | ☐ | 2492 with AND instead of min: a walk can absorb every edge in its component, so keep a per-root AND over all edges. Different-component queries return −1 |
+| 1627 | [Graph Connectivity With Threshold](https://leetcode.com/problems/graph-connectivity-with-threshold/) | Hard | ☐ | Components again, but the edges are "share a divisor > threshold". Union each z > threshold with its multiples (harmonic sum, O(n log n)) instead of testing pairs |
+
+*Filtered as already solved: 547 (Number of Provinces), 1319, 2316, 2685, 947 (Most Stones Removed with Same Row or Column), 1101, 990 (Satisfiability of Equality Equations), 2368 (Reachable Nodes With Restrictions). Already tracked under 261: 1579.*
+*Source note: rows checked against the repo and the last 20 LeetCode ACs only. All four are contest-era or less-common problems.*
+
+## [684. Redundant Connection](https://leetcode.com/problems/redundant-connection/)
+*Graph · Union-Find · process edges in order and union their ends: an edge whose ends already share a root closes a cycle. The same "skip the redundant edge" test drives Kruskal and offline connectivity queries*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 1697 | [Checking Existence of Edge Length Limited Paths](https://leetcode.com/problems/checking-existence-of-edge-length-limited-paths/) | Hard | ☐ | Incremental union-find, but offline: sort edges and queries by limit, add edges below each limit, then ask find(p) == find(q). The order you union in is the whole trick |
+| 1489 | [Find Critical and Pseudo-Critical Edges in Minimum Spanning Tree](https://leetcode.com/problems/find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree/) | Hard | ☐ | Kruskal is 684's "skip an edge whose ends are already joined" applied in weight order. Rerun it once with each edge excluded and once with it forced in, and compare MST weights |
+| 2360 | [Longest Cycle in a Graph](https://leetcode.com/problems/longest-cycle-in-a-graph/) | Hard | ☐ | The directed contrast: each node has one out-edge, so a cycle is found by walking with timestamps and spotting a node revisited in the current walk. Union-find doesn't apply to directed cycles |
+| 2204 | [Distance to a Cycle in Undirected Graph](https://leetcode.com/problems/distance-to-a-cycle-in-undirected-graph/) | Hard | ☐ | Same input shape as 684: a tree plus one extra edge, so exactly one cycle. Find the cycle (peel degree-1 leaves), then multi-source BFS outward from it. Premium, so the statement needs Chrome |
+
+*No Medium survived: 1559 (Detect Cycles in 2D Grid), 2685, 2316, 1135 (Connecting Cities With Minimum Cost), 1584 (Min Cost to Connect All Points), 1168 (Optimize Water Distribution in a Village) are already solved. Already tracked: 685, 1579, 2608 under 261, and 2493 under 994.*
+*Source note: rows checked against the repo and the last 20 LeetCode ACs only. 2204 is premium (the statement needs Chrome); the rest are less-common Hards.*
+
+## [721. Accounts Merge](https://leetcode.com/problems/accounts-merge/)
+*Union-Find · Hash Table · union items through a shared key (an email, a factor, a swap pair), then group by root and post-process each group*
+
+| # | Problem | Diff | Status | Why similar |
+|---|---------|------|--------|-------------|
+| 1722 | [Minimize Hamming Distance After Swap Operations](https://leetcode.com/problems/minimize-hamming-distance-after-swap-operations/) | Medium | ☐ | Group indices by allowed swaps, then within each group match source values against target values as multisets. Same "union, bucket by root, then compare" shape |
+| 1258 | [Synonymous Sentences](https://leetcode.com/problems/synonymous-sentences/) | Medium | ☐ | String nodes merged through synonym pairs, then each group sorted, like 721's sorted emails, and used to enumerate every sentence by backtracking over the words |
+| 952 | [Largest Component Size by Common Factor](https://leetcode.com/problems/largest-component-size-by-common-factor/) | Hard | ☐ | Prime factors play the role of emails: union each number with its prime factors instead of comparing every pair, then take the largest root count |
+| 839 | [Similar String Groups](https://leetcode.com/problems/similar-string-groups/) | Hard | ☐ | No shared key to hash on, so the edges come from an O(n²·L) pairwise "differs in exactly 0 or 2 positions" check. Union-find then just counts the groups |
+| 2092 | [Find All People With Secret](https://leetcode.com/problems/find-all-people-with-secret/) | Hard | ☐ | Union within each time batch, then reset everyone in the batch who isn't connected to person 0. Union-find with rollback, ordered by time |
+
+*Filtered as already solved: 1202 (Smallest String With Swaps), 737 (Sentence Similarity II), 1061 (Lexicographically Smallest Equivalent String).*
+*Source note: rows checked against the repo and the last 20 LeetCode ACs only. 1258 is premium; the rest are less-common Hards, so an uncommitted solve is unlikely.*
 
 ---
 
