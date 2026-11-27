@@ -2,7 +2,7 @@
 
 Similar-problem suggestions from `/practice`. Medium and Hard only — status refreshes on each run.
 
-**Pending 164 · Solved 87 · Total 251** — updated 2026-11-26
+**Pending 163 · Solved 88 · Total 251** — updated 2026-11-27
 
 Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
@@ -82,7 +82,7 @@ Status key: `☐` pending · `☑ YYYY-MM-DD` solved · `☐ ?` unverified
 
 | # | Problem | Diff | Status | Why similar |
 |---|---------|------|--------|-------------|
-| 1361 | [Validate Binary Tree Nodes](https://leetcode.com/problems/validate-binary-tree-nodes/) | Medium | ☐ | 261 with the edges pointing down: still "exactly one tree using every node", but checked as at most one parent per node, exactly one root, and every node reachable from it |
+| 1361 | [Validate Binary Tree Nodes](https://leetcode.com/problems/validate-binary-tree-nodes/) | Medium | ☑ 2026-11-27 | 261 with the edges pointing down: still "exactly one tree using every node", but checked as at most one parent per node, exactly one root, and every node reachable from it |
 | 2608 | [Shortest Cycle in a Graph](https://leetcode.com/problems/shortest-cycle-in-a-graph/) | Hard | ☐ | 261 asks whether an undirected cycle exists; this asks for the shortest one. Same "visited neighbour that isn't my parent" check, run as a BFS from every vertex so it measures the cycle it closes |
 | 685 | [Redundant Connection II](https://leetcode.com/problems/redundant-connection-ii/) | Hard | ☐ | A rooted tree plus one extra directed edge: find the edge to remove. 261's two ways to fail, a cycle and a node with two parents, become two cases to tell apart, and both can happen at once |
 | 1579 | [Remove Max Number of Edges to Keep Graph Fully Traversable](https://leetcode.com/problems/remove-max-number-of-edges-to-keep-graph-fully-traversable/) | Hard | ☐ | 261's edge count from the other side: a connected graph needs only a spanning tree's n − 1 edges, and every edge union-find finds redundant can go. Run for two travellers at once, with shared edges first |
